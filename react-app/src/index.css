@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    .navRight a{
+        text-decoration: none;
+
+    }
+
+    a:hover{
+        box-shadow: 4px 5px 10px 0px black;
+    }
+}

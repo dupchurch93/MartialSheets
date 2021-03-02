@@ -5,7 +5,7 @@ import logo from "./MartialSheetLogo.png";
 
 const NavBar = ({ setAuthenticated, auethenticated }) => {
   return (
-    <nav className="md:flex px-4 flex-row justify-between items-center bg-red-dark border-2 border-gray-800">
+    <nav className="md:flex px-4 flex-row justify-between items-center bg-red-900 border-2 border-gray-800">
       <div className="navLeft logo w-36 p-4">
         <NavLink to="/">
           <img className="bg-white rounded-lg" src={logo} alt="Logo"></img>
@@ -13,10 +13,9 @@ const NavBar = ({ setAuthenticated, auethenticated }) => {
       </div>
       <div className="navRight">
         <NavLink
-          className="flex-row p-2 m-2 rounded-lg border-2 border-gray-800"
+          className="flex-row p-2 m-2 rounded-lg border-2 border-blue-800 bg-black"
           to="/"
           exact={true}
-          activeClassName="active"
         >
           Home
         </NavLink>
@@ -25,25 +24,22 @@ const NavBar = ({ setAuthenticated, auethenticated }) => {
           className="m-2 p-2 rounded-lg border-2 border-gray-800"
           to="/login"
           exact={true}
-          activeClassName="active"
         >
           Login
         </NavLink>
 
         <NavLink
-          className="m-2 p-2 rounded-lg"
+          className="m-2 p-2 rounded-lg border-2 border-gray-800 font-bold"
           to="/sign-up"
           exact={true}
-          activeClassName="active"
         >
           Sign Up
         </NavLink>
 
         <NavLink
-          className="m-2 p-2 rounded-lg hover:border-gray-500 hover:border-2"
+          className="m-2 p-2 rounded-lg border-2 border-gray-800"
           to="/users"
           exact={true}
-          activeClassName="active"
         >
           Users
         </NavLink>
