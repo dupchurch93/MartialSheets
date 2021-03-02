@@ -55,7 +55,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           value={password}
           onChange={updatePassword}
         />
-        <button type="submit">Login</button>
+        <button type="submit" className="hover:border-gray-500">Login</button>
       </div>
     </form>
   );
