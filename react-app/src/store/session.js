@@ -60,10 +60,7 @@ export const logout = () => async (dispatch) => {
 };
 
 const initialState = {
-    user: {
-        email: 'initial@email.com',
-        username: 'Initial',
-    }
+    user: null
 };
 
 const sessionReducer = (state = initialState, action) => {

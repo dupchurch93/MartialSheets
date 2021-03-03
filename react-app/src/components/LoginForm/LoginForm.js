@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
-import DemoButton from "../auth/DemoButton";
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -62,7 +61,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           </button>
         </div>
       </form>
-      <DemoButton setAuthenticated={setAuthenticated}></DemoButton>
+      <button>Demo Login</button>
     </div>
   );
 };
