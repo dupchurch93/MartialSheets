@@ -5,7 +5,7 @@ import logo from "./MartialSheetLogo.png";
 
 const NavBar = ({ setAuthenticated, authenticated }) => {
   return (
-    <nav className="flex px-4 flex-row justify-between items-center border-t-2 border-b-2 border-gray-800 bg-gradient-to-r from-red-600 to-red-100">
+    <nav className="flex px-4 flex-row justify-between items-center border-t-2 border-b-2 border-gray-800 bg-gradient-to-r from-myred to-red-100">
       <div className="navLeft logo w-36 p-4">
         <NavLink to="/">
           <img className="rounded-lg" src={logo} alt="Logo"></img>
