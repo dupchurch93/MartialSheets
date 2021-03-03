@@ -3,7 +3,11 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        '3': 'auto minmax(1200px, 1fr) auto'
+      }
+    },
   },
   variants: {
     extend: {},
