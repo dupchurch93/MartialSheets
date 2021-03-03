@@ -5,8 +5,11 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateRows: {
-        '3': 'auto minmax(1020px, 1fr) auto'
-      }
+        '3': 'auto minmax(1020px, 1fr) auto',
+      },
+      colors: {
+        'myred': "#b00002"
+      },
     },
   },
   variants: {
