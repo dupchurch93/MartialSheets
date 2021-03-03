@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className="Footer flex justify-between bg-gray-900">
       <div className="profile_container flex items-center">
-        <img className="profilePic" src={dan} alt="Profile image" />
+        <img className="profilePic" src={dan} alt="Profile" />
         <div>
           <div className="text-white font-bold">Created By:</div>
           <div className="text-white font-bold">Daniel Upchurch</div>
@@ -18,13 +18,14 @@ const Footer = () => {
           <img
             src={gitHubIcon}
             className="bg-white rounded-2xl mx-4 w-40 h-16"
+            alt="github"
           />
         </a>
         <a
           href="https://www.linkedin.com/in/daniel-upchurch-058899205/"
           className="bg-white rounded-2xl mx-4 w-40 h-16 p-4"
         >
-          <img src={linkedInIcon} />
+          <img src={linkedInIcon} alt="linkedin"/>
         </a>
       </div>
       <div className="madeWithContainer text-white flex items-center font-bold">

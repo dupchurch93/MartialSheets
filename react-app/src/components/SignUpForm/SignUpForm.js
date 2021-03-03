@@ -1,4 +1,4 @@
-import React, { useDebugValue, useState } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
@@ -40,7 +40,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   };
 
   if (authenticated) {
-    // return <Redirect to="/" />;
+    return <Redirect to="/" />;
   }
 
   return (
