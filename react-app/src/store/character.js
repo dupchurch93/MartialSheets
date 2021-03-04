@@ -26,7 +26,7 @@ export const loadCharactersThunk = () => async (dispatch) => {
       return characters.Characters
 }
 
-const initialState = null
+const initialState = {list: null}
 
 const characterReducer = (state = initialState, action) => {
     let newState;
