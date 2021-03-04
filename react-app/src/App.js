@@ -6,7 +6,6 @@ import NavBar from "./components/NavBar/NavBar";
 import AboutPage from "./components/AboutPage/AboutPage"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Footer from "./components/Footer/Footer"
-import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux"
 import { restoreUserThunk } from "./store/session"
 import SplashPageMain from "./components/SplashPage/SplashPageMain";
@@ -17,10 +16,9 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    (async () => {
-      const user = await authenticate();
+    (() => {
+      const user = dispatch(restoreUserThunk())
       if (!user.errors) {
-        dispatch(restoreUserThunk())
         setAuthenticated(true)
       }
       setLoaded(true);

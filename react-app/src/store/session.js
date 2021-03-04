@@ -50,12 +50,14 @@ export const restoreUserThunk = () => async (dispatch) => {
     },
   });
   const res = await response.json();
-  dispatch(setUser(res));
-  return res
+  if (!res.errors) {
+    dispatch(setUser(res));
+  }
+  return res;
 };
 
 export const logout = () => async (dispatch) => {
-  console.log("in logout thunk");
+  console.log("----In our logout thunk right here----");
   const response = await fetch("/api/auth/logout", {
     headers: {
       "Content-Type": "application/json",
