@@ -4,6 +4,7 @@ from .characters import seed_characters, undo_characters
 from .abilities import seed_abilities, undo_abilities
 from .tags import seed_tags, undo_tags
 from .characterTags import seed_characterTags
+from .characterAbilities import seed_characterAbilities
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -17,6 +18,7 @@ def seed():
     seed_abilities()
     seed_tags()
     seed_characterTags()
+    seed_characterAbilities()
     # Add other seed functions here
 
 # Creates the `flask seed undo` command

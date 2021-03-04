@@ -23,6 +23,26 @@ class Character(db.Model):
     abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined')
     tags = db.relationship('Tag', secondary='characterTags', lazy='joined', backref=db.backref('tag_characters'))
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "level": self.level,
+            "race": self.race,
+            "class": self.characterClass,
+            "subclass": self.subclass,
+            "imgURL": self.imgURL,
+            "proficiencies": self.proficiencies,
+            "background": self.background,
+            "alignment": self.alignment,
+            "attributes": self.attributes,
+            "personality": self.personality,
+            "inventory": self.inventory,
+            "description": self.description,
+        }
+
+
+
 class Ability(db.Model):
     __tablename__ = 'abilities'
 
@@ -33,6 +53,13 @@ class Ability(db.Model):
 
     character = db.relationship('Character', secondary='characterAbilities', backref=db.backref('character_abilities'))
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "source": self.source
+        }
 
 characterAbilities = db.Table('characterAbilities',
     db.Column('characterId', db.Integer, db.ForeignKey('characters.id'), primary_key=True, nullable=False),
@@ -44,6 +71,12 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+        }
 
 
 characterTags = db.Table('characterTags',
