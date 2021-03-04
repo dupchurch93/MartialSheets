@@ -1,4 +1,5 @@
 const LOAD_CHARACTERS = 'session/loadCharacters';
+const REMOVE_CHARACTERS = 'session/removeCharacters';
 
 const loadCharacters = (characters) => {
     return {
@@ -6,6 +7,13 @@ const loadCharacters = (characters) => {
         payload: characters
     };
 };
+
+export const removeCharacters = () => {
+    return {
+        type: REMOVE_CHARACTERS,
+    };
+};
+
 export const loadCharactersThunk = () => async (dispatch) => {
     const response = await fetch('/api/characters/',{
         headers: {
@@ -13,6 +21,7 @@ export const loadCharactersThunk = () => async (dispatch) => {
         }
       });
       const characters = await response.json();
+    //   console.log('----in character thunk----', characters.Characters)
       dispatch(loadCharacters(characters.Characters))
       return characters.Characters
 }
@@ -24,8 +33,16 @@ const characterReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_CHARACTERS:
             newState = Object.assign({}, state);
-            newState.characters = action.payload;
+            const characterList = {}
+            action.payload.forEach((character) => {
+                characterList[character.id] = character
+            })
+            newState.list = characterList;
             return newState;
+        case REMOVE_CHARACTERS:
+            newState.Object.assign({}, state);
+            newState.list = null
+            return newState
         default:
             return state;
     }

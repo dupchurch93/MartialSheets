@@ -16,9 +16,9 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    (() => {
-      const user = dispatch(restoreUserThunk())
-      if (!user.id === undefined) {
+    (async () => {
+      const user = await dispatch(restoreUserThunk())
+      if (!(user.id === undefined)) {
         setAuthenticated(true)
       }
       setLoaded(true);

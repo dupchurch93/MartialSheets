@@ -3,27 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import * as characterActions from "../../store/character";
 
 const SplashPageMain = () => {
-  const characters = useSelector((state) => state.characters)
+  const characters = useSelector((state) => state.characters?.list);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(characterActions.loadCharactersThunk())
+    (async () => {
+      await dispatch(characterActions.loadCharactersThunk());
+      // console.log("---in use effect while loading main page", Object.values(chars));
+    })();
   }, [dispatch]);
 
-  if(!characters){
-    return <h1>Loading...</h1>
+  if (!characters) {
+    return <h1>Loading...</h1>;
   }
 
   return (
     <div className="pageContent">
-      <h1>We are logged in</h1>
-      {characters.len > 0 &&
-      characters.map((character) => {
-        return(
-          <div>{character.name}</div>
-        )
-      })}
+      <div>
+        <h1>We are logged in</h1>
+        {console.log("in jsx right here----", Object.values(characters))}
+        {characters &&
+          Object.values(characters).map((character) => {
+            return <div key={character.id}>{character.name}</div>;
+          })}
+      </div>
     </div>
   );
 };
