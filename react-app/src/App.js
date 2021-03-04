@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Footer from "./components/Footer/Footer"
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux"
-import setUser from "./store/session"
+import { restoreUserThunk } from "./store/session"
 import SplashPageMain from "./components/SplashPage/SplashPageMain";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     (async () => {
       const user = await authenticate();
       if (!user.errors) {
-        dispatch(setUser(user));
+        dispatch(restoreUserThunk())
       }
       setLoaded(true);
     })();
