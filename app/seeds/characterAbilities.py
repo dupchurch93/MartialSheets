@@ -1,24 +1,13 @@
-from app.models import db, Tag
+from app.models import db, Character, Tag
 
 
-def seed_tags():
+def seed_characterTags():
+    grydal = Character.query.filter(Character.name == "Grydal").first()
+    classtag = Tag.query.filter(Tag.name == "Barbarian").first()
 
-    barb = Tag(
-        name="Barbarian",
-    )
-    rogue = Tag(
-        name="Rogue",
-    )
-    fighter = Tag(
-        name="Fighter",
-    )
-    monk = Tag(
-        name="Monk",
-    )
-
-    db.session.add_all([barb, rogue, fighter, monk])
+    grydal.tags.append(classtag)
+    db.session.add(grydal)
     db.session.commit()
 
-def undo_tags():
-    db.session.execute('TRUNCATE abilities;')
-    db.session.commit()
+def undo_characterTags():
+    pass

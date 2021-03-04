@@ -10,7 +10,7 @@ def seed_characters():
         level=1,
         race="Dwarf",
         characterClass="Barbarian",
-        subclass="Path of the Zealot",
+        subclass="Path of the Berserker",
         proficiencies="Athletics,Insight,History,Perception,Survival",
         background="Sailor",
         alignment="Chaotic Good",

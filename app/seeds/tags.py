@@ -16,7 +16,11 @@ def seed_tags():
         name="Monk",
     )
 
-    db.session.add_all([barb, rogue, fighter, monk])
+    raceTags = [Tag(name="Human"), Tag(name="Dwarf"), Tag(name="Elf"),
+    Tag(name="Dragonborn"), Tag(name="Gnome"), Tag(name="Half-Elf"), Tag(name="Half-Orc"),
+    Tag(name="Tiefling"), Tag(name="Halfing")]
+
+    db.session.add_all([barb, rogue, fighter, monk, *raceTags])
     db.session.commit()
 
 def undo_tags():
