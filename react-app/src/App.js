@@ -7,21 +7,24 @@ import AboutPage from "./components/AboutPage/AboutPage"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Footer from "./components/Footer/Footer"
 import { authenticate } from "./services/auth";
+import { useDispatch } from "react-redux"
+import setUser from "./store/session"
 import SplashPageMain from "./components/SplashPage/SplashPageMain";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
       const user = await authenticate();
       if (!user.errors) {
-        setAuthenticated(true);
+        dispatch(setUser(user));
       }
       setLoaded(true);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;

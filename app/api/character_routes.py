@@ -12,4 +12,7 @@ def get_characters():
     characters = (
         Character.query.filter(Character.userId == current_user.id).all()
     )
+    # print('in backend get characters route------')
+    # for character in characters:
+    #     print(character.to_dict())
     return {"Characters": [character.to_dict() for character in characters]}
