@@ -21,6 +21,7 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         dispatch(restoreUserThunk())
+        setAuthenticated(true)
       }
       setLoaded(true);
     })();
