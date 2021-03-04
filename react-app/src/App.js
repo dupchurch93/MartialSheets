@@ -5,23 +5,26 @@ import SignUpForm from "./components/SignUpForm/SignUpForm";
 import NavBar from "./components/NavBar/NavBar";
 import AboutPage from "./components/AboutPage/AboutPage"
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Footer from "./components/Footer/Footer"
-import { authenticate } from "./services/auth";
+import Footer from "./components/Footer/Footer";
+import CharacterPage from "./components/CharacterPage/CharacterPage";
+import { useDispatch } from "react-redux"
+import { restoreUserThunk } from "./store/session"
 import SplashPageMain from "./components/SplashPage/SplashPageMain";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
-      const user = await authenticate();
-      if (!user.errors) {
-        setAuthenticated(true);
+      const user = await dispatch(restoreUserThunk())
+      if (!(user.id === undefined)) {
+        setAuthenticated(true)
       }
       setLoaded(true);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;
@@ -55,6 +58,9 @@ function App() {
             </Route>
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
               <SplashPageMain></SplashPageMain>
+            </ProtectedRoute>
+            <ProtectedRoute path="/characters/:characterId" exact={true} authenticated={authenticated}>
+              <CharacterPage></CharacterPage>
             </ProtectedRoute>
             <Route>
               <h1>Resource Not Found. Please Try Again.</h1>
