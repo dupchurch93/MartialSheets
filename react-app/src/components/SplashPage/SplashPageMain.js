@@ -26,7 +26,7 @@ const SplashPageMain = () => {
             Characters
           </div>
           <div className="characterCards w-full flex justify-start flex-wrap">
-            <Link to={`/characters/create`}>
+            <Link to={`/character/create`}>
               <div className="characterCard rounded-lg w-56 h-64 p-2 font-bold flex flex-col bg-gray-100 mx-4 my-2">
                 <div>Create New Character</div>
               </div>
