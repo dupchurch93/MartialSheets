@@ -39,7 +39,7 @@ function App() {
             authenticated={authenticated}
           />
         </div>
-        <div className="pageItem flex justify-center mt-10">
+        <div className="pageItem mx-10 lg:flex justify-center mt-10">
           <Switch>
             <Route path="/login" exact={true}>
               <LoginForm

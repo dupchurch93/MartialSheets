@@ -20,7 +20,7 @@ const SplashPageMain = () => {
 
   return (
     <div className="pageContent w-2/3">
-      <div className="splashPageContainer grid grid-cols-splash">
+      <div className="splashPageContainer grid sm:grid-cols-2 lg:grid-cols-splash">
         <div className="filterPanel">Filter Here</div>
         <div className="characterCards flex justify-around">
           {characters &&
