@@ -17,7 +17,9 @@ def seed_characters():
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
         personality=json.dumps({"traits": "Hates giants, dislikes elves, likes other short races", "ideals": "fight til death", "bonds": "Silverbeard, House Branka", "flaws": "quick to judge, kind of an asshole"}),
         inventory="A bunch of crap along with one good axe",
-        description="A mean dwarf but good to have at your side. Gets real angry."
+        description="A mean dwarf but good to have at your side. Gets real angry.",
+        languages="Common, Dwarven, Orcish",
+        tools="Blacksmith's Tools, Harmonica"
 
     )
 

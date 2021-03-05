@@ -53,7 +53,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
             placeholder="Email"
             value={email}
             onChange={updateEmail}
-            className="text-center border border-gray-800 rounded-sm mb-6 mt-6"
+            className="text-center border border-gray-800 rounded-sm mb-6 mt-6 py-1"
           />
         </div>
         <div>
@@ -63,7 +63,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
             placeholder="Password"
             value={password}
             onChange={updatePassword}
-            className="text-center border border-gray-800 rounded-sm"
+            className="text-center border border-gray-800 rounded-sm py-1"
           />
         </div>
         <div className="flex justify-center">

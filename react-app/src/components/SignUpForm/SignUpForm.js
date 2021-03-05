@@ -54,7 +54,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
             name="username"
             onChange={updateUsername}
             value={username}
-            className="text-center border border-gray-800 rounded-sm mb-6 mt-6"
+            className="text-center border border-gray-800 rounded-sm mb-6 mt-6 py-1"
           ></input>
         </div>
         <div>
@@ -62,7 +62,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
             type="text"
             name="email"
             placeholder="Email"
-            className="text-center border border-gray-800 rounded-sm mb-6"
+            className="text-center border border-gray-800 rounded-sm mb-6 py-1"
             onChange={updateEmail}
             value={email}
           ></input>
@@ -72,7 +72,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
             type="password"
             name="password"
             placeholder="Password"
-            className="text-center border border-gray-800 rounded-sm mb-6"
+            className="text-center border border-gray-800 rounded-sm mb-6 py-1"
             onChange={updatePassword}
             value={password}
           ></input>
@@ -82,7 +82,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
             type="password"
             name="repeat_password"
             placeholder="Repeat Password"
-            className="text-center border border-gray-800 rounded-sm mb-6"
+            className="text-center border border-gray-800 rounded-sm mb-6 py-1"
             onChange={updateRepeatPassword}
             value={repeatPassword}
             required={true}

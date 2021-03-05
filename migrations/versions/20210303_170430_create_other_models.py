@@ -46,6 +46,8 @@ def upgrade():
     sa.Column('personality', sa.String(length=1000), nullable=False),
     sa.Column('inventory', sa.Text(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('languages', sa.String(length=500), nullable=True),
+    sa.Column('tools', sa.String(500), nullable=True),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
