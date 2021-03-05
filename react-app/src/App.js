@@ -3,27 +3,27 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import NavBar from "./components/NavBar/NavBar";
-import AboutPage from "./components/AboutPage/AboutPage"
+import AboutPage from "./components/AboutPage/AboutPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
 import CharacterPage from "./components/CharacterPage/CharacterPage";
-import CharacterCreate from "./components/CharacterCreate/CharacterCreate"
-import { useDispatch } from "react-redux"
-import { restoreUserThunk } from "./store/session"
-import { loadCharactersThunk } from "./store/character"
+import CharacterCreate from "./components/CharacterCreate/CharacterCreate";
+import { useDispatch } from "react-redux";
+import { restoreUserThunk } from "./store/session";
+import { loadCharactersThunk } from "./store/character";
 import SplashPageMain from "./components/SplashPage/SplashPageMain";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      const user = await dispatch(restoreUserThunk())
+      const user = await dispatch(restoreUserThunk());
       if (!(user.id === undefined)) {
-        setAuthenticated(true)
-        await dispatch(loadCharactersThunk())
+        setAuthenticated(true);
+        await dispatch(loadCharactersThunk());
       }
       setLoaded(true);
     })();
@@ -62,12 +62,20 @@ function App() {
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
               <SplashPageMain></SplashPageMain>
             </ProtectedRoute>
-            <ProtectedRoute path="/characters/:characterId" exact={true} authenticated={authenticated}>
-              <CharacterPage></CharacterPage>
-            </ProtectedRoute>
-            <ProtectedRoute path="/characters/create" exact={true} authenticated={authenticated}>
+            <ProtectedRoute
+              path="/character/create"
+              exact={true}
+              authenticated={authenticated}
+            >
               <CharacterCreate></CharacterCreate>
-            </ProtectedRoute>
+              </ProtectedRoute>
+              <ProtectedRoute
+                path="/characters/:characterId"
+                exact={true}
+                authenticated={authenticated}
+              >
+                <CharacterPage></CharacterPage>
+              </ProtectedRoute>
             <Route>
               <h1>Resource Not Found. Please Try Again.</h1>
             </Route>

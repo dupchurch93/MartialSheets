@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import StatsComponent from "./StatsComponent";
+import StatsComponent from "./StatsColumn/StatsComponent";
 import Proficiencies from "./ProficienciesColumn/Proficiencies";
 import Personality from "./Personality";
 import Features from "./Features";
@@ -17,8 +17,8 @@ const CharacterPage = () => {
   }
 
   return (
-    <div className="characterPageContainer w-full min-w-characterSheet md:w-1/2">
-      <div className="characterSheet bg-gray-100 w-full lg:in-line-block rounded-lg p-5">
+    <div className="characterPageContainer w-full md:w-1/2 flex justify-center mb-10">
+      <div className="characterSheet bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5">
         <div className="header grid grid-cols-characterBody w-full grid-rows-1 border-2 border-black rounded-lg m-1">
           <div
             className={`${propertyStyling} font-bold underline text-xl col-span-1`}
