@@ -5,9 +5,8 @@ const CharacterCard = ({character}) => {
     return(
         <>
         <Link to={`/characters/${character.id}`}>
-        <div className="mx-4 characterCard rounded-lg w-44 h-56 p-2 font-bold flex flex-col bg-gray-100">
-            <div>{character.name} - {character.race}</div>
-            <div>Level {character.level} {character.subclass} {character.class}</div>
+        <div className="characterCard rounded-lg w-56 h-64 p-2 font-bold flex flex-col bg-gray-100 mx-4 my-2">
+            <div>{character.name}: Level {character.level} {character.subclass} {character.class}</div>
         </div>
         </Link>
         </>

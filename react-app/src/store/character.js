@@ -34,10 +34,15 @@ const characterReducer = (state = initialState, action) => {
         case LOAD_CHARACTERS:
             newState = Object.assign({}, state);
             const characterList = {}
+            const tags = new Set()
             action.payload.forEach((character) => {
                 characterList[character.id] = character
+                character.tags.forEach((tag) => {
+                    tags.add(tag)
+                })
             })
             newState.list = characterList;
+            newState.tags = Array.from(tags);
             return newState;
         case REMOVE_CHARACTERS:
             newState.Object.assign({}, state);

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as characterActions from "../../store/character";
 import CharacterCard from "./CharacterCardComponent";
+import FilterPanel from "./FilterPanel"
 
 const SplashPageMain = () => {
   const characters = useSelector((state) => state.characters.list);
@@ -19,10 +20,10 @@ const SplashPageMain = () => {
   }
 
   return (
-    <div className="pageContent w-2/3">
-      <div className="splashPageContainer grid sm:grid-cols-2 lg:grid-cols-splash">
-        <div className="filterPanel">Filter Here</div>
-        <div className="characterCards flex justify-around">
+    <div className="pageContent w-full md:w-2/3">
+      <div className="splashPageContainer md:grid md:grid-cols-splash">
+        <FilterPanel>Filter Here</FilterPanel>
+        <div className="characterCards w-full flex justify-start flex-wrap">
           {characters &&
             Object.values(characters).map((character) => {
               return (

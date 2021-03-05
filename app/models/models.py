@@ -39,8 +39,9 @@ class Character(db.Model):
             "personality": self.personality,
             "inventory": self.inventory,
             "description": self.description,
+            "abilities": [ability.to_dict() for ability in self.abilities],
+            "tags": [tag.name for tag in self.tags]
         }
-
 
 
 class Ability(db.Model):
@@ -61,16 +62,19 @@ class Ability(db.Model):
             "source": self.source
         }
 
-characterAbilities = db.Table('characterAbilities',
+
+characterAbilities = db.Table(
+    'characterAbilities',
     db.Column('characterId', db.Integer, db.ForeignKey('characters.id'), primary_key=True, nullable=False),
     db.Column('abilityId', db.Integer, db.ForeignKey('abilities.id'), primary_key=True, nullable=False)
     )
 
+
 class Tag(db.Model):
     __tablename__ = 'tags'
 
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(100), nullable = False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
 
     def to_dict(self):
         return {
@@ -79,7 +83,8 @@ class Tag(db.Model):
         }
 
 
-characterTags = db.Table('characterTags',
+characterTags = db.Table(
+    'characterTags',
     db.Column('characterId', db.Integer, db.ForeignKey('characters.id'), primary_key=True, nullable=False),
     db.Column('tagId', db.Integer, db.ForeignKey('tags.id'), primary_key=True, nullable=False)
     )

@@ -8,7 +8,7 @@ module.exports = {
         '3': 'auto minmax(1020px, 1fr) auto',
       },
       gridTemplateColumns: {
-        "splash":"minmax(200px, 1fr) minmax(1000px, 5fr)"
+        "splash":"minmax(200px, 1fr) minmax(500px, 5fr)"
       },
       colors: {
         'myred': "#b00002"
