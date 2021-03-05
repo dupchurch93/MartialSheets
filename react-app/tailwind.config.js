@@ -5,13 +5,16 @@ module.exports = {
   theme: {
     extend: {
       minWidth:{
-        "about": "500px"
+        "about": "500px",
+        "characterSheet": "650px"
       },
       gridTemplateRows: {
-        '3': 'auto minmax(1020px, 1fr) auto',
+        'layout': 'auto minmax(1020px, 1fr) auto',
       },
       gridTemplateColumns: {
-        "splash":"minmax(200px, 1fr) minmax(500px, 5fr)"
+        "splash": "minmax(200px, 1fr) minmax(500px, 5fr)",
+        "characterHeader": "repeat(5, minmax(120px,1fr))",
+        "characterBody": "repeat(4, minmax(150px,1fr))"
       },
       colors: {
         'myred': "#b00002"

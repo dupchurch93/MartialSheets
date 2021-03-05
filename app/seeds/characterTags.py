@@ -16,18 +16,25 @@ def seed_characterTags():
     roguetag = Tag.query.filter(Tag.name == "Rogue").first()
     fightertag = Tag.query.filter(Tag.name == "Fighter").first()
     monktag = Tag.query.filter(Tag.name == "Monk").first()
+
+    deadTag = Tag.query.filter(Tag.name == "Dead").first()
+    tyrannyTag = Tag.query.filter(Tag.name == "Tyranny of Dragons").first()
     # using the relationship of tags, which was created on the character class, we can append the tag to it
     grydal.tags.append(barbtag)
     grydal.tags.append(dwarftag)
 
     isabella.tags.append(halflingtag)
     isabella.tags.append(roguetag)
+    isabella.tags.append(deadTag)
 
     laten.tags.append(fightertag)
     laten.tags.append(humantag)
+    laten.tags.append(tyrannyTag)
 
     irelia.tags.append(humantag)
     irelia.tags.append(monktag)
+    irelia.tags.append(tyrannyTag)
+
     # commit the change in the relationship
     db.session.add(grydal)
     db.session.commit()

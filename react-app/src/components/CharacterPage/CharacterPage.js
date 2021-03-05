@@ -1,5 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import StatsComponent from "./StatsComponent";
+import Proficiencies from "./ProficienciesColumn/Proficiencies";
+import Personality from "./Personality";
+import Features from "./Features";
+
 
 const CharacterPage = () => {
   const { characterId } = useParams();
@@ -12,11 +17,11 @@ const CharacterPage = () => {
   }
 
   return (
-    <div className="characterPageContainer w-full lg:w-1/2">
+    <div className="characterPageContainer w-full min-w-characterSheet md:w-1/2">
       <div className="characterSheet bg-gray-100 w-full lg:in-line-block rounded-lg p-5">
-        <div className="header grid grid-cols-5 w-full grid-rows-1">
+        <div className="header grid grid-cols-characterBody w-full grid-rows-1 border-2 border-black rounded-lg m-1">
           <div
-            className={`${propertyStyling} font-bold underline text-xl col-span-2`}
+            className={`${propertyStyling} font-bold underline text-xl col-span-1`}
           >
             Name: {character.name}
           </div>
@@ -30,11 +35,12 @@ const CharacterPage = () => {
             Subclass: {character.subclass}
           </div>
         </div>
-        <div className={propertyStyling}>class: {character.class}</div>
-        <div className={propertyStyling}>class: {character.class}</div>
-        <div className={propertyStyling}>class: {character.class}</div>
-        <div className={propertyStyling}>class: {character.class}</div>
-        <div className={propertyStyling}>class: {character.class}</div>
+        <div className="header grid grid-cols-characterBody w-full space-x-2">
+          <StatsComponent character={character}></StatsComponent>
+          <Proficiencies charClass={character.class} proficiencies={character.proficiencies} stats={character.attributes} level={character.level}></Proficiencies>
+          <Features character={character}></Features>
+          <Personality character={character}></Personality>
+        </div>
       </div>
     </div>
   );

@@ -18,6 +18,8 @@ class Character(db.Model):
     personality = db.Column(db.String(1000), nullable=False)
     inventory = db.Column(db.Text)
     description = db.Column(db.Text)
+    languages = db.Column(db.String(500))
+    tools = db.Column(db.String(500))
 
     user = db.relationship('User')
     abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined')
@@ -39,6 +41,8 @@ class Character(db.Model):
             "personality": self.personality,
             "inventory": self.inventory,
             "description": self.description,
+            "languages": self.languages,
+            "tools": self.tools,
             "abilities": [ability.to_dict() for ability in self.abilities],
             "tags": [tag.name for tag in self.tags]
         }

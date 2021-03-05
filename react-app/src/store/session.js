@@ -50,8 +50,8 @@ export const restoreUserThunk = () => async (dispatch) => {
     },
   });
   const res = await response.json();
-  if (res.errors) {
-    dispatch(removeUser(res));
+  if (!res.errors) {
+    dispatch(setUser(res));
   }
   return res;
 };

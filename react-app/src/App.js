@@ -35,7 +35,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="pageContainer grid grid-rows-3">
+      <div className="pageContainer grid grid-rows-layout">
         <div className="pageItem">
           <NavBar
             setAuthenticated={setAuthenticated}
