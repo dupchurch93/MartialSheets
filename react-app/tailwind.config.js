@@ -4,6 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      minWidth:{
+        "about": "500px"
+      },
       gridTemplateRows: {
         '3': 'auto minmax(1020px, 1fr) auto',
       },

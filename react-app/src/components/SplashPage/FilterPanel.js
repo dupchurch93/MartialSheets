@@ -1,68 +1,102 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const FilterPanel = ({setFilteredCharacters, characters}) => {
+const FilterPanel = ({ setFilteredCharacters, characters }) => {
   const allTags = useSelector((state) => state.characters.tags);
 
   const filter = (tag) => {
+    if (tag === "all") {
+      setFilteredCharacters(Object.values(characters));
+      return
+    }
     const filtered = Object.values(characters).filter((character) => {
-        return characters.tags.includes(tag)
+      return character.tags.includes(tag);
     });
-    setFilteredCharacters = filtered;
-  }
+    setFilteredCharacters(filtered);
+  };
 
-    const classTags = (
-        <div></div>
-    )
-    const raceTags = (
-        <div></div>
-    )
-    const customTags =(
-        <div></div>
-    )
-    const classes = ["Fighter", "Rogue", "Monk", "Barbarian"];
-    const races = [
-      "Human",
-      "Halfing",
-      "Gnome",
-      "Dragonborn",
-      "Elf",
-      "Dwarf",
-      "Half-Elf",
-      "Half-Orc",
-      "Tiefling",
-    ];
-    allTags.forEach((tag) => {
-      if (races.includes(tag)) {
-        const newRaceEl = document.createElement("button");
-        newRaceEl.innerText = tag;
-        newRaceEl.classList.add("font-normal", "mx-2");
-        raceTagsEl.appendChild(newRaceEl);
-      } else if (classes.includes(tag)) {
-        const newClassEl = document.createElement("button");
-        newClassEl.innerText = tag;
-        newClassEl.classList.add("font-normal", "mx-2");
-        classTagsEl.appendChild(newClassEl);
-      } else {
-        const customTagEl = document.createElement("button");
-        customTagEl.innerText = tag;
-        customTagEl.classList.add("font-normal", "mx-2");
-        customTagsEl.appendChild(customTagEl);
-      }
-    });
+  const classes = ["Fighter", "Rogue", "Monk", "Barbarian"];
+  const races = [
+    "Human",
+    "Halfing",
+    "Gnome",
+    "Dragonborn",
+    "Elf",
+    "Dwarf",
+    "Half-Elf",
+    "Half-Orc",
+    "Tiefling",
+  ];
+
+  const classTags = (
+    <div>
+      {allTags.map((tag) => {
+        if (classes.includes(tag)) {
+          return (
+            <div className="mx-2" key={tag}>
+              <button className="text-left w-full" onClick={() => filter(tag)}>
+                {tag}
+              </button>
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
+    </div>
+  );
+  const raceTags = (
+    <div>
+      {allTags.map((tag) => {
+        if (races.includes(tag)) {
+          return (
+            <div className="mx-2" key={tag}>
+              <button className="text-left w-full" onClick={() => filter(tag)}>
+                {tag}
+              </button>
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
+    </div>
+  );
+  const customTags = (
+    <div>
+      {allTags.map((tag) => {
+        if (classes.includes(tag) || races.includes(tag)) {
+          return null;
+        } else {
+          return (
+            <div className="mx-2" key={tag}>
+              <button className="text-left w-full" onClick={() => filter(tag)}>
+                {tag}
+              </button>
+            </div>
+          );
+        }
+      })}
+    </div>
+  );
 
   return (
     <div className="filterPanel sticky">
       <div className="font-bold mx-2">Filter By Tag</div>
-      <div className="bg-gray-100 w-44">
-        <div className="font-bold" id="class-tags">
+      <div className="bg-gray-100 w-48 rounded-lg">
+        <div className="font-bold mx-2 py-2">
+          <button className="text-left w-full font-bold" onClick={() => filter("all")}>All</button>
+        </div>
+        <div className="font-bold mx-2" id="class-tags">
           Classes
+          {classTags}
         </div>
-        <div className="font-bold" id="race-tags">
+        <div className="font-bold mx-2" id="race-tags">
           Races
+          {raceTags}
         </div>
-        <div className="font-bold" id="custom-tags">
+        <div className="font-bold mx-2" id="custom-tags">
           Custom
+          {customTags}
         </div>
       </div>
     </div>
