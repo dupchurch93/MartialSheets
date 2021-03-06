@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StatsComponent from "./StatsColumn/StatsComponent";
 import Proficiencies from "./ProficienciesColumn/Proficiencies";
-import Personality from "./Personality";
-import Features from "./Features";
+import Personality from "./PersonalityColumn/Personality";
+import Features from "./FeaturesColumn/Features";
 
 
 const CharacterPage = () => {

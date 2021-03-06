@@ -12,7 +12,7 @@ const ProficienciesComponent = ({ profBonus, prof, statsParsed, charProfs }) => 
 
     // render the bonus in the jsx
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between border-b border-black">
       <div className="text-sm">{prof.name}: </div>
       <div className="font-bold">{bonusToProf}</div>
     </div>

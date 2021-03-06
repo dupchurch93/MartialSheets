@@ -14,7 +14,7 @@ const Stats = ({ character }) => {
 
   return (
     <div className="columnContainer">
-      <div className="statsColumn flex flex-col items-center border border-black my-2 rounded-lg">
+      <div className="statsColumn mx-2 border border-black my-2 rounded-lg">
         <StatScoreComponent
           stat={"Strength"}
           value={statsParsed.str}
@@ -40,10 +40,10 @@ const Stats = ({ character }) => {
           value={statsParsed.cha}
         ></StatScoreComponent>
       </div>
-      <div className="languagesAndTools my-2 border border-black rounded-lg my-2">
+      <div className="languagesAndTools m-2 border border-black rounded-lg">
         <LangProfs languages={character.languages} tools={character.tools}></LangProfs>
       </div>
-      <div className="font-bold border border-black p2 rounded-lg flex justify-around">
+      <div className="font-bold border border-black p-1 m-2 rounded-lg flex justify-around">
         <div className="m-1 p-1 text-sm">Passive Perception: </div>
         <div className="m-1 p-1">{passivePerceptionBonus}</div>
       </div>

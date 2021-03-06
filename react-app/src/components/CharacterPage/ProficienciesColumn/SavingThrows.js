@@ -8,7 +8,7 @@ const SavingThrows = ({ name, stat, profSavingThrows, profBonus }) => {
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between border-b border-black">
       <div className="font-bold">{name}: </div>
       <div className="font-bold">{bonusToThrow}</div>
     </div>
