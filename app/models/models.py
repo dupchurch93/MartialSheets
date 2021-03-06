@@ -10,6 +10,8 @@ class Character(db.Model):
     race = db.Column(db.String(50), nullable=False)
     characterClass = db.Column(db.String(50), nullable=False)
     subclass = db.Column(db.String(100))
+    hitpoints = db.Column(db.Integer, nullable=False)
+    speed = db.Column(db.Integer, nullable=False, default=30)
     imgURL = db.Column(db.String(256))
     proficiencies = db.Column(db.String(1000), nullable=False)
     background = db.Column(db.String(50), nullable=False)
@@ -33,8 +35,10 @@ class Character(db.Model):
             "race": self.race,
             "class": self.characterClass,
             "subclass": self.subclass,
+            "hitpoints": self.hitpoints,
             "imgURL": self.imgURL,
             "proficiencies": self.proficiencies,
+            "speed": self.speed,
             "background": self.background,
             "alignment": self.alignment,
             "attributes": self.attributes,

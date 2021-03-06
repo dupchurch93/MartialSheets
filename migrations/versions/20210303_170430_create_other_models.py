@@ -38,6 +38,8 @@ def upgrade():
     sa.Column('race', sa.String(length=50), nullable=False),
     sa.Column('characterClass', sa.String(length=50), nullable=False),
     sa.Column('subclass', sa.String(length=100), nullable=True),
+    sa.Column('hitpoints', sa.Integer(), nullable=False),
+    sa.Column('speed', sa.Integer(), nullable=False, default=30),
     sa.Column('imgURL', sa.String(length=256), nullable=True),
     sa.Column('proficiencies', sa.String(length=1000), nullable=False),
     sa.Column('background', sa.String(length=50), nullable=False),
