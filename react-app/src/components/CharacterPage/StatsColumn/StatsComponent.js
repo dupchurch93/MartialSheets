@@ -1,5 +1,5 @@
 import StatScoreComponent from "./StatScoreComponent";
-import LangProfs from "./LangProfs"
+import LangProfs from "./LangProfs";
 
 const Stats = ({ character }) => {
   const statsParsed = JSON.parse(character.attributes);
@@ -9,12 +9,13 @@ const Stats = ({ character }) => {
   let charProfsArray = character.proficiencies.split(",");
   // add prof bonus if character is proficient in that skill
   if (charProfsArray.includes("Perception")) {
-    passivePerceptionBonus += profBonus
+    passivePerceptionBonus += profBonus;
   }
 
   return (
     <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2">
+      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5">
+        <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
           stat={"Strength"}
           value={statsParsed.str}
@@ -41,7 +42,10 @@ const Stats = ({ character }) => {
         ></StatScoreComponent>
       </div>
       <div className="languagesAndTools m-2 border border-black rounded-lg">
-        <LangProfs languages={character.languages} tools={character.tools}></LangProfs>
+        <LangProfs
+          languages={character.languages}
+          tools={character.tools}
+        ></LangProfs>
       </div>
       <div className="font-bold border border-black p-1 m-2 rounded-lg flex justify-around">
         <div className="m-1 p-1 text-sm">Passive Perception: </div>

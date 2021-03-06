@@ -1,8 +1,29 @@
+import { useState } from "react";
+
 const OneFeature = ({ feature }) => {
+  const [showDescription, setShowDescription] = useState(false);
+
+  const changeShow = () => {
+    setShowDescription(() => !showDescription);
+  };
+
+  const description = (
+    <div className="max-h-desc text-sm overflow-auto">
+      {feature.description}
+    </div>
+  );
+
   return (
-    <div className="oneFeatureContainer px-2 border border-black rounded-lg">
-      <div className="font-bold underline">{feature.name}</div><button onMouseOver={() => "display what the button does"}>Show/Hide Description</button>
-      <div>{feature.description}</div>
+    <div className="oneFeatureContainer px-2 mb-2">
+      <button
+        className="rounded-lg w-full"
+        onClick={() => changeShow()}
+      >
+        <div className="font-bold text-myred">
+          {feature.name}
+        </div>
+      </button>
+      {showDescription && description}
     </div>
   );
 };

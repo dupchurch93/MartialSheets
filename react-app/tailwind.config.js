@@ -12,6 +12,7 @@ module.exports = {
         "characterSheet": "650px",
       },
       maxWidth:{
+        "stat": "9rem",
         "characterSheet": "1000px",
       },
       gridTemplateRows: {
@@ -24,6 +25,9 @@ module.exports = {
       colors: {
         'myred': "#b00002"
       },
+      maxHeight: {
+        "desc": "250px",
+      }
     },
   },
   variants: {

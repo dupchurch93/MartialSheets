@@ -1,46 +1,60 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import StatsComponent from "./StatsColumn/StatsComponent";
-import Proficiencies from "./ProficienciesColumn/Proficiencies";
-import Personality from "./PersonalityColumn/Personality";
-import Features from "./FeaturesColumn/Features";
-
+import CharacterSheet from "./CharacterSheet";
+import InventorySheet from "./InventorySheet";
+import DescriptionSheet from "./DescriptionSheet";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
   const character = useSelector((state) => state.characters.list[characterId]);
+  const [showCharacter, setShowCharacter] = useState(true);
+  const [showInventory, setShowInventory] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
-  const propertyStyling = "mx-1 my-1 p-1";
+  const showCharacterFunc = () => {
+    setShowCharacter(true);
+    setShowInventory(false);
+    setShowDescription(false);
+  };
+  const showInventoryFunc = () => {
+    setShowCharacter(false);
+    setShowInventory(true);
+    setShowDescription(false);
+  };
+  const showDescriptionFunc = () => {
+    setShowCharacter(false);
+    setShowInventory(false);
+    setShowDescription(true);
+  };
 
   if (!character) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="characterPageContainer w-full md:w-1/2 flex justify-center mb-10">
-      <div className="characterSheet bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5">
-        <div className="header grid grid-cols-characterBody w-full grid-rows-1 border-2 border-black rounded-lg m-1">
-          <div
-            className={`${propertyStyling} font-bold underline text-xl col-span-1`}
+    <div className="flex items-center flex-col">
+      <div className="buttons top flex justify-between w-full">
+        <div>test</div>
+        <div className="rightButtons flex">
+          <button
+            onClick={() => showCharacterFunc()}
+            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
           >
-            Name: {character.name}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Level: {character.level}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Class: {character.class}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Subclass: {character.subclass}
-          </div>
+            Character
+          </button>
+          <button onClick={() => showInventoryFunc()} className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg">
+            Inventory
+          </button>
+          <button onClick={() => showDescriptionFunc()} className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg">
+            Description
+          </button>
         </div>
-        <div className="header grid grid-cols-characterBody w-full space-x-2">
-          <StatsComponent character={character}></StatsComponent>
-          <Proficiencies charClass={character.class} proficiencies={character.proficiencies} stats={character.attributes} level={character.level}></Proficiencies>
-          <Features character={character}></Features>
-          <Personality character={character}></Personality>
-        </div>
+      </div>
+      <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
+        {showCharacter && <CharacterSheet character={character}></CharacterSheet>}
+        {showInventory && <InventorySheet character={character}></InventorySheet>}
+        {showDescription && <DescriptionSheet character={character}></DescriptionSheet>}
       </div>
     </div>
   );
