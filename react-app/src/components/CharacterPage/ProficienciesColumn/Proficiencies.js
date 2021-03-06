@@ -45,13 +45,13 @@ const Proficiencies = ({ charClass, proficiencies, stats, level }) => {
   ];
 
   return (
-    <div>
-            <div className="font-bold border border-black p2 rounded-lg flex justify-around">
+    <div className="columnContainer border-r border-black">
+            <div className="font-bold border border-black p2 rounded-lg flex justify-around mx-4 my-2">
         <div className="m-1 p-1 text-sm">Proficiency Bonus: </div>
         <div className="m-1 p-1">{profBonus}</div>
       </div>
       <div className="font-bold underline">Saving Throws</div>
-      <div className="savingThrows border border-black m-2 p-2 w-36 rounded-lg">
+      <div className="savingThrows border border-black m-2 p-2 lg:w-36 rounded-lg">
         {statsMap.map((stat) => {
           return (
             <SavingThrows
@@ -65,7 +65,7 @@ const Proficiencies = ({ charClass, proficiencies, stats, level }) => {
         })}
       </div>
       <div className="font-bold underline">Skill Proficiencies</div>
-      <div className="savingThrows border border-black m-2 p-2 w-36 rounded-lg">
+      <div className="proficiencies border border-black m-2 p-2 lg:w-36 rounded-lg">
         {allProfs.map((prof) => {
           return(
             <ProficienciesComponent key={prof.name} charProfs={proficiencies} profBonus={profBonus} prof={prof} statsParsed={statsParsed}></ProficienciesComponent>

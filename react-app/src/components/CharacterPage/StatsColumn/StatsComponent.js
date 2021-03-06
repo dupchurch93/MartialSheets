@@ -13,8 +13,8 @@ const Stats = ({ character }) => {
   }
 
   return (
-    <div className="columnContainer">
-      <div className="statsColumn mx-2 border border-black my-2 rounded-lg">
+    <div className="columnContainer border-r border-black">
+      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2">
         <StatScoreComponent
           stat={"Strength"}
           value={statsParsed.str}
