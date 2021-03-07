@@ -1,7 +1,8 @@
 import StatScoreComponent from "./StatScoreComponent";
 import LangProfs from "./LangProfs";
+import StatsHelp from "./StatsHelp";
 
-const Stats = ({ character }) => {
+const Stats = ({ character, setHelpContents }) => {
   const statsParsed = JSON.parse(character.attributes);
   const profBonus = Math.ceil(1 + character.level / 4);
   // calculate bonus to proficiency roll
@@ -14,7 +15,7 @@ const Stats = ({ character }) => {
 
   return (
     <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5">
+      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseOver={() => setHelpContents(StatsHelp)}>
         <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
           stat={"Strength"}

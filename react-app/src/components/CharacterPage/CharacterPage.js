@@ -11,6 +11,7 @@ const CharacterPage = () => {
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
+  const [helpContents, setHelpContents] = useState("stuff in help contents");
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
@@ -31,12 +32,20 @@ const CharacterPage = () => {
   if (!character) {
     return <div>Loading...</div>;
   }
-  console.log(character.imgURL)
+
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       <div className="flex flex-col">
-        <div className="charImage">
-          <img src={character.imgURL} alt="character portrait"></img>
+        <div className="charImageContainer h-48 w-48 mt-10 mx-2 border-2 border-black rounded-lg ">
+          <img
+            className="h-full w-full "
+            src={character.imgURL}
+            alt="character portrait"
+          ></img>
+        </div>
+        <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg overflow-auto">
+          <div className="font-bold underline p-1">Explanation</div>
+          <div className="text-xs p-1">{helpContents}</div>
         </div>
       </div>
       <div className="flex items-center flex-col">
@@ -65,13 +74,13 @@ const CharacterPage = () => {
         </div>
         <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
           {showCharacter && (
-            <CharacterSheet character={character}></CharacterSheet>
+            <CharacterSheet character={character} setHelpContents={setHelpContents}></CharacterSheet>
           )}
           {showInventory && (
-            <InventorySheet character={character}></InventorySheet>
+            <InventorySheet character={character} setHelpContents={setHelpContents}></InventorySheet>
           )}
           {showDescription && (
-            <DescriptionSheet character={character}></DescriptionSheet>
+            <DescriptionSheet character={character} setHelpContents={setHelpContents}></DescriptionSheet>
           )}
         </div>
       </div>
