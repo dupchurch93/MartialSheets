@@ -1,4 +1,4 @@
-const Header = ({ character }) => {
+const HeaderForm = ({ character }) => {
   return (
     <div className="header grid grid-cols-characterBody w-full grid-rows-1 space-x-2 ">
       <div className="mx-1 p-1 font-bold underline text-xl col-span-1 border-2 border-black rounded-lg p-2 w-full">
@@ -28,4 +28,4 @@ const Header = ({ character }) => {
   );
 };
 
-export default Header;
+export default HeaderForm;

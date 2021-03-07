@@ -1,5 +1,5 @@
 
-const DescriptionSheet = ({ setHelpContents }) => {
+const DescriptionForm = ({ setHelpContents }) => {
   const descriptionHelper = (
     <div>
       The description page is for any extra information about your character.
@@ -19,4 +19,4 @@ const DescriptionSheet = ({ setHelpContents }) => {
   );
 };
 
-export default DescriptionSheet;
+export default DescriptionForm;

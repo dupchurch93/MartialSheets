@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "./HeaderForm";
 
 const InventorySheet = ({ character, setHelpContents }) => {
   const inventoryArray = character.inventory.split(",");

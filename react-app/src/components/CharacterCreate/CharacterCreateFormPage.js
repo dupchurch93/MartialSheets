@@ -21,8 +21,8 @@ const CharacterPage = () => {
       </div>
       <div className="flex items-center flex-col">
         <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
-          {/* <CharacterSheet setHelpContents={setHelpContents}></CharacterSheet>
-          <InventoryForm setHelpContents={setHelpContents}></InventoryForm> */}
+          <CharacterForm setHelpContents={setHelpContents}></CharacterForm>
+          {/* <InventoryForm setHelpContents={setHelpContents}></InventoryForm> */}
           <DescriptionForm setHelpContents={setHelpContents}></DescriptionForm>
         </div>
       </div>
