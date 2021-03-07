@@ -12,6 +12,7 @@ def seed_characters():
         characterClass="Barbarian",
         subclass="Path of the Berserker",
         hitpoints=15,
+        imgURL="https://martialsheets-image-bucket.s3.amazonaws.com/dwarf_berzerker.jpg",
         proficiencies="Athletics,Insight,History,Perception,Survival",
         background="Sailor",
         alignment="Chaotic Good",

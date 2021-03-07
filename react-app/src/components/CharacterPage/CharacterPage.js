@@ -31,30 +31,49 @@ const CharacterPage = () => {
   if (!character) {
     return <div>Loading...</div>;
   }
-
+  console.log(character.imgURL)
   return (
-    <div className="flex items-center flex-col">
-      <div className="buttons top flex justify-between w-full">
-        <div>test</div>
-        <div className="rightButtons flex">
-          <button
-            onClick={() => showCharacterFunc()}
-            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
-          >
-            Character
-          </button>
-          <button onClick={() => showInventoryFunc()} className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg">
-            Inventory
-          </button>
-          <button onClick={() => showDescriptionFunc()} className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg">
-            Description
-          </button>
+    <div className="flex">
+      <div className="flex flex-col">
+        <div className="charImage">
+          <img src={character.imgURL} alt="character portrait"></img>
         </div>
       </div>
-      <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
-        {showCharacter && <CharacterSheet character={character}></CharacterSheet>}
-        {showInventory && <InventorySheet character={character}></InventorySheet>}
-        {showDescription && <DescriptionSheet character={character}></DescriptionSheet>}
+      <div className="flex items-center flex-col">
+        <div className="buttons top flex justify-between w-full">
+          <div>test</div>
+          <div className="rightButtons flex">
+            <button
+              onClick={() => showCharacterFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Character
+            </button>
+            <button
+              onClick={() => showInventoryFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Inventory
+            </button>
+            <button
+              onClick={() => showDescriptionFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Description
+            </button>
+          </div>
+        </div>
+        <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
+          {showCharacter && (
+            <CharacterSheet character={character}></CharacterSheet>
+          )}
+          {showInventory && (
+            <InventorySheet character={character}></InventorySheet>
+          )}
+          {showDescription && (
+            <DescriptionSheet character={character}></DescriptionSheet>
+          )}
+        </div>
       </div>
     </div>
   );
