@@ -43,7 +43,7 @@ const CharacterPage = () => {
             alt="character portrait"
           ></img>
         </div>
-        <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg overflow-auto">
+        <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg bg-gray-100 overflow-auto">
           <div className="font-bold underline p-1">Explanation</div>
           <div className="text-xs p-1">{helpContents}</div>
         </div>
