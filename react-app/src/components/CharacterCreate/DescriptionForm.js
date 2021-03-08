@@ -1,5 +1,5 @@
 
-const DescriptionForm = ({ setHelpContents }) => {
+const DescriptionForm = ({ setHelpContents, setDescription, description }) => {
   const descriptionHelper = (
     <div>
       The description page is for any extra information about your character.
@@ -10,12 +10,14 @@ const DescriptionForm = ({ setHelpContents }) => {
   );
 
   return (
-    <input
-      type="text"
-      name="description"
+    <textarea
+      name="inventory"
       placeholder="Character Description"
+      value={description}
+      className="w-full h-36 p-2 rounded-lg border border-black text-left "
       onFocus={() => setHelpContents(descriptionHelper)}
-    ></input>
+      onChange={(e) => setDescription(e.target.value)}
+    ></textarea>
   );
 };
 

@@ -1,6 +1,4 @@
-import Header from "./HeaderForm";
-
-const InventorySheet = ({ setHelpContents }) => {
+const InventoryForm = ({ setHelpContents, setInventory, inventory }) => {
   const inventoryHelper = (
     <div>
       The inventory is where all items your character holds are listed. If you
@@ -11,12 +9,15 @@ const InventorySheet = ({ setHelpContents }) => {
   );
 
   return (
-    <div
-      className="descriptionSheet h-full bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5"
-      onMouseOver={() => setHelpContents(inventoryHelper)}
-    >
-    </div>
+    <textarea
+      name="inventory"
+      placeholder="Character Inventory"
+      value={inventory}
+      className="w-full h-36 p-2 rounded-lg border border-black text-left "
+      onFocus={() => setHelpContents(inventoryHelper)}
+      onChange={(e) => setInventory(e.target.value)}
+    ></textarea>
   );
 };
 
-export default InventorySheet;
+export default InventoryForm;
