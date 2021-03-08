@@ -1,12 +1,31 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import CharacterForm from "./CharacterForm";
+// import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
+import HeaderForm from "./HeaderForm";
 
 const CharacterPage = () => {
   const [helpContents, setHelpContents] = useState("");
+
+  // Controlled form fields
+  const [name, setName] = useState("");
+  const [characterClass, setCharacterClass] = useState("");
+  const [background, setBackground] = useState("");
+  const [alignment, setAlignment] = useState("");
+  const [race, setRace] = useState("");
+  const [hitpoints, setHitpoints] = useState("");
+  const [imgURL, setimgURL] = useState("");
+  const [proficiencies, setProficiencies] = useState("");
+  const [speed, setSpeed] = useState("");
+  const [attributes, setAttributes] = useState("");
+  const [personality, setPersonality] = useState("");
+  const [inventory, setInventory] = useState("");
+  const [description, setDescription] = useState("");
+  const [languages, setLanguages] = useState("");
+  const [tools, setTools] = useState("");
+  const [tags, setTags] = useState("");
 
   return (
     <div className="flex justify-center">
@@ -21,9 +40,14 @@ const CharacterPage = () => {
       </div>
       <div className="flex items-center flex-col">
         <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
-          <CharacterForm setHelpContents={setHelpContents}></CharacterForm>
-          {/* <InventoryForm setHelpContents={setHelpContents}></InventoryForm> */}
-          <DescriptionForm setHelpContents={setHelpContents}></DescriptionForm>
+          <div className="characterSheet bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5">
+            <HeaderForm setHelpContents={setHelpContents}></HeaderForm>
+            {/* <CharacterForm setHelpContents={setHelpContents}></CharacterForm> */}
+            <DescriptionForm
+              setHelpContents={setHelpContents}
+            ></DescriptionForm>
+            {/* <InventoryForm setHelpContents={setHelpContents}></InventoryForm> */}
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import Header from "./HeaderForm";
 
-const InventorySheet = ({ character, setHelpContents }) => {
-  const inventoryArray = character.inventory.split(",");
+const InventorySheet = ({ setHelpContents }) => {
   const inventoryHelper = (
     <div>
       The inventory is where all items your character holds are listed. If you
@@ -16,16 +15,6 @@ const InventorySheet = ({ character, setHelpContents }) => {
       className="descriptionSheet h-full bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5"
       onMouseOver={() => setHelpContents(inventoryHelper)}
     >
-      <Header character={character}></Header>
-      <div className="border border-black rounded-lg p-4 mt-2">
-        {inventoryArray.map((el) => {
-          return (
-            <li className="mx-4" key={el}>
-              {el}
-            </li>
-          );
-        })}
-      </div>
     </div>
   );
 };

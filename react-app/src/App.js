@@ -7,7 +7,7 @@ import AboutPage from "./components/AboutPage/AboutPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
 import CharacterPage from "./components/CharacterPage/CharacterPage";
-import CharacterCreate from "./components/CharacterCreate/CharacterCreate";
+import CharacterCreate from "./components/CharacterCreate/CharacterCreateFormPage";
 import { useDispatch } from "react-redux";
 import { restoreUserThunk } from "./store/session";
 import { loadCharactersThunk } from "./store/character";
