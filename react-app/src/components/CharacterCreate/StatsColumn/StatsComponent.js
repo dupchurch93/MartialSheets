@@ -11,21 +11,21 @@ const Stats = ({
   setLanguages,
   tools,
   setTools,
+  helpContents,
 }) => {
   const handleAttributesRoll = (e) => {
     e.preventDefault();
     rollAttributes();
   };
 
-  if (!attributes) {
+  if (!attributes.str) {
     return <div>Loading...</div>;
   }
 
   // calculate bonus to proficiency roll
   let passivePerceptionBonus = 10 + Math.floor((attributes.wis - 10) / 2);
-  let charProfsArray = proficiencies.split(",");
   // add prof bonus if character is proficient in that skill
-  if (charProfsArray.includes("Perception")) {
+  if (proficiencies.includes("Perception")) {
     passivePerceptionBonus += 2;
   }
 
@@ -33,7 +33,7 @@ const Stats = ({
     <div className="columnContainer border-r border-black">
       <div
         className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5"
-        onMouseOver={() => setHelpContents(StatsHelp)}
+        onMouseEnter={() => setHelpContents(StatsHelp)}
       >
         <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
@@ -68,7 +68,12 @@ const Stats = ({
         </button>
       </div>
       <div className="languagesAndTools m-2 border border-black rounded-lg">
-        <LangProfs languages={languages} setLanguages={setLanguages} tools={tools} setTools={setTools}></LangProfs>
+        <LangProfs
+          languages={languages}
+          setLanguages={setLanguages}
+          tools={tools}
+          setTools={setTools}
+        ></LangProfs>
       </div>
       <div className="font-bold border border-black p-1 m-2 rounded-lg flex justify-around">
         <div className="m-1 p-1 text-sm">Passive Perception: </div>

@@ -14,7 +14,7 @@ const InventorySheet = ({ character, setHelpContents }) => {
   return (
     <div
       className="descriptionSheet h-full bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5"
-      onMouseOver={() => setHelpContents(inventoryHelper)}
+      onMouseEnter={() => setHelpContents(inventoryHelper)}
     >
       <Header character={character}></Header>
       <div className="border border-black rounded-lg p-4 mt-2">

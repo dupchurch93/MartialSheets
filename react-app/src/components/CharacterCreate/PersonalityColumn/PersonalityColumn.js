@@ -27,7 +27,7 @@ const PersonalityColumn = ({ character, setHelpContents }) => {
   return (
     <div
       className="columnContainer border-r border-black px-1"
-      onMouseOver={() => setHelpContents(personalityHelper)}
+      onMouseEnter={() => setHelpContents(personalityHelper)}
     >
       <div className="p-2 md:flex flex-col">
         <HPSpeedAC

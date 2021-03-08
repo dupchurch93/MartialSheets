@@ -10,6 +10,7 @@ const HeaderForm = ({
   setRace,
   setAlignment,
   setHelpContents,
+  setProficiencies
 }) => {
   const classList = ["Barbarian", "Fighter", "Rogue", "Monk"];
   const raceList = [
@@ -165,6 +166,33 @@ const HeaderForm = ({
     </div>
   );
 
+  const handleSetBackground = (e) => {
+    setBackground(e.target.value)
+    // switch(e.target.value){
+    //   case "Acolyte":
+        // console.log("in acolyte")
+        // setProficiencies("Religion, Insight");
+    //   case "Charlatan":
+        // console.log("in charlatan")
+        // setProficiencies("Deception, Sleight of Hand");
+    //   case "Criminal":
+    //     setProficiencies("Deception, Stealth")
+    //     console.log("in criminal")
+    //   default:
+    //     console.log("in default")
+    //     setProficiencies("Atheletics, Acrobatics")
+    // }
+    if(e.target.value === "Acolyte"){
+      setProficiencies("Religion, Insight");
+    } else if(e.target.value === "Charlatan"){
+      setProficiencies("Deception, Sleight of Hand");
+    } else if(e.target.value === "Criminal"){
+      setProficiencies("Deception, Stealth");
+    } else {
+      setProficiencies("Athletics, Acrobatics");
+    }
+  }
+
   return (
     <div className="header grid grid-cols-characterBody w-full grid-rows-1 space-x-2 ">
       <div className="mx-1 p-1 font-bold underline text-xl col-span-1 border-2 border-black rounded-lg p-2 w-full">
@@ -245,7 +273,7 @@ const HeaderForm = ({
           <select
             value={background}
             name="background"
-            onChange={(e) => setBackground(e.target.value)}
+            onChange={(e) => handleSetBackground(e)}
             onFocus={() => setHelpContents(backgroundHelp)}
             className="w-36"
           >

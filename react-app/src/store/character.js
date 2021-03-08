@@ -21,7 +21,6 @@ export const loadCharactersThunk = () => async (dispatch) => {
         }
       });
       const characters = await response.json();
-    //   console.log('----in character thunk----', characters.Characters)
       dispatch(loadCharacters(characters.Characters))
       return characters.Characters
 }

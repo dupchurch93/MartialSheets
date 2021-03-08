@@ -15,7 +15,7 @@ const Stats = ({ character, setHelpContents }) => {
 
   return (
     <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseOver={() => setHelpContents(StatsHelp)}>
+      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseEnter={() => setHelpContents(StatsHelp)}>
         <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
           stat={"Strength"}

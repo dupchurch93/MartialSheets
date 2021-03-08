@@ -74,8 +74,11 @@ const CharacterCreate = () => {
               setBackground={setBackground}
               setAlignment={setAlignment}
               setHelpContents={setHelpContents}
+              setProficiencies={setProficiencies}
             ></HeaderForm>
             <CharacterForm
+              characterClass={characterClass}
+              helpContents={helpContents}
               setHelpContents={setHelpContents}
               hitpoints={hitpoints}
               proficiencies={proficiencies}
@@ -84,6 +87,7 @@ const CharacterCreate = () => {
               personality={personality}
               languages={languages}
               tools={tools}
+              background={background}
               setHitpoints={setHitpoints}
               setProficiencies={setProficiencies}
               setSpeed={setSpeed}

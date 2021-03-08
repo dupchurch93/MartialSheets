@@ -1,8 +1,8 @@
-const ProficienciesComponent = ({ profBonus, prof, statsParsed, charProfs }) => {
+const ProficienciesComponent = ({ profBonus, prof, attributes, charProfs }) => {
     let bonusToProf = 0;
     let charProfsArray = charProfs.split(",")
     // calculate bonus to proficiency roll
-    let statBonus = Math.floor((statsParsed[prof.stat] - 10) / 2);
+    let statBonus = Math.floor((attributes[prof.stat] - 10) / 2);
     // add prof bonus if character is proficient in that skill
     if (charProfsArray.includes(prof.name)) {
       bonusToProf = profBonus + statBonus;

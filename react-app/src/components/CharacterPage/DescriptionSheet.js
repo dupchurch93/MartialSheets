@@ -11,7 +11,7 @@ const DescriptionSheet = ({ character, setHelpContents }) => {
   );
 
   return (
-    <div className="descriptionSheet h-full bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5" onMouseOver={() => setHelpContents(descriptionHelper)}>
+    <div className="descriptionSheet h-full bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5" onMouseEnter={() => setHelpContents(descriptionHelper)}>
       <Header character={character}></Header>
       <div className="border border-black rounded-lg p-4 mt-2">
         {character.description} These can be very long so here is Lorem Ipsum.

@@ -15,7 +15,7 @@ const Features = ({ character, setHelpContents }) => {
   return (
     <div
       className="featuresColumn border-r border-black"
-      onMouseOver={() => setHelpContents(featuresHelp)}
+      onMouseEnter={() => setHelpContents(featuresHelp)}
     >
       <div className="font-bold underline text-center">Features</div>
       <FeatureList features={character.abilities}></FeatureList>

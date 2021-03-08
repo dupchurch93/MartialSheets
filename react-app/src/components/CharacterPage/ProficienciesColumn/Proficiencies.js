@@ -62,7 +62,7 @@ const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents
   ];
 
   return (
-    <div className="columnContainer border-r border-black px-1" onMouseOver={() => setHelpContents(profColumnHelper)}>
+    <div className="columnContainer border-r border-black px-1" onMouseEnter={() => setHelpContents(profColumnHelper)}>
       <div className="font-bold border border-black p-0.5 rounded-lg flex justify-around mx-4 my-2">
         <div className="m-1 p-1 text-sm">Proficiency Bonus: </div>
         <div className="m-1 p-1">{profBonus}</div>

@@ -4,9 +4,12 @@ import Proficiencies from "./ProficienciesColumn/Proficiencies";
 // import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 
 const CharacterForm = ({
+  helpContents,
   setHelpContents,
   hitpoints,
   proficiencies,
+  background,
+  characterClass,
   speed,
   attributes,
   personality,
@@ -31,15 +34,16 @@ const CharacterForm = ({
         setLanguages={setLanguages}
         tools={tools}
         setTools={setTools}
+        helpContents={helpContents}
       ></StatsComponent>
       <Proficiencies
-        languages={languages}
-        setLanguages={setLanguages}
-        tools={tools}
-        setTools={setTools}
+        characterClass={characterClass}
+        background={background}
+        attributes={attributes}
         proficiencies={proficiencies}
         setProficiencies={setProficiencies}
         setHelpContents={setHelpContents}
+        level={1}
       ></Proficiencies>
       {/* <PersonalityColumn
         speed={speed}
