@@ -6,25 +6,24 @@ import HeaderForm from "./HeaderForm";
 
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
-  const character = {};
-  
+
   // Controlled form fields
-  const [name, setName] = useState(character.name);
+  const [name, setName] = useState("");
   const [characterClass, setCharacterClass] = useState("Select Class");
   const [background, setBackground] = useState("Select Background");
   const [alignment, setAlignment] = useState("Select Alignment");
   const [race, setRace] = useState("Select Race");
-  const [hitpoints, setHitpoints] = useState(character.hitpoints);
-  const [imgURL, setimgURL] = useState(character.imgURL);
-  const [proficiencies, setProficiencies] = useState(character.proficiencies);
-  const [speed, setSpeed] = useState(character.speed);
-  const [attributes, setAttributes] = useState(character.attributes);
-  const [personality, setPersonality] = useState(character.personality);
-  const [inventory, setInventory] = useState(character.inventory);
-  const [description, setDescription] = useState(character.description);
-  const [languages, setLanguages] = useState(character.languages);
-  const [tools, setTools] = useState(character.tools);
-  const [tags, setTags] = useState(character.tags);
+  const [hitpoints, setHitpoints] = useState(0);
+  const [imgURL, setimgURL] = useState("");
+  const [proficiencies, setProficiencies] = useState("");
+  const [speed, setSpeed] = useState(0);
+  const [attributes, setAttributes] = useState({});
+  const [personality, setPersonality] = useState("");
+  const [inventory, setInventory] = useState("");
+  const [description, setDescription] = useState("");
+  const [languages, setLanguages] = useState("");
+  const [tools, setTools] = useState("");
+  const [tags, setTags] = useState("");
 
   //helper function to roll stats on the character form so rerendering does not reroll them
   const rollAttributes = useCallback(() => {
@@ -37,7 +36,7 @@ const CharacterCreate = () => {
       rolledScores.shift();
 
       const statScore = rolledScores[0] + rolledScores[1] + rolledScores[2];
-      attrObj[atr] = statScore
+      attrObj[atr] = statScore;
     });
     setAttributes(attrObj);
   }, []);
@@ -55,7 +54,7 @@ const CharacterCreate = () => {
           <input type="file" name="characterPicture"></input>
         </div>
         <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg bg-gray-100 overflow-auto">
-          <div className="font-bold underline p-1">Explanation</div>
+          <div className="font-bold underline p-1 text-center">More Info:</div>
           <div className="text-xs p-1">{helpContents}</div>
         </div>
       </div>
@@ -88,10 +87,10 @@ const CharacterCreate = () => {
               setHitpoints={setHitpoints}
               setProficiencies={setProficiencies}
               setSpeed={setSpeed}
-              setAttributes={setAttributes}
               setPersonality={setPersonality}
               setLanguages={setLanguages}
               setTags={setTools}
+              rollAttributes={rollAttributes}
             ></CharacterForm>
             <DescriptionForm
               setHelpContents={setHelpContents}
@@ -103,9 +102,16 @@ const CharacterCreate = () => {
               setInventory={setInventory}
               inventory={inventory}
             ></InventoryForm>
+            <div className="w-full text-center">
+              <button
+                className="w-56 p-2 rounded-lg mt-4 border border-black bg-myred text-white"
+                type="submit"
+              >
+                Create Character
+              </button>
+            </div>
           </div>
         </div>
-        <button type="submit">Create Character</button>
       </div>
     </form>
   );

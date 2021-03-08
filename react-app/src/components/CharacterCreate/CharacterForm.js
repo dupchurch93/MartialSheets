@@ -1,5 +1,5 @@
 import StatsComponent from "./StatsColumn/StatsComponent";
-// import Proficiencies from "./ProficienciesColumn/Proficiencies";
+import Proficiencies from "./ProficienciesColumn/Proficiencies";
 // import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
 // import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 
@@ -15,7 +15,7 @@ const CharacterForm = ({
   setHitpoints,
   setProficiencies,
   setSpeed,
-  setAttributes,
+  rollAttributes,
   setPersonality,
   setLanguages,
   setTools,
@@ -24,10 +24,15 @@ const CharacterForm = ({
     <div className="header grid grid-cols-characterBody w-full space-x-2">
       <StatsComponent
         attributes={attributes}
-        setAttributes={setAttributes}
+        rollAttributes={rollAttributes}
         setHelpContents={setHelpContents}
+        proficiencies={proficiencies}
+        languages={languages}
+        setLanguages={setLanguages}
+        tools={tools}
+        setTools={setTools}
       ></StatsComponent>
-      {/* <Proficiencies
+      <Proficiencies
         languages={languages}
         setLanguages={setLanguages}
         tools={tools}
@@ -36,7 +41,7 @@ const CharacterForm = ({
         setProficiencies={setProficiencies}
         setHelpContents={setHelpContents}
       ></Proficiencies>
-      <PersonalityColumn
+      {/* <PersonalityColumn
         speed={speed}
         setSpeed={setSpeed}
         personality={personality}

@@ -1,12 +1,18 @@
-const LangProfs = ({ languages, tools }) => {
+const LangProfs = ({ languages, tools, setTools, setLanguages }) => {
   return (
     <div>
-      <div className="container border border-black m-2 p-2 w-10/12 rounded-lg flex flex-col">
-        <div className="text-sm">Languages: {languages}</div>
-      </div>
-      <div className="container border border-black m-2 p-2 w-10/12 rounded-lg">
-        <div className="text-sm">Tools: {tools}</div>
-      </div>
+      <textarea
+        className="border border-black m-2 p-2 w-10/12 rounded-lg flex flex-col"
+        value={languages}
+        onChange={(e) => setLanguages(e.target.value)}
+        placeholder="Languages Known"
+      ></textarea>
+      <textarea
+        className="border border-black m-2 p-2 w-10/12 rounded-lg flex flex-col"
+        value={tools}
+        onChange={(e) => setTools(e.target.value)}
+        placeholder="Tools and other Proficiencies"
+      ></textarea>
     </div>
   );
 };
