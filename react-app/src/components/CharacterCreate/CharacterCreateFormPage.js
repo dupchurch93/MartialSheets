@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
@@ -7,6 +7,7 @@ import HeaderForm from "./HeaderForm";
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
   const character = {};
+  
   // Controlled form fields
   const [name, setName] = useState(character.name);
   const [characterClass, setCharacterClass] = useState("Select Class");
@@ -24,6 +25,27 @@ const CharacterCreate = () => {
   const [languages, setLanguages] = useState(character.languages);
   const [tools, setTools] = useState(character.tools);
   const [tags, setTags] = useState(character.tags);
+
+  //helper function to roll stats on the character form so rerendering does not reroll them
+  const rollAttributes = useCallback(() => {
+    const attrObj = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+    Object.keys(attrObj).forEach((atr) => {
+      const rolledScores = [1, 1, 1, 1].map((el) => {
+        return el * Math.ceil(Math.random() * (6 - 1) + 1);
+      });
+      rolledScores.sort();
+      rolledScores.shift();
+
+      const statScore = rolledScores[0] + rolledScores[1] + rolledScores[2];
+      attrObj[atr] = statScore
+    });
+    setAttributes(attrObj);
+  }, []);
+
+  //only roll on page load and on button reroll. Values persist with useState
+  useEffect(() => {
+    rollAttributes();
+  }, [rollAttributes]);
 
   return (
     <form className="flex justify-center">
@@ -54,22 +76,23 @@ const CharacterCreate = () => {
               setAlignment={setAlignment}
               setHelpContents={setHelpContents}
             ></HeaderForm>
-            <CharacterForm setHelpContents={setHelpContents}
-            hitpoints={hitpoints}
-            proficiencies={proficiencies}
-            speed={speed}
-            attributes={attributes}
-            personality={personality}
-            languages={languages}
-            tools={tools}
-            setHitpoints={setHitpoints}
-            setProficiencies={setProficiencies}
-            setSpeed={setSpeed}
-            setAttributes={setAttributes}
-            setPersonality={setPersonality}
-            setLanguages={setLanguages}
-            setTags={setTools}>
-            </CharacterForm>
+            <CharacterForm
+              setHelpContents={setHelpContents}
+              hitpoints={hitpoints}
+              proficiencies={proficiencies}
+              speed={speed}
+              attributes={attributes}
+              personality={personality}
+              languages={languages}
+              tools={tools}
+              setHitpoints={setHitpoints}
+              setProficiencies={setProficiencies}
+              setSpeed={setSpeed}
+              setAttributes={setAttributes}
+              setPersonality={setPersonality}
+              setLanguages={setLanguages}
+              setTags={setTools}
+            ></CharacterForm>
             <DescriptionForm
               setHelpContents={setHelpContents}
               setDescription={setDescription}

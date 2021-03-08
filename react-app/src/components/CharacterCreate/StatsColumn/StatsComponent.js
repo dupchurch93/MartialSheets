@@ -2,13 +2,21 @@ import StatScoreComponent from "./StatScoreComponent";
 import LangProfs from "./LangProfs";
 import StatsHelp from "./StatsHelp";
 
-const Stats = ({ setHelpContents }) => {
+const Stats = ({ setHelpContents, attributes, setAttributes }) => {
+
+  if(!attributes){
+    return(
+      <div>Loading...</div>
+    )
+  }
+
   return (
     <div className="columnContainer border-r border-black">
       <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseOver={() => setHelpContents(StatsHelp)}>
         <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
           stat={"Strength"}
+          value={attributes.str}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Dexterity"}
