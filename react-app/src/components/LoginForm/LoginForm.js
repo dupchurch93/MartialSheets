@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
+import {loadCharactersThunk} from "../../store/character"
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -13,8 +14,11 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const user = await dispatch(sessionActions.login(email, password));
+    console.log("above if statement in login handler")
     if (!user.errors) {
       setAuthenticated(true);
+      console.log("user in login thunk", user)
+      dispatch(loadCharactersThunk())
     } else {
       setErrors(user.errors);
     }
@@ -23,6 +27,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const onDemoLogin = async (e) => {
     await dispatch(sessionActions.login("demo@aa.io", "password"));
     setAuthenticated(true);
+    dispatch(loadCharactersThunk())
   };
 
   const updateEmail = (e) => {

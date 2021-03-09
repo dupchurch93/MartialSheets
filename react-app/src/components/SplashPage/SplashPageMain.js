@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {  useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CharacterCard from "./CharacterCardComponent";
@@ -8,9 +8,9 @@ const SplashPageMain = () => {
   const characters = useSelector((state) => state.characters.list);
   const [filteredCharacters, setFilteredCharacters] = useState(Object.values(characters));
 
-  if (!filteredCharacters) {
-    return <h1>Loading...</h1>;
-  }
+  useEffect(() => {
+    setFilteredCharacters(Object.values(characters))
+  }, [characters])
 
   return (
     <div className="pageContent w-full md:w-2/3">
@@ -31,7 +31,7 @@ const SplashPageMain = () => {
                 <div>Create New Character</div>
               </div>
             </Link>
-            {filteredCharacters.map((character) => {
+            {filteredCharacters.length > 0 && filteredCharacters.map((character) => {
               return (
                 <CharacterCard
                   key={character.id}

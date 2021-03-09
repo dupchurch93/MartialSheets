@@ -21,6 +21,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const user = await dispatch(restoreUserThunk());
+      console.log("user", user)
       if (!(user.id === undefined)) {
         setAuthenticated(true);
         await dispatch(loadCharactersThunk());

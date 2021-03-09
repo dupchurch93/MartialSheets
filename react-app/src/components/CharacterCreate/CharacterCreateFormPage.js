@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { addCharacterThunk } from "../../store/character";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
@@ -10,6 +10,7 @@ import HeaderForm from "./HeaderForm";
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user)
 
   // Controlled form fields
   const [name, setName] = useState("");
@@ -52,11 +53,11 @@ const CharacterCreate = () => {
     });
     setAttributes(attrObj);
   }, []);
-
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const character = {
+      userId: user.id,
       name: name,
       level: 1,
       race: race,
@@ -67,6 +68,7 @@ const CharacterCreate = () => {
       speed: speed,
       background: background,
       alignment: alignment,
+      attributes: JSON.stringify(attributes),
       traits: traits,
       ideals: ideals,
       bonds: bonds,

@@ -39,15 +39,13 @@ export const addCharacterThunk = (character) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      character,
-    }),
+    body: JSON.stringify(character),
   });
   const newChar = await response.json();
-//   if (!newChar.errors) {
-//     dispatch(addCharacter(newChar));
-//   }
-  return newChar
+  //   if (!newChar.errors) {
+  //     dispatch(addCharacter(newChar));
+  //   }
+  return newChar;
 };
 
 const initialState = { list: [], tags: [] };
@@ -69,8 +67,8 @@ const characterReducer = (state = initialState, action) => {
       newState.tags = Array.from(tags);
       return newState;
     case REMOVE_CHARACTERS:
-      newState.Object.assign({}, state);
-      newState.list = null;
+      newState = Object.assign({}, state);
+      newState = initialState;
       return newState;
     case ADD_CHARACTER:
       newState.Object.assign({}, state);
