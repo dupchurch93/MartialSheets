@@ -1,0 +1,30 @@
+import { useState } from "react";
+
+const OneFeature = ({ feature }) => {
+  const [showDescription, setShowDescription] = useState(false);
+
+  const changeShow = () => {
+    setShowDescription(() => !showDescription);
+  };
+
+  const description = (
+    <div className="max-h-desc text-sm overflow-auto">
+      {feature.description}
+    </div>
+  );
+
+  return (
+    <div className="oneFeatureContainer px-2 mb-2">
+      <button
+        className="rounded-lg w-full"
+        onClick={() => changeShow()}
+      >
+        <div className="font-bold text-myred">
+          {feature.name}
+        </div>
+      </button>
+      {showDescription && description}
+    </div>
+  );
+};
+export default OneFeature;

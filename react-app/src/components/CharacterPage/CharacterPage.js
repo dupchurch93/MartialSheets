@@ -1,45 +1,87 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import StatsComponent from "./StatsColumn/StatsComponent";
-import Proficiencies from "./ProficienciesColumn/Proficiencies";
-import Personality from "./Personality";
-import Features from "./Features";
-
+import CharacterSheet from "./CharacterSheet";
+import InventorySheet from "./InventorySheet";
+import DescriptionSheet from "./DescriptionSheet";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
   const character = useSelector((state) => state.characters.list[characterId]);
+  const [showCharacter, setShowCharacter] = useState(true);
+  const [showInventory, setShowInventory] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [helpContents, setHelpContents] = useState("stuff in help contents");
 
-  const propertyStyling = "mx-1 my-1 p-1";
+  const showCharacterFunc = () => {
+    setShowCharacter(true);
+    setShowInventory(false);
+    setShowDescription(false);
+  };
+  const showInventoryFunc = () => {
+    setShowCharacter(false);
+    setShowInventory(true);
+    setShowDescription(false);
+  };
+  const showDescriptionFunc = () => {
+    setShowCharacter(false);
+    setShowInventory(false);
+    setShowDescription(true);
+  };
 
   if (!character) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="characterPageContainer w-full md:w-1/2 flex justify-center mb-10">
-      <div className="characterSheet bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5">
-        <div className="header grid grid-cols-characterBody w-full grid-rows-1 border-2 border-black rounded-lg m-1">
-          <div
-            className={`${propertyStyling} font-bold underline text-xl col-span-1`}
-          >
-            Name: {character.name}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Level: {character.level}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Class: {character.class}
-          </div>
-          <div className={`${propertyStyling} underline col-span-1`}>
-            Subclass: {character.subclass}
+    <div className="flex justify-center">
+      <div className="flex flex-col">
+        <div className="charImageContainer h-48 w-48 mt-10 mx-2 border-2 border-black rounded-lg ">
+          <img
+            className="h-full w-full "
+            src={character.imgURL}
+            alt="character portrait"
+          ></img>
+        </div>
+        <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg bg-gray-100 overflow-auto">
+          <div className="font-bold underline p-1">Explanation</div>
+          <div className="text-xs p-1">{helpContents}</div>
+        </div>
+      </div>
+      <div className="flex items-center flex-col">
+        <div className="buttons top flex justify-between w-full">
+          <div>test</div>
+          <div className="rightButtons flex">
+            <button
+              onClick={() => showCharacterFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Character
+            </button>
+            <button
+              onClick={() => showInventoryFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Inventory
+            </button>
+            <button
+              onClick={() => showDescriptionFunc()}
+              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            >
+              Description
+            </button>
           </div>
         </div>
-        <div className="header grid grid-cols-characterBody w-full space-x-2">
-          <StatsComponent character={character}></StatsComponent>
-          <Proficiencies charClass={character.class} proficiencies={character.proficiencies} stats={character.attributes} level={character.level}></Proficiencies>
-          <Features character={character}></Features>
-          <Personality character={character}></Personality>
+        <div className="characterSheetContainer w-full w-full flex justify-center mb-10">
+          {showCharacter && (
+            <CharacterSheet character={character} setHelpContents={setHelpContents}></CharacterSheet>
+          )}
+          {showInventory && (
+            <InventorySheet character={character} setHelpContents={setHelpContents}></InventorySheet>
+          )}
+          {showDescription && (
+            <DescriptionSheet character={character} setHelpContents={setHelpContents}></DescriptionSheet>
+          )}
         </div>
       </div>
     </div>

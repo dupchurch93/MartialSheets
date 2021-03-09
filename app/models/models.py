@@ -10,12 +10,17 @@ class Character(db.Model):
     race = db.Column(db.String(50), nullable=False)
     characterClass = db.Column(db.String(50), nullable=False)
     subclass = db.Column(db.String(100))
+    hitpoints = db.Column(db.Integer, nullable=False)
+    speed = db.Column(db.Integer, nullable=False, default=30)
     imgURL = db.Column(db.String(256))
     proficiencies = db.Column(db.String(1000), nullable=False)
     background = db.Column(db.String(50), nullable=False)
     alignment = db.Column(db.String(50), nullable=False)
     attributes = db.Column(db.String(100), nullable=False)
-    personality = db.Column(db.String(1000), nullable=False)
+    traits = db.Column(db.String(500), nullable=True)
+    ideals = db.Column(db.String(500), nullable=True)
+    bonds = db.Column(db.String(500), nullable=True)
+    flaws = db.Column(db.String(500), nullable=True)
     inventory = db.Column(db.Text)
     description = db.Column(db.Text)
     languages = db.Column(db.String(500))
@@ -33,13 +38,17 @@ class Character(db.Model):
             "race": self.race,
             "class": self.characterClass,
             "subclass": self.subclass,
+            "hitpoints": self.hitpoints,
             "imgURL": self.imgURL,
             "proficiencies": self.proficiencies,
+            "speed": self.speed,
             "background": self.background,
             "alignment": self.alignment,
             "attributes": self.attributes,
-            "personality": self.personality,
-            "inventory": self.inventory,
+            "traits": self.traits,
+            "ideals": self.ideals,
+            "flaws": self.flaws,
+            "bonds": self.bonds,
             "description": self.description,
             "languages": self.languages,
             "tools": self.tools,

@@ -1,7 +1,14 @@
 import SavingThrows from "./SavingThrows";
 import ProficienciesComponent from "./ProficienciesComponent";
 
-const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents }) => {
+const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHelpContents }) => {
+
+  if (!attributes.str) {
+    return <div>Loading...</div>;
+  }
+
+
+
   const profColumnHelper = (
     <div>
       <div>
@@ -14,7 +21,8 @@ const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents
         <span className="font-bold underline">Proficiencies: </span> What types
         of skills your character excels at. The skills you are proficient with
         are based on your class and background while receiving bonus from their
-        associated stat as well.
+        associated stat as well.<br></br><br></br>
+        <div>Bolded skills are the ones your character is proficient in.</div>
       </div>
     </div>
   );
@@ -38,27 +46,29 @@ const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents
     { name: "Stealth", stat: "dex" },
     { name: "Survival", stat: "wis" },
   ];
-  const statsParsed = JSON.parse(stats);
+
   const profBonus = Math.ceil(1 + level / 4);
 
+  // proficiency choices and saving throws are determined by class and backgrounds so we define them here based on character choices
   let profSavingThrows;
-  if (charClass === "Barbarian") {
+  if (characterClass === "Barbarian") {
     profSavingThrows = ["Constitution", "Strength"];
-  } else if (charClass === "Rogue") {
+  } else if (characterClass === "Rogue") {
     profSavingThrows = ["Dexterity", "Intelligence"];
-  } else if (charClass === "Fighter") {
+  } else if (characterClass === "Fighter") {
     profSavingThrows = ["Strength", "Constitution"];
   } else {
     profSavingThrows = ["Strength", "Dexterity"];
   }
 
+
   const statsMap = [
-    { name: "Strength", value: statsParsed.str },
-    { name: "Dexterity", value: statsParsed.dex },
-    { name: "Constitution", value: statsParsed.con },
-    { name: "Intelligence", value: statsParsed.int },
-    { name: "Wisdom", value: statsParsed.wis },
-    { name: "Charisma", value: statsParsed.cha },
+    { name: "Strength", value: attributes.str },
+    { name: "Dexterity", value: attributes.dex },
+    { name: "Constitution", value: attributes.con },
+    { name: "Intelligence", value: attributes.int },
+    { name: "Wisdom", value: attributes.wis },
+    { name: "Charisma", value: attributes.cha },
   ];
 
   return (
@@ -90,7 +100,7 @@ const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents
               charProfs={proficiencies}
               profBonus={profBonus}
               prof={prof}
-              statsParsed={statsParsed}
+              attributes={attributes}
             ></ProficienciesComponent>
           );
         })}

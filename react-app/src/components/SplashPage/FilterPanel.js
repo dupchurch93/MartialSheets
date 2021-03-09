@@ -17,7 +17,7 @@ const FilterPanel = ({ setFilteredCharacters, characters }) => {
   const classes = ["Fighter", "Rogue", "Monk", "Barbarian"];
   const races = [
     "Human",
-    "Halfing",
+    "Halfling",
     "Gnome",
     "Dragonborn",
     "Elf",

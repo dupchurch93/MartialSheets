@@ -2,50 +2,77 @@ import StatScoreComponent from "./StatScoreComponent";
 import LangProfs from "./LangProfs";
 import StatsHelp from "./StatsHelp";
 
-const Stats = ({ character, setHelpContents }) => {
-  const statsParsed = JSON.parse(character.attributes);
-  const profBonus = Math.ceil(1 + character.level / 4);
+const Stats = ({
+  setHelpContents,
+  attributes,
+  rollAttributes,
+  proficiencies,
+  languages,
+  setLanguages,
+  tools,
+  setTools,
+  helpContents,
+}) => {
+  const handleAttributesRoll = (e) => {
+    e.preventDefault();
+    rollAttributes();
+  };
+
+  if (!attributes.str) {
+    return <div>Loading...</div>;
+  }
+
   // calculate bonus to proficiency roll
-  let passivePerceptionBonus = 10 + Math.floor((statsParsed["wis"] - 10) / 2);
-  let charProfsArray = character.proficiencies.split(",");
+  let passivePerceptionBonus = 10 + Math.floor((attributes.wis - 10) / 2);
   // add prof bonus if character is proficient in that skill
-  if (charProfsArray.includes("Perception")) {
-    passivePerceptionBonus += profBonus;
+  if (proficiencies.includes("Perception")) {
+    passivePerceptionBonus += 2;
   }
 
   return (
     <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseEnter={() => setHelpContents(StatsHelp)}>
+      <div
+        className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5"
+        onMouseEnter={() => setHelpContents(StatsHelp)}
+      >
         <div className="font-bold underline">Attributes</div>
         <StatScoreComponent
           stat={"Strength"}
-          value={statsParsed.str}
+          value={attributes.str}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Dexterity"}
-          value={statsParsed.dex}
+          value={attributes.dex}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Constituion"}
-          value={statsParsed.con}
+          value={attributes.con}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Intelligence"}
-          value={statsParsed.int}
+          value={attributes.int}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Wisdom"}
-          value={statsParsed.wis}
+          value={attributes.wis}
         ></StatScoreComponent>
         <StatScoreComponent
           stat={"Charisma"}
-          value={statsParsed.cha}
+          value={attributes.cha}
         ></StatScoreComponent>
+        <button
+          onClick={(e) => handleAttributesRoll(e)}
+          className="border border-black rounded-lg bg-myred text-white p-1"
+        >
+          Roll Attributes
+        </button>
       </div>
       <div className="languagesAndTools m-2 border border-black rounded-lg">
         <LangProfs
-          languages={character.languages}
-          tools={character.tools}
+          languages={languages}
+          setLanguages={setLanguages}
+          tools={tools}
+          setTools={setTools}
         ></LangProfs>
       </div>
       <div className="font-bold border border-black p-1 m-2 rounded-lg flex justify-around">

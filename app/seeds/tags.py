@@ -18,7 +18,7 @@ def seed_tags():
 
     raceTags = [Tag(name="Human"), Tag(name="Dwarf"), Tag(name="Elf"),
       Tag(name="Dragonborn"), Tag(name="Gnome"), Tag(name="Half-Elf"), Tag(name="Half-Orc"),
-      Tag(name="Tiefling"), Tag(name="Halfing")]
+      Tag(name="Tiefling"), Tag(name="Halfling")]
 
     customTag1 = Tag(name="Tyranny of Dragons")
     customTag2 = Tag(name="Dead")

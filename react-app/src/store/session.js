@@ -57,7 +57,6 @@ export const restoreUserThunk = () => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  console.log("----In our logout thunk right here----");
   const response = await fetch("/api/auth/logout", {
     headers: {
       "Content-Type": "application/json",
