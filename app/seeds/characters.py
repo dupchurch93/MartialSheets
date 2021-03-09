@@ -17,7 +17,10 @@ def seed_characters():
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory=" Handaxe, Javelin, Explorer's Pack, Greataxe, Smith's Tools, Tinkerer's Tools, Healing Potion, Keen Whetson, Rope(100ft), Pendant, Troll Skull(for reasons), Scale Armor",
         description="A mean dwarf but good to have at your side. Gets real angry.",
         languages="Common, Dwarven, Orcish",
@@ -29,14 +32,17 @@ def seed_characters():
         userId=1,
         name="Isabella",
         level=1,
-        race="Halfing",
+        race="Halfling",
         characterClass="Rogue",
         proficiencies="Athletics,Insight,History,Perception,Survival",
         hitpoints=11,
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory="Too many stolen goods",
         description="Sticky fingers embodied."
 
@@ -53,7 +59,10 @@ def seed_characters():
         background="Soldier",
         alignment="True Neutral",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory="Lots of swords.",
         description="A weary soldier."
 
@@ -70,7 +79,10 @@ def seed_characters():
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory="Lots of knick knacks.",
         description="Very naive, but a good heart."
 
@@ -88,7 +100,10 @@ def seed_characters():
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory="A bunch of crap along with one good axe",
         description="A mean dwarf but good to have at your side. Gets real angry."
 
@@ -106,7 +121,10 @@ def seed_characters():
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory="A bunch of crap along with one good axe",
         description="A mean dwarf but good to have at your side. Gets real angry."
 
@@ -124,7 +142,10 @@ def seed_characters():
         background="Sailor",
         alignment="Chaotic Good",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        personality=json.dumps({"Traits": "Hates giants, dislikes elves, likes other short races", "Ideals": "fight til death", "Bonds": "Silverbeard, House Branka", "Flaws": "quick to judge, kind of an asshole"}),
+        traits="Hates giants, dislikes elves, likes other short races",
+        ideals="fight til death",
+        bonds="Silverbeard, House Branka",
+        flaws="quick to judge, kind of an asshole",
         inventory=" Handaxe, Javelin, Explorer's Pack, Greataxe, Smith's Tools, Tinkerer's Tools, Healing Potion, Keen Whetson, Rope(100ft), Pendant, Troll Skull(for reasons), Scale Armor",
         description="A mean dwarf but good to have at your side. Gets real angry."
 

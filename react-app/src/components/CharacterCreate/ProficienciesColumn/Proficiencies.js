@@ -50,20 +50,15 @@ const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHe
   const profBonus = Math.ceil(1 + level / 4);
 
   // proficiency choices and saving throws are determined by class and backgrounds so we define them here based on character choices
-  let profChoices;
   let profSavingThrows;
   if (characterClass === "Barbarian") {
     profSavingThrows = ["Constitution", "Strength"];
-    profChoices = ["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Nature"]
   } else if (characterClass === "Rogue") {
     profSavingThrows = ["Dexterity", "Intelligence"];
-    profChoices = ["Atheletics", "Intimidation", "Acrobatics", "Insight", "Perception", "Investigation", "Performance", "Persuasion", "Deception", "Sleight of Hand"]
   } else if (characterClass === "Fighter") {
     profSavingThrows = ["Strength", "Constitution"];
-    profChoices = ["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Acrobatics", "History", "Insight"]
   } else {
     profSavingThrows = ["Strength", "Dexterity"];
-    profChoices = ["Atheletics", "Acrobatics", "Stealth", "Religion", "History"]
   }
 
 

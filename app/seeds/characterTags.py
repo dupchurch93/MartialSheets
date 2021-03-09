@@ -10,7 +10,7 @@ def seed_characterTags():
 
     dwarftag = Tag.query.filter(Tag.name == "Dwarf").first()
     humantag = Tag.query.filter(Tag.name == "Human").first()
-    halflingtag = Tag.query.filter(Tag.name == "Halfing").first()
+    halflingtag = Tag.query.filter(Tag.name == "Halfling").first()
 
     barbtag = Tag.query.filter(Tag.name == "Barbarian").first()
     roguetag = Tag.query.filter(Tag.name == "Rogue").first()

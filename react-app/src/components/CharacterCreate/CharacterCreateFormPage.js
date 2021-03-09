@@ -14,11 +14,10 @@ const CharacterCreate = () => {
   const [alignment, setAlignment] = useState("Select Alignment");
   const [race, setRace] = useState("Select Race");
   const [hitpoints, setHitpoints] = useState(0);
-  const [imgURL, setimgURL] = useState("");
+  // const [imgURL, setimgURL] = useState("");
   const [proficiencies, setProficiencies] = useState("");
   const [speed, setSpeed] = useState(0);
   const [attributes, setAttributes] = useState({});
-  const [personality, setPersonality] = useState("");
   const [traits, setTraits] = useState([]);
   const [ideals, setIdeals] = useState([]);
   const [bonds, setBonds] = useState([]);
@@ -27,7 +26,8 @@ const CharacterCreate = () => {
   const [description, setDescription] = useState("");
   const [languages, setLanguages] = useState("");
   const [tools, setTools] = useState("");
-  const [tags, setTags] = useState("");
+  // const [tags, setTags] = useState("");
+  const [profChoices, setProfChoices] = useState([]);
 
   //helper function to roll stats on the character form so rerendering does not reroll them
   const rollAttributes = useCallback(() => {
@@ -72,13 +72,16 @@ const CharacterCreate = () => {
               race={race}
               background={background}
               alignment={alignment}
+              attributes={attributes}
               setName={setName}
               setCharacterClass={setCharacterClass}
               setRace={setRace}
               setBackground={setBackground}
               setAlignment={setAlignment}
-              setHelpContents={setHelpContents}
               setProficiencies={setProficiencies}
+              setHitpoints={setHitpoints}
+              setSpeed={setSpeed}
+              setProfChoices={setProfChoices}
             ></HeaderForm>
             <CharacterForm
               characterClass={characterClass}
@@ -94,9 +97,8 @@ const CharacterCreate = () => {
               flaws={flaws}
               languages={languages}
               tools={tools}
+              profChoices={profChoices}
               setProficiencies={setProficiencies}
-              setSpeed={setSpeed}
-              setPersonality={setPersonality}
               setTraits={setTraits}
               setIdeals={setIdeals}
               setBonds={setBonds}

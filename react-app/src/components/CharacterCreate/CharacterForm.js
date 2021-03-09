@@ -26,7 +26,8 @@ const CharacterForm = ({
   setFlaws,
   setBonds,
   setIdeals,
-  setTraits
+  setTraits,
+  setHitpoints
 }) => {
   return (
     <div className="header grid grid-cols-characterBody w-full space-x-2">
@@ -40,6 +41,7 @@ const CharacterForm = ({
         tools={tools}
         setTools={setTools}
         helpContents={helpContents}
+        setSpeed={setSpeed}
       ></StatsComponent>
       <Proficiencies
         characterClass={characterClass}

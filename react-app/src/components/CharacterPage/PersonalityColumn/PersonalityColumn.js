@@ -2,7 +2,12 @@ import PersonalityComponent from "./PersonalityComponent";
 import HPSpeedAC from "./HPSpeedAC";
 
 const PersonalityColumn = ({ character, setHelpContents }) => {
-  const traitsArray = Object.entries(JSON.parse(character.personality));
+  const traitsArray = [
+    ["Traits", character.traits],
+    ["Ideals", character.ideals],
+    ["Bonds", character.bonds],
+    ["Flaws", character.flaws],
+  ];
   const statsParsed = JSON.parse(character.attributes);
 
   const personalityHelper = (

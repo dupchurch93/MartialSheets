@@ -4,18 +4,22 @@ const HeaderForm = ({
   characterClass,
   race,
   alignment,
+  attributes,
   setName,
   setBackground,
   setCharacterClass,
   setRace,
   setAlignment,
   setHelpContents,
-  setProficiencies
+  setProficiencies,
+  setProfChoices,
+  setHitpoints,
+  setSpeed
 }) => {
   const classList = ["Barbarian", "Fighter", "Rogue", "Monk"];
   const raceList = [
     "Human",
-    "Halfing",
+    "Halfling",
     "Gnome",
     "Dragonborn",
     "Elf",
@@ -126,7 +130,7 @@ const HeaderForm = ({
         favor wandering as they don't belong to either of their parents' races.
       </div>
       <div>
-        <span className="font-bold underine">Halfings </span> Halflings are
+        <span className="font-bold underine">Halflings </span> Halflings are
         isolated, cheerful people who love the commodity of their homes and
         communities.
       </div>
@@ -179,6 +183,32 @@ const HeaderForm = ({
     }
   }
 
+  const handleSetRace = (e) => {
+    setRace(e.target.value)
+    if(e.target.value ==="Dwarf" || e.target.value === "Halfling" || e.target.value === "Gnome"){
+      setSpeed(25);
+    } else {
+      setSpeed(30);
+    }
+  }
+
+  const handleSetClass = (e) => {
+    setCharacterClass(e.target.value)
+    if(e.target.value === "Barbarian"){
+      setHitpoints(12 + Math.floor(((attributes.con) - 10)/2))
+      setProfChoices(["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Nature"])
+    } else if(e.target.value === "Fighter"){
+      setHitpoints(10 + Math.floor(((attributes.con) - 10)/2))
+      setProfChoices(["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Acrobatics", "History", "Insight"])
+    } else if(e.target.value === "Rogue") {
+      setHitpoints(8 + Math.floor(((attributes.con) - 10)/2))
+      setProfChoices(["Atheletics", "Intimidation", "Acrobatics", "Insight", "Perception", "Investigation", "Performance", "Persuasion", "Deception", "Sleight of Hand"])
+    } else {
+      setHitpoints(8 + Math.floor(((attributes.con) - 10)/2))
+      setProfChoices(["Atheletics", "Acrobatics", "Stealth", "Religion", "History"])
+    }
+  }
+
   return (
     <div className="header grid grid-cols-characterBody w-full grid-rows-1 space-x-2 ">
       <div className="mx-1 p-1 font-bold underline text-xl col-span-1 border-2 border-black rounded-lg p-2 w-full">
@@ -199,7 +229,7 @@ const HeaderForm = ({
           <select
             value={characterClass}
             name="Class"
-            onChange={(e) => setCharacterClass(e.target.value)}
+            onChange={(e) => handleSetClass(e)}
             onFocus={() => setHelpContents(classHelp)}
             className="w-36"
           >
@@ -219,7 +249,7 @@ const HeaderForm = ({
           <select
             value={race}
             name="race"
-            onChange={(e) => setRace(e.target.value)}
+            onChange={(e) => handleSetRace(e)}
             onFocus={() => setHelpContents(raceHelp)}
             className="w-36"
           >
