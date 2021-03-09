@@ -168,28 +168,14 @@ const HeaderForm = ({
 
   const handleSetBackground = (e) => {
     setBackground(e.target.value)
-    // switch(e.target.value){
-    //   case "Acolyte":
-        // console.log("in acolyte")
-        // setProficiencies("Religion, Insight");
-    //   case "Charlatan":
-        // console.log("in charlatan")
-        // setProficiencies("Deception, Sleight of Hand");
-    //   case "Criminal":
-    //     setProficiencies("Deception, Stealth")
-    //     console.log("in criminal")
-    //   default:
-    //     console.log("in default")
-    //     setProficiencies("Atheletics, Acrobatics")
-    // }
     if(e.target.value === "Acolyte"){
-      setProficiencies("Religion, Insight");
+      setProficiencies("Religion,Insight");
     } else if(e.target.value === "Charlatan"){
-      setProficiencies("Deception, Sleight of Hand");
+      setProficiencies("Deception,Sleight of Hand");
     } else if(e.target.value === "Criminal"){
-      setProficiencies("Deception, Stealth");
+      setProficiencies("Deception,Stealth");
     } else {
-      setProficiencies("Athletics, Acrobatics");
+      setProficiencies("Athletics,Acrobatics");
     }
   }
 

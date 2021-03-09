@@ -1,27 +1,32 @@
 import StatsComponent from "./StatsColumn/StatsComponent";
 import Proficiencies from "./ProficienciesColumn/Proficiencies";
 // import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
-// import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
+import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 
 const CharacterForm = ({
   helpContents,
   setHelpContents,
   hitpoints,
   proficiencies,
-  background,
   characterClass,
   speed,
   attributes,
-  personality,
+  bonds,
+  ideals,
+  traits,
+  flaws,
   languages,
   tools,
-  setHitpoints,
   setProficiencies,
   setSpeed,
   rollAttributes,
   setPersonality,
   setLanguages,
   setTools,
+  setFlaws,
+  setBonds,
+  setIdeals,
+  setTraits
 }) => {
   return (
     <div className="header grid grid-cols-characterBody w-full space-x-2">
@@ -38,23 +43,27 @@ const CharacterForm = ({
       ></StatsComponent>
       <Proficiencies
         characterClass={characterClass}
-        background={background}
         attributes={attributes}
         proficiencies={proficiencies}
-        setProficiencies={setProficiencies}
         setHelpContents={setHelpContents}
         level={1}
       ></Proficiencies>
-      {/* <PersonalityColumn
+      <PersonalityColumn
+        attributes={attributes}
         speed={speed}
-        setSpeed={setSpeed}
-        personality={personality}
+        traits={traits}
+        bonds={bonds}
+        ideals={ideals}
+        flaws={flaws}
+        setTraits={setTraits}
+        setBonds={setBonds}
+        setIdeals={setIdeals}
+        setFlaws={setFlaws}
         setPersonality={setPersonality}
         hitpoints={hitpoints}
-        setHitpoints={setHitpoints}
         setHelpContents={setHelpContents}
       ></PersonalityColumn>
-      <FeaturesColumn setHelpContents={setHelpContents}></FeaturesColumn> */}
+      {/* <FeaturesColumn setHelpContents={setHelpContents}></FeaturesColumn> */}
     </div>
   );
 };

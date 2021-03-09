@@ -1,11 +1,13 @@
 import SavingThrows from "./SavingThrows";
 import ProficienciesComponent from "./ProficienciesComponent";
 
-const Proficiencies = ({ characterClass, proficiencies, setProficiencies, attributes, level, setHelpContents, background }) => {
+const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHelpContents }) => {
 
   if (!attributes.str) {
     return <div>Loading...</div>;
   }
+
+
 
   const profColumnHelper = (
     <div>
@@ -19,7 +21,8 @@ const Proficiencies = ({ characterClass, proficiencies, setProficiencies, attrib
         <span className="font-bold underline">Proficiencies: </span> What types
         of skills your character excels at. The skills you are proficient with
         are based on your class and background while receiving bonus from their
-        associated stat as well.
+        associated stat as well.<br></br><br></br>
+        <div>Bolded skills are the ones your character is proficient in.</div>
       </div>
     </div>
   );

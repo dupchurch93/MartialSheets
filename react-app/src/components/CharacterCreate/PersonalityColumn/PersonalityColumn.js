@@ -1,9 +1,26 @@
 import PersonalityComponent from "./PersonalityComponent";
 import HPSpeedAC from "./HPSpeedAC";
 
-const PersonalityColumn = ({ character, setHelpContents }) => {
-  const traitsArray = Object.entries(JSON.parse(character.personality));
-  const statsParsed = JSON.parse(character.attributes);
+const PersonalityColumn = ({
+  setHelpContents,
+  attributes,
+  speed,
+  hitpoints,
+  bonds,
+  flaws,
+  ideals,
+  traits,
+  setTraits,
+  setBonds,
+  setFlaws,
+  setIdeals,
+}) => {
+  const traitsArray = [
+    ["Traits", traits, setTraits],
+    ["Ideals", ideals, setIdeals],
+    ["Bonds", bonds, setBonds],
+    ["Flaws", flaws, setFlaws],
+  ];
 
   const personalityHelper = (
     <div>
@@ -31,9 +48,9 @@ const PersonalityColumn = ({ character, setHelpContents }) => {
     >
       <div className="p-2 md:flex flex-col">
         <HPSpeedAC
-          dex={statsParsed.dex}
-          hitpoints={character.hitpoints}
-          speed={character.speed}
+          dex={attributes.dex}
+          hitpoints={hitpoints}
+          speed={speed}
         ></HPSpeedAC>
       </div>
       {traitsArray.map((trait) => {
@@ -42,6 +59,7 @@ const PersonalityColumn = ({ character, setHelpContents }) => {
             key={trait[0]}
             name={trait[0]}
             description={trait[1]}
+            setter={trait[2]}
           ></PersonalityComponent>
         );
       })}
