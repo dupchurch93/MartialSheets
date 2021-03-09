@@ -28,6 +28,7 @@ const CharacterCreate = () => {
   const [tools, setTools] = useState("");
   // const [tags, setTags] = useState("");
   const [profChoices, setProfChoices] = useState([]);
+  const [sampleFeatures, setSampleFeatures] = useState([]);
 
   //helper function to roll stats on the character form so rerendering does not reroll them
   const rollAttributes = useCallback(() => {
@@ -82,6 +83,7 @@ const CharacterCreate = () => {
               setHitpoints={setHitpoints}
               setSpeed={setSpeed}
               setProfChoices={setProfChoices}
+              setSampleFeatures={setSampleFeatures}
             ></HeaderForm>
             <CharacterForm
               characterClass={characterClass}
@@ -98,6 +100,7 @@ const CharacterCreate = () => {
               languages={languages}
               tools={tools}
               profChoices={profChoices}
+              sampleFeatures={sampleFeatures}
               setProficiencies={setProficiencies}
               setTraits={setTraits}
               setIdeals={setIdeals}

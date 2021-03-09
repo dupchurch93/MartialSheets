@@ -17,6 +17,7 @@ const CharacterForm = ({
   flaws,
   languages,
   tools,
+  sampleFeatures,
   setProficiencies,
   setSpeed,
   rollAttributes,
@@ -27,7 +28,6 @@ const CharacterForm = ({
   setBonds,
   setIdeals,
   setTraits,
-  setHitpoints
 }) => {
   return (
     <div className="header grid grid-cols-characterBody w-full space-x-2">
@@ -65,7 +65,7 @@ const CharacterForm = ({
         hitpoints={hitpoints}
         setHelpContents={setHelpContents}
       ></PersonalityColumn>
-      {/* <FeaturesColumn setHelpContents={setHelpContents}></FeaturesColumn> */}
+      {/* <FeaturesColumn setHelpContents={setHelpContents} sampleFeatures={sampleFeatures}></FeaturesColumn> */}
     </div>
   );
 };
