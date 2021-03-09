@@ -1,6 +1,7 @@
 import FeatureList from "./FeatureList";
 
-const Features = ({ character, setHelpContents }) => {
+const Features = ({ setHelpContents, sampleFeatures }) => {
+
   const featuresHelp = (
     <div>
       <div>
@@ -12,13 +13,14 @@ const Features = ({ character, setHelpContents }) => {
       </div>
     </div>
   );
+
   return (
     <div
       className="featuresColumn border-r border-black"
       onMouseEnter={() => setHelpContents(featuresHelp)}
     >
-      <div className="font-bold underline text-center">Features</div>
-      <FeatureList features={character.abilities}></FeatureList>
+      <div className="font-bold underline text-center">Level 1 Sample Features</div>
+      <FeatureList sampleFeatures={sampleFeatures}></FeatureList>
     </div>
   );
 };

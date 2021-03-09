@@ -1,6 +1,6 @@
 import StatsComponent from "./StatsColumn/StatsComponent";
 import Proficiencies from "./ProficienciesColumn/Proficiencies";
-// import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
+import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
 import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 
 const CharacterForm = ({
@@ -65,7 +65,7 @@ const CharacterForm = ({
         hitpoints={hitpoints}
         setHelpContents={setHelpContents}
       ></PersonalityColumn>
-      {/* <FeaturesColumn setHelpContents={setHelpContents} sampleFeatures={sampleFeatures}></FeaturesColumn> */}
+      <FeaturesColumn setHelpContents={setHelpContents} sampleFeatures={sampleFeatures}></FeaturesColumn>
     </div>
   );
 };

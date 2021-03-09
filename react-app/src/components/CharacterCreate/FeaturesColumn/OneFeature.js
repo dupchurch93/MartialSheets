@@ -3,7 +3,8 @@ import { useState } from "react";
 const OneFeature = ({ feature }) => {
   const [showDescription, setShowDescription] = useState(false);
 
-  const changeShow = () => {
+  const changeShow = (e) => {
+    e.preventDefault()
     setShowDescription(() => !showDescription);
   };
 
@@ -17,7 +18,7 @@ const OneFeature = ({ feature }) => {
     <div className="oneFeatureContainer px-2 mb-2">
       <button
         className="rounded-lg w-full"
-        onClick={() => changeShow()}
+        onClick={(e) => changeShow(e)}
       >
         <div className="font-bold text-myred">
           {feature.name}
