@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { addCharacterThunk } from "../../store/character";
+import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
@@ -6,6 +9,7 @@ import HeaderForm from "./HeaderForm";
 
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
+  const dispatch = useDispatch();
 
   // Controlled form fields
   const [name, setName] = useState("");
@@ -14,7 +18,7 @@ const CharacterCreate = () => {
   const [alignment, setAlignment] = useState("Select Alignment");
   const [race, setRace] = useState("Select Race");
   const [hitpoints, setHitpoints] = useState(0);
-  // const [imgURL, setimgURL] = useState("");
+  const [imgURL, setimgURL] = useState("");
   const [proficiencies, setProficiencies] = useState("");
   const [speed, setSpeed] = useState(0);
   const [attributes, setAttributes] = useState({});
@@ -26,9 +30,12 @@ const CharacterCreate = () => {
   const [description, setDescription] = useState("");
   const [languages, setLanguages] = useState("");
   const [tools, setTools] = useState("");
-  // const [tags, setTags] = useState("");
+  const [tags, setTags] = useState("");
   const [profChoices, setProfChoices] = useState([]);
   const [sampleFeatures, setSampleFeatures] = useState([]);
+
+  //errors state for rendering errors
+  const [errors, setErrors] = useState([]);
 
   //helper function to roll stats on the character form so rerendering does not reroll them
   const rollAttributes = useCallback(() => {
@@ -46,13 +53,52 @@ const CharacterCreate = () => {
     setAttributes(attrObj);
   }, []);
 
+  //handle the submit. Format data correctly and dispatch creation thunk.
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const character = {
+      name: name,
+      level: 1,
+      race: race,
+      characterClass: characterClass,
+      hitpoints: hitpoints,
+      imgURL: imgURL,
+      proficiencies: proficiencies,
+      speed: speed,
+      background: background,
+      alignment: alignment,
+      traits: traits,
+      ideals: ideals,
+      bonds: bonds,
+      flaws: flaws,
+      description: description,
+      inventory: inventory,
+      languages: languages,
+      tools: tools,
+      tags: tags
+    };
+    const response = await dispatch(addCharacterThunk(character));
+    console.log(response)
+    if(!response.errors){
+      return <Redirect to="/" />
+    } else {
+      setErrors(response.errors);
+    }
+
+  }
+
   //only roll on page load and on button reroll. Values persist with useState
   useEffect(() => {
     rollAttributes();
   }, [rollAttributes]);
 
   return (
-    <form className="flex justify-center">
+    <form className="flex justify-center" onSubmit={handleSubmit}>
+      <div>
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
+        </div>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>
@@ -107,7 +153,7 @@ const CharacterCreate = () => {
               setBonds={setBonds}
               setFlaws={setFlaws}
               setLanguages={setLanguages}
-              setTags={setTools}
+              setTools={setTools}
               rollAttributes={rollAttributes}
             ></CharacterForm>
             <DescriptionForm
