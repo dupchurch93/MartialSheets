@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import CharacterSheet from "./CharacterSheet";
 import InventorySheet from "./InventorySheet";
 import DescriptionSheet from "./DescriptionSheet";
@@ -8,6 +8,9 @@ import { deleteCharacterThunk } from "../../store/character";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const character = useSelector((state) => state.characters.list[characterId]);
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
@@ -30,10 +33,16 @@ const CharacterPage = () => {
     setShowDescription(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async() => {
     const confirmed = window.confirm("Are you sure you want to delete this character?");
     if(confirmed){
       console.log("true")
+      const result = await dispatch(deleteCharacterThunk(characterId));
+      if(!result.errors){
+        history.push(`/`)
+      } else{
+        return "Error, something went wrong";
+      }
     }
   }
 

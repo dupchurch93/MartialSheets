@@ -54,7 +54,12 @@ export const addCharacterThunk = (character) => async (dispatch) => {
 };
 
 export const deletecharacterThunk = (charId) => async (dispatch) => {
-
+  const response = await fetch("/api/characters/delete", {
+    method: "DELETE",
+    body: JSON.stringify(charId)
+  });
+  const res = await response.json();
+  return res;
 }
 
 
