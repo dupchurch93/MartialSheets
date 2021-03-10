@@ -41,6 +41,7 @@ def seed_characters():
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
         traits="Hates giants, dislikes elves, likes other short races",
         ideals="fight til death",
+        imgURL="https://martialsheets-image-bucket.s3.amazonaws.com/isabella.jpg",
         bonds="Silverbeard, House Branka",
         flaws="quick to judge, kind of an asshole",
         inventory="Too many stolen goods",
@@ -61,6 +62,7 @@ def seed_characters():
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
         traits="Hates giants, dislikes elves, likes other short races",
         ideals="fight til death",
+        imgURL="https://martialsheets-image-bucket.s3.amazonaws.com/latenkull.png",
         bonds="Silverbeard, House Branka",
         flaws="quick to judge, kind of an asshole",
         inventory="Lots of swords.",
@@ -78,6 +80,7 @@ def seed_characters():
         proficiencies="Athletics,Insight,History,Perception,Survival",
         background="Sailor",
         alignment="Chaotic Good",
+        imgURL="https://martialsheets-image-bucket.s3.amazonaws.com/Irelia.png",
         attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 12, "wis": 12, "cha": 12}),
         traits="Hates giants, dislikes elves, likes other short races",
         ideals="fight til death",
@@ -88,70 +91,8 @@ def seed_characters():
 
     )
 
-    grydal1 = Character(
-        userId=1,
-        name="Grydal",
-        level=1,
-        hitpoints=15,
-        race="Dwarf",
-        characterClass="Barbarian",
-        subclass="Path of the Berserker",
-        proficiencies="Athletics,Insight,History,Perception,Survival",
-        background="Sailor",
-        alignment="Chaotic Good",
-        attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        traits="Hates giants, dislikes elves, likes other short races",
-        ideals="fight til death",
-        bonds="Silverbeard, House Branka",
-        flaws="quick to judge, kind of an asshole",
-        inventory="A bunch of crap along with one good axe",
-        description="A mean dwarf but good to have at your side. Gets real angry."
 
-    )
-
-    grydal2 = Character(
-        userId=1,
-        name="Grydal",
-        hitpoints=15,
-        level=1,
-        race="Dwarf",
-        characterClass="Barbarian",
-        subclass="Path of the Berserker",
-        proficiencies="Athletics,Insight,History,Perception,Survival",
-        background="Sailor",
-        alignment="Chaotic Good",
-        attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        traits="Hates giants, dislikes elves, likes other short races",
-        ideals="fight til death",
-        bonds="Silverbeard, House Branka",
-        flaws="quick to judge, kind of an asshole",
-        inventory="A bunch of crap along with one good axe",
-        description="A mean dwarf but good to have at your side. Gets real angry."
-
-    )
-
-    grydal3 = Character(
-        userId=1,
-        name="Grydal",
-        level=1,
-        hitpoints=15,
-        race="Dwarf",
-        characterClass="Barbarian",
-        subclass="Path of the Berserker",
-        proficiencies="Athletics,Insight,History,Perception,Survival",
-        background="Sailor",
-        alignment="Chaotic Good",
-        attributes=json.dumps({"str": 17, "dex": 10, "con": 16, "int": 8, "wis": 15, "cha": 8}),
-        traits="Hates giants, dislikes elves, likes other short races",
-        ideals="fight til death",
-        bonds="Silverbeard, House Branka",
-        flaws="quick to judge, kind of an asshole",
-        inventory=" Handaxe, Javelin, Explorer's Pack, Greataxe, Smith's Tools, Tinkerer's Tools, Healing Potion, Keen Whetson, Rope(100ft), Pendant, Troll Skull(for reasons), Scale Armor",
-        description="A mean dwarf but good to have at your side. Gets real angry."
-
-    )
-
-    db.session.add_all([grydal, isabella, laten, irelia, grydal1, grydal2, grydal3])
+    db.session.add_all([grydal, isabella, laten, irelia])
     db.session.commit()
 
 def undo_characters():

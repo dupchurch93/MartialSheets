@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { addCharacterThunk } from "../../store/character";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
@@ -11,6 +11,7 @@ const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const history = useHistory();
 
   // Controlled form fields
   const [name, setName] = useState("");
@@ -83,15 +84,9 @@ const CharacterCreate = () => {
     Object.entries(character).forEach((entry) => {
       myForm.append(entry[0], entry[1]);
     });
-    for (var pair of myForm.entries()) {
-
-      console.log(pair[0] + " - " + pair[1]);
-
-    }
     const response = await dispatch(addCharacterThunk(myForm));
-    console.log("response in dispatch from form", response);
     if (!response.errors) {
-      return <Redirect to="/" />;
+      history.push(`/`)
     } else {
       setErrors(response.errors);
     }

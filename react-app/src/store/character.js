@@ -39,9 +39,9 @@ export const addCharacterThunk = (character) => async (dispatch) => {
     body: character
   });
   const newChar = await response.json();
-  //   if (!newChar.errors) {
-  //     dispatch(addCharacter(newChar));
-  //   }
+    if (!newChar.errors) {
+      dispatch(addCharacter(newChar));
+    }
   return newChar;
 };
 
@@ -68,7 +68,7 @@ const characterReducer = (state = initialState, action) => {
       newState = initialState;
       return newState;
     case ADD_CHARACTER:
-      newState.Object.assign({}, state);
+      newState = Object.assign({}, state);
       newState.list[action.payload.id] = action.payload;
       return newState;
     default:
