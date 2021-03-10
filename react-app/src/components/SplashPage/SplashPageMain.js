@@ -15,7 +15,7 @@ const SplashPageMain = () => {
   }, [characters]);
 
   return (
-    <div className="pageContent w-full md:w-2/3">
+    <div className="pageContent w-full md:w-3/4">
       <div className="splashPageContainer md:grid md:grid-cols-splash">
         <FilterPanel
           setFilteredCharacters={setFilteredCharacters}
@@ -27,11 +27,16 @@ const SplashPageMain = () => {
           <div className="title text-center border-b-2 border-black font-bold text-xl">
             Characters
           </div>
-          <div className="characterCards w-full flex justify-start flex-wrap">
+          <div className="characterCards w-full flex justify-center flex-wrap">
             <Link to={`/character/create`}>
-              <div className="characterCard rounded-lg w-56 h-64 p-2 font-bold flex flex-col bg-gray-100 mx-4 my-4">
-                <div>Create New Character</div>
-              </div>
+            <div className="characterCard rounded-lg w-56 h-64 p-2 font-bold bg-gray-100 m-4">
+            <div className="h-10 w-full">
+              Create New Character
+            </div>
+            <div className="w-full h-52 flex justify-center items-center p-1">
+                <img src="https://martialsheets-image-bucket.s3.amazonaws.com/newcharacter.jpg" className="w-auto h-48 object-fill rounded-2xl p-2" alt="character"></img>
+            </div>
+          </div>
             </Link>
             {filteredCharacters.length > 0 &&
               filteredCharacters.map((character) => {
