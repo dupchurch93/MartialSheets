@@ -39,7 +39,7 @@ def create_character():
     form['csrf_token'].data = request.cookies['csrf_token']
     # if form.validate_on_submit():
     print("request files-----------", "image" in request.files)
-    if True:
+    if form.validate_on_submit():
         if "image" not in request.files:
             return {"errors": ["image required"]}
 
@@ -53,36 +53,34 @@ def create_character():
         upload = upload_file_to_s3(image)
 
         if "url" not in upload:
-            return upload
+            return {"errors": [upload['errors']]}
 
         url = upload["url"]
         character = Character()
-        form.populate_obj(Character)
-        character["imgURL"] = url
+        character = Character(
+            userId=form.data['userId'],
+            name=form.data['name'],
+            level=form.data['level'],
+            race=form.data['race'],
+            characterClass=form.data['characterClass'],
+            subclass=form.data['subclass'],
+            hitpoints=form.data['hitpoints'],
+            speed=form.data['speed'],
+            imgURL=url,
+            proficiencies=form.data['proficiencies'],
+            background=form.data['background'],
+            alignment=form.data['alignment'],
+            attributes=form.data['attributes'],
+            traits=form.data['traits'],
+            ideals=form.data['ideals'],
+            bonds=form.data['bonds'],
+            flaws=form.data['flaws'],
+            inventory=form.data['inventory'],
+            description=form.data['description'],
+            languages=form.data['languages'],
+            tools=form.data['tools']
+        )
         print("character", character.to_dict())
-        # character = Character(
-        #     userId=form.data['userId'],
-        #     name=form.data['name'],
-        #     level=form.data['level'],
-        #     race=form.data['race'],
-        #     characterClass=form.data['characterClass'],
-        #     subclass=form.data['subclass'],
-        #     hitpoints=form.data['hitpoints'],
-        #     speed=form.data['speed'],
-        #     imgURL=url,
-        #     proficiencies=form.data['proficiencies'],
-        #     background=form.data['background'],
-        #     alignment=form.data['alignment'],
-        #     attributes=form.data['attributes'],
-        #     traits=form.data['traits'],
-        #     ideals=form.data['ideals'],
-        #     bonds=form.data['bonds'],
-        #     flaws=form.data['flaws'],
-        #     inventory=form.data['inventory'],
-        #     description=form.data['description'],
-        #     languages=form.data['languages'],
-        #     tools=form.data['tools']
-        # )
         db.session.add(character)
         db.session.commit()
         return character.to_dict()
