@@ -1,6 +1,6 @@
 import StatsComponent from "./StatsColumn/StatsComponent";
 import Proficiencies from "./ProficienciesColumn/Proficiencies";
-// import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
+import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
 import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 
 const CharacterForm = ({
@@ -17,6 +17,7 @@ const CharacterForm = ({
   flaws,
   languages,
   tools,
+  profChoices,
   sampleFeatures,
   setProficiencies,
   setSpeed,
@@ -65,7 +66,14 @@ const CharacterForm = ({
         hitpoints={hitpoints}
         setHelpContents={setHelpContents}
       ></PersonalityColumn>
-      {/* <FeaturesColumn setHelpContents={setHelpContents} sampleFeatures={sampleFeatures}></FeaturesColumn> */}
+      <FeaturesColumn
+        characterClass={characterClass}
+        proficiencies={proficiencies}
+        setProficiencies={setProficiencies}
+        setHelpContents={setHelpContents}
+        sampleFeatures={sampleFeatures}
+        profChoices={profChoices}
+      ></FeaturesColumn>
     </div>
   );
 };

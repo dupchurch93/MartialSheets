@@ -4,9 +4,9 @@ import os
 import uuid
 
 s3 = boto3.client(
-    "s3",
-    aws_access_id=os.environ.get("S3_KEY"),
-    aws_secret_access_key=os.environ.get("S3_SECRET")
+   "s3",
+   aws_access_key_id=os.environ.get("S3_KEY"),
+   aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
@@ -29,8 +29,11 @@ def get_unique_filename(filename):
     return f"{unqiue_filename}.{ext}"
 
 
-def upload_file_to_s3(file, acl="public_read"):
+def upload_file_to_s3(file, acl="public-read"):
     try:
+        print('file', file)
+        print('bucket name', BUCKET_NAME)
+        print('file name', file.filename)
         s3.upload_fileobj(
             file,
             BUCKET_NAME,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
+import {loadCharactersThunk} from "../../store/character"
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -15,6 +16,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     const user = await dispatch(sessionActions.login(email, password));
     if (!user.errors) {
       setAuthenticated(true);
+      dispatch(loadCharactersThunk())
     } else {
       setErrors(user.errors);
     }
@@ -23,6 +25,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const onDemoLogin = async (e) => {
     await dispatch(sessionActions.login("demo@aa.io", "password"));
     setAuthenticated(true);
+    dispatch(loadCharactersThunk())
   };
 
   const updateEmail = (e) => {

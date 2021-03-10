@@ -23,6 +23,7 @@ export const login = (email, password) => async (dispatch) => {
   });
   const user = await response.json();
   dispatch(setUser(user));
+
   return user;
 };
 

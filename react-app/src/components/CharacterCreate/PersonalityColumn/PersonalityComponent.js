@@ -6,7 +6,6 @@ const PersonalityComponent = ({name, description, setter}) => {
             <textarea
             className="h-24"
             name={name}
-            placeholder={name}
             onChange={(e) => setter(e.target.value)}>
             </textarea>
         </div>

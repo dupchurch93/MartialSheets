@@ -1,6 +1,14 @@
 import FeatureList from "./FeatureList";
+import ClassProficiencyChoice from "./ClassProficiencyChoice";
 
-const Features = ({ character, setHelpContents }) => {
+const Features = ({
+  setHelpContents,
+  sampleFeatures,
+  characterClass,
+  setProficiencies,
+  proficiencies,
+  profChoices,
+}) => {
   const featuresHelp = (
     <div>
       <div>
@@ -12,13 +20,34 @@ const Features = ({ character, setHelpContents }) => {
       </div>
     </div>
   );
+
+  const profHelp = (
+    <div>
+      Each class, besides rogues, is able to choose two skills from a list of
+      skills that their character may be proficient at that. Rogues are more
+      skill oriented and are able to choose four.
+    </div>
+  );
+
   return (
-    <div
-      className="featuresColumn border-r border-black"
-      onMouseEnter={() => setHelpContents(featuresHelp)}
-    >
-      <div className="font-bold underline text-center">Features</div>
-      <FeatureList features={character.abilities}></FeatureList>
+    <div className="featuresColumn border-r border-black">
+      <div onMouseEnter={() => setHelpContents(profHelp)}>
+        <div className="font-bold underline text-center">
+          Class Proficiencies
+        </div>
+        <ClassProficiencyChoice
+          proficiencies={proficiencies}
+          setProficiencies={setProficiencies}
+          profChoices={profChoices}
+          characterClass={characterClass}
+        ></ClassProficiencyChoice>
+      <div className="font-bold underline text-center">
+        Level 1 Sample Features
+      </div>
+      <div onMouseEnter={() => setHelpContents(featuresHelp)}>
+        <FeatureList sampleFeatures={sampleFeatures}></FeatureList>
+      </div>
+      </div>
     </div>
   );
 };
