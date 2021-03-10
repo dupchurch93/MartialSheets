@@ -16,7 +16,7 @@ class CharacterForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     level = IntegerField('level', validators=[DataRequired()])
     race = StringField('race', validators=[DataRequired()])
-    characterClass = StringField('class', validators=[DataRequired()])
+    characterClass = StringField('characterClass', validators=[DataRequired()])
     subclass = StringField('subclass')
     hitpoints = IntegerField('hitpoints', validators=[DataRequired()])
     speed = IntegerField('speed', validators=[DataRequired()])

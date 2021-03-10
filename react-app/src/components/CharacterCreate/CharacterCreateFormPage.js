@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { addCharacterThunk } from "../../store/character";
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
@@ -10,7 +10,7 @@ import HeaderForm from "./HeaderForm";
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user)
+  const user = useSelector((state) => state.session.user);
 
   // Controlled form fields
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ const CharacterCreate = () => {
   const [alignment, setAlignment] = useState("Select Alignment");
   const [race, setRace] = useState("Select Race");
   const [hitpoints, setHitpoints] = useState(0);
-  const [imgURL, setimgURL] = useState("");
+  const [image, setImage] = useState("");
   const [proficiencies, setProficiencies] = useState("");
   const [speed, setSpeed] = useState(0);
   const [attributes, setAttributes] = useState({});
@@ -56,6 +56,7 @@ const CharacterCreate = () => {
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const myForm = new FormData();
     const character = {
       userId: user.id,
       name: name,
@@ -63,9 +64,9 @@ const CharacterCreate = () => {
       race: race,
       characterClass: characterClass,
       hitpoints: hitpoints,
-      imgURL: imgURL,
       proficiencies: proficiencies,
       speed: speed,
+      image: image,
       background: background,
       alignment: alignment,
       attributes: JSON.stringify(attributes),
@@ -77,34 +78,50 @@ const CharacterCreate = () => {
       inventory: inventory,
       languages: languages,
       tools: tools,
-      tags: tags
+      tags: tags,
     };
-    const response = await dispatch(addCharacterThunk(character));
-    console.log(response)
-    if(!response.errors){
-      return <Redirect to="/" />
+    Object.entries(character).forEach((entry) => {
+      myForm.append(entry[0], entry[1]);
+    });
+    for (var pair of myForm.entries()) {
+
+      console.log(pair[0] + " - " + pair[1]);
+
+    }
+    const response = await dispatch(addCharacterThunk(myForm));
+    console.log("response in dispatch from form", response);
+    if (!response.errors) {
+      return <Redirect to="/" />;
     } else {
       setErrors(response.errors);
     }
-
-  }
+  };
 
   //only roll on page load and on button reroll. Values persist with useState
   useEffect(() => {
     rollAttributes();
   }, [rollAttributes]);
 
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
   return (
-    <form className="flex justify-center" onSubmit={handleSubmit}>
+    <form className="flex justify-center" id="charForm" onSubmit={handleSubmit}>
       <div>
-          {errors.map((error) => (
-            <div>{error}</div>
-          ))}
-        </div>
+        {errors.map((error) => (
+          <div key={error}>{error}</div>
+        ))}
+      </div>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>
-          <input type="file" name="characterPicture"></input>
+          <input
+            type="file"
+            name="characterPicture"
+            onChange={updateImage}
+          ></input>
         </div>
         <div className="description w-48 mt-2 mx-2 h-full mb-12 border border-black rounded-lg bg-gray-100 overflow-auto">
           <div className="font-bold underline p-1 text-center">More Info:</div>

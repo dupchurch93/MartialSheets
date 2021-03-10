@@ -14,10 +14,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const user = await dispatch(sessionActions.login(email, password));
-    console.log("above if statement in login handler")
     if (!user.errors) {
       setAuthenticated(true);
-      console.log("user in login thunk", user)
       dispatch(loadCharactersThunk())
     } else {
       setErrors(user.errors);

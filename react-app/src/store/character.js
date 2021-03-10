@@ -36,10 +36,7 @@ export const loadCharactersThunk = () => async (dispatch) => {
 export const addCharacterThunk = (character) => async (dispatch) => {
   const response = await fetch("/api/characters/create", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(character),
+    body: character
   });
   const newChar = await response.json();
   //   if (!newChar.errors) {
