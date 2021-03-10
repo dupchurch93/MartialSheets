@@ -36,7 +36,6 @@ def seed_characterTags():
     irelia.tags.append(tyrannyTag)
 
     # commit the change in the relationship
-    db.session.add(grydal)
     db.session.commit()
 
 

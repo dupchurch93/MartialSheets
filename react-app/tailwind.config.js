@@ -29,7 +29,7 @@ module.exports = {
         "desc": "250px",
       },
       minHeight: {
-        "traits": "8rem"
+        "traits": "8rem",
       }
     },
   },

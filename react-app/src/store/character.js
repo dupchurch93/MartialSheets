@@ -1,6 +1,7 @@
 const LOAD_CHARACTERS = "character/loadCharacters";
 const REMOVE_CHARACTERS = "character/removeCharacters";
 const ADD_CHARACTER = "character/addCharacter";
+const DELETE_CHARACTER = "character/deleteCharacter";
 
 const loadCharacters = (characters) => {
   return {
@@ -21,6 +22,13 @@ const addCharacter = (character) => {
     payload: character,
   };
 };
+
+const deleteCharacter = (charId) => {
+  return {
+    type: DELETE_CHARACTER,
+    payloaad: charId
+  }
+}
 
 export const loadCharactersThunk = () => async (dispatch) => {
   const response = await fetch("/api/characters/", {
@@ -44,6 +52,19 @@ export const addCharacterThunk = (character) => async (dispatch) => {
     }
   return newChar;
 };
+
+export const deletecharacterThunk = (charId) => async (dispatch) => {
+
+}
+
+
+
+
+
+
+
+
+
 
 const initialState = { list: [], tags: [] };
 
@@ -70,6 +91,11 @@ const characterReducer = (state = initialState, action) => {
     case ADD_CHARACTER:
       newState = Object.assign({}, state);
       newState.list[action.payload.id] = action.payload;
+      const currentTagSet = new Set(newState.tags)
+      action.payload.tags.forEach((tag) => {
+        currentTagSet.add(tag);
+      });
+      newState.tags = [...currentTagSet]
       return newState;
     default:
       return state;

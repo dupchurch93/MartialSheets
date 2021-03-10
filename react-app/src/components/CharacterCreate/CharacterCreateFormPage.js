@@ -57,6 +57,7 @@ const CharacterCreate = () => {
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const myForm = new FormData();
     const character = {
       userId: user.id,
@@ -169,6 +170,8 @@ const CharacterCreate = () => {
               setLanguages={setLanguages}
               setTools={setTools}
               rollAttributes={rollAttributes}
+              setTags={setTags}
+              tags={tags}
             ></CharacterForm>
             <DescriptionForm
               setHelpContents={setHelpContents}
