@@ -87,7 +87,8 @@ const CharacterCreate = () => {
     });
     const response = await dispatch(addCharacterThunk(myForm));
     if (!response.errors) {
-      history.push(`/`)
+      window.scrollTo(0,0);
+      history.push(`/`);
     } else {
       setErrors(response.errors);
     }

@@ -36,9 +36,9 @@ const CharacterPage = () => {
   const handleDelete = async() => {
     const confirmed = window.confirm("Are you sure you want to delete this character?");
     if(confirmed){
-      console.log("true")
       const result = await dispatch(deleteCharacterThunk(characterId));
       if(!result.errors){
+        window.scrollTo(0,0);
         history.push(`/`)
       } else{
         return "Error, something went wrong";

@@ -26,7 +26,7 @@ const addCharacter = (character) => {
 const deleteCharacter = (charId) => {
   return {
     type: DELETE_CHARACTER,
-    payloaad: charId
+    payload: charId
   }
 }
 
@@ -53,12 +53,19 @@ export const addCharacterThunk = (character) => async (dispatch) => {
   return newChar;
 };
 
-export const deletecharacterThunk = (charId) => async (dispatch) => {
+export const deleteCharacterThunk = (charId) => async (dispatch) => {
   const response = await fetch("/api/characters/delete", {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "DELETE",
-    body: JSON.stringify(charId)
+    body: charId
   });
   const res = await response.json();
+  console.log('res', res)
+  if(!res.errors){
+    dispatch(deleteCharacter(charId));
+  }
   return res;
 }
 
@@ -70,14 +77,13 @@ export const deletecharacterThunk = (charId) => async (dispatch) => {
 
 
 
-
+// reducer and initial state
 const initialState = { list: [], tags: [] };
 
 const characterReducer = (state = initialState, action) => {
-  let newState;
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case LOAD_CHARACTERS:
-      newState = Object.assign({}, state);
       const characterList = {};
       const tags = new Set();
       action.payload.forEach((character) => {
@@ -90,17 +96,18 @@ const characterReducer = (state = initialState, action) => {
       newState.tags = Array.from(tags);
       return newState;
     case REMOVE_CHARACTERS:
-      newState = Object.assign({}, state);
       newState = initialState;
       return newState;
     case ADD_CHARACTER:
-      newState = Object.assign({}, state);
       newState.list[action.payload.id] = action.payload;
       const currentTagSet = new Set(newState.tags)
       action.payload.tags.forEach((tag) => {
         currentTagSet.add(tag);
       });
       newState.tags = [...currentTagSet]
+      return newState;
+    case DELETE_CHARACTER:
+      delete newState.list[Number(action.payload)]
       return newState;
     default:
       return state;

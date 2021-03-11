@@ -98,3 +98,15 @@ def create_character():
         db.session.commit()
         return character.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}
+
+
+@character_routes.route('/delete', methods=["DELETE"])
+def delete_character():
+    char_id = int(request.data.decode("UTF-8"))
+    char_to_delete = Character.query.get(char_id)
+    if char_to_delete:
+        db.session.delete(char_to_delete)
+        db.session.commit()
+        return {"Success": "Character deleted."}
+    else:
+        return {"errors": "Character not found, something went wrong."}
