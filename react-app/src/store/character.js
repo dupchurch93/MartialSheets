@@ -71,7 +71,6 @@ export const deleteCharacterThunk = (charId) => async (dispatch) => {
     body: charId,
   });
   const res = await response.json();
-  console.log("res", res);
   if (!res.errors) {
     dispatch(deleteCharacter(charId));
   }
@@ -138,7 +137,7 @@ const characterReducer = (state = initialState, action) => {
       newState.tags = getTags(Object.values(newState.list));
       return newState
     case DELETE_CHARACTER_TAG:
-      newState.list[action.payload.id] = action.payload;
+      newState.list[action.payload.char.id] = action.payload.char;
       newState.tags = getTags(Object.values(newState.list));
       return newState;
     default:
