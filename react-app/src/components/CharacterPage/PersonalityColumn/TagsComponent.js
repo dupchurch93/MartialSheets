@@ -6,7 +6,7 @@ const TagsComponent = ({ tags, charId }) => {
       <div className="font-bold underline">Character Tags</div>
       <div className="tagsContainer flex flex-wrap">
         {tags.map((tag) => {
-          return <TagComponent key={tag} tag={tag}></TagComponent>;
+          return <TagComponent key={tag} charId={charId} tag={tag}></TagComponent>;
         })}
       </div>
     </div>

@@ -1,8 +1,15 @@
 import { TiDelete } from "react-icons/ti";
+import { useDispatch } from "react-redux";
+import { deleteCharacterTagThunk } from "../../../store/character";
 
-const TagComponent = ({ tag }) => {
-  const handleTagDelete = () => {
+const TagComponent = ({ tag, charId }) => {
+  const dispatch = useDispatch();
 
+  const handleTagDelete = async () => {
+    const res = await dispatch(deleteCharacterTagThunk(tag, charId))
+    if(!res.errors){
+      
+    }
   };
 
   return (

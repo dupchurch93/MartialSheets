@@ -32,10 +32,10 @@ const deleteCharacter = (charId) => {
   };
 };
 
-const deleteCharacterTag = (tag) => {
+const deleteCharacterTag = (tag, char) => {
   return {
     type: DELETE_CHARACTER_TAG,
-    payload: tag
+    payload: {tag, "char": char}
   }
 }
 
@@ -82,13 +82,18 @@ export const deleteCharacterTagThunk = (tag, charId) => async (dispatch) => {
   const response = await fetch("/api/characters/deleteTag", {
     headers: {
       "Content-Type": "application/json",
-      method: "POST",
-      body: JSON.stringify({
-        "tag": tag,
-        "charId": charId
-      })
-    }
-  })
+    },
+    method: "DELETE",
+    body: JSON.stringify({
+      "charId": charId,
+      tag
+    }),
+  });
+  const char = await response.json();
+  if(!char.errors){
+    dispatch(deleteCharacterTag(tag, char))
+  }
+  return char;
 }
 
 
@@ -132,7 +137,10 @@ const characterReducer = (state = initialState, action) => {
       // to display tags that have no characters to the user
       newState.tags = getTags(Object.values(newState.list));
       return newState
-
+    case DELETE_CHARACTER_TAG:
+      newState.list[action.payload.id] = action.payload;
+      newState.tags = getTags(Object.values(newState.list));
+      return newState;
     default:
       return state;
   }
@@ -140,6 +148,7 @@ const characterReducer = (state = initialState, action) => {
 
 export default characterReducer;
 
+// helper function to loop through characters and grab all tags
 const getTags = (chars) => {
   const tags = new Set();
   chars.forEach((character) => {

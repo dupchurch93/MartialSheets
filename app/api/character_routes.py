@@ -5,6 +5,7 @@ from app.forms.character_form import CharacterForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 import ast
+import json
 
 character_routes = Blueprint('character', __name__)
 
@@ -110,3 +111,18 @@ def delete_character():
         return {"Success": "Character deleted."}
     else:
         return {"errors": "Character not found, something went wrong."}
+
+
+@character_routes.route('/deleteTag', methods=["DELETE"])
+def delete_characterTag():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    tag_to_remove = Tag.query.filter(Tag.name == decoded['tag']).first()
+    if character and tag_to_remove:
+        character.tags.remove(tag_to_remove)
+        db.session.commit()
+        return character.to_dict()
+    elif not character:
+        return({"errors": "Character not found."})
+    else:
+        return({"errors": "Tag not found."})
