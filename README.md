@@ -47,11 +47,11 @@ To run this application locally, you'll need to:
 
 [Here's](https://github.com/dupchurch93/MartialSheets/wiki) the link to the Wiki.
 
-## Features
+## Core Features
 
 Users can:
 
-- Create and store character sheets
+- Create and store character sheets that dynamically show changes based on class, race, and background selections
 - Edit their character sheets
 - Level up characters in a streamlined process
 - Search the Dungeons and Dragons 5th Edition API for spells, abilities, and equipment information
