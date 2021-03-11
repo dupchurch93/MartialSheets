@@ -35,9 +35,9 @@ const deleteCharacter = (charId) => {
 const deleteCharacterTag = (tag, char) => {
   return {
     type: DELETE_CHARACTER_TAG,
-    payload: {tag, "char": char}
-  }
-}
+    payload: { tag, char: char },
+  };
+};
 
 export const loadCharactersThunk = () => async (dispatch) => {
   const response = await fetch("/api/characters/", {
@@ -84,17 +84,30 @@ export const deleteCharacterTagThunk = (tag, charId) => async (dispatch) => {
     },
     method: "DELETE",
     body: JSON.stringify({
-      "charId": charId,
-      tag
+      charId: charId,
+      tag,
     }),
   });
   const char = await response.json();
-  if(!char.errors){
-    dispatch(deleteCharacterTag(tag, char))
+  if (!char.errors) {
+    dispatch(deleteCharacterTag(tag, char));
   }
   return char;
-}
+};
 
+export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
+  const response = await fetch("/api/characters/addTag", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      charId: charId,
+      tag,
+    }),
+  });
+  const char = await response.json();
+};
 
 // reducer and initial state
 const initialState = { list: [], tags: [] };
@@ -135,7 +148,7 @@ const characterReducer = (state = initialState, action) => {
       // as the tag may have been the last instance and we don't want
       // to display tags that have no characters to the user
       newState.tags = getTags(Object.values(newState.list));
-      return newState
+      return newState;
     case DELETE_CHARACTER_TAG:
       newState.list[action.payload.char.id] = action.payload.char;
       newState.tags = getTags(Object.values(newState.list));
