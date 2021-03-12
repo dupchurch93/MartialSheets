@@ -36,9 +36,19 @@ const CharacterCreate = () => {
   const [tags, setTags] = useState("");
   const [profChoices, setProfChoices] = useState([]);
   const [sampleFeatures, setSampleFeatures] = useState([]);
-
-  //errors state for rendering errors
   const [errors, setErrors] = useState([]);
+
+  //validation function to ensure correct inputs
+  const validate = () => {
+    const validationErrors = [];
+    if (characterClass === "Rogue" && classProfs.length > 4) {
+      validationErrors.push("Please only choose 4 class proficiencies.");
+    } else if (classProfs.length > 2) {
+      validationErrors.push("Please only choose 2 class proficiencies.");
+    }
+
+    return validationErrors;
+  };
 
   //helper function to roll stats on the character form so rerendering does not reroll them
   const rollAttributes = useCallback(() => {
@@ -58,6 +68,9 @@ const CharacterCreate = () => {
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // first validate data before sending
+    const errs = validate();
+    if (errs.length > 1) return setErrors(errs);
 
     const myForm = new FormData();
     const character = {
@@ -88,7 +101,7 @@ const CharacterCreate = () => {
     });
     const response = await dispatch(addCharacterThunk(myForm));
     if (!response.errors) {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
       history.push(`/`);
     } else {
       setErrors(response.errors);
@@ -107,11 +120,6 @@ const CharacterCreate = () => {
 
   return (
     <form className="flex justify-center" id="charForm" onSubmit={handleSubmit}>
-      <div>
-        {errors.map((error) => (
-          <div key={error}>{error}</div>
-        ))}
-      </div>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>
@@ -195,6 +203,11 @@ const CharacterCreate = () => {
                 Create Character
               </button>
             </div>
+          </div>
+          <div className="absolute">
+            {errors.map((error) => (
+              <div key={error}>{error}</div>
+            ))}
           </div>
         </div>
       </div>

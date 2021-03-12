@@ -21,6 +21,8 @@ const ClassProficiencyChoice = ({
               characterClass={characterClass}
             ></ProfCheckbox>
           );
+        } else{
+          return null
         }
       })}
     </div>
