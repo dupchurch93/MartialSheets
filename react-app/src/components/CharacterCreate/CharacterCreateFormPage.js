@@ -41,10 +41,28 @@ const CharacterCreate = () => {
   //validation function to ensure correct inputs
   const validate = () => {
     const validationErrors = [];
-    if (characterClass === "Rogue" && classProfs.length > 4) {
-      validationErrors.push("Please only choose 4 class proficiencies.");
-    } else if (classProfs.length > 2) {
-      validationErrors.push("Please only choose 2 class proficiencies.");
+
+    if (name.length < 1 || name.length > 100) {
+      validationErrors.push(
+        "Please choose a name between 0 and 100 characters"
+      );
+    }
+    if (characterClass === "Select Class") {
+      validationErrors.push("Please select a class.");
+    }
+    if (background === "Select Background") {
+      validationErrors.push("Please select a background.");
+    }
+    if (alignment === "Select Alignment") {
+      validationErrors.push("Please select an Alignment.");
+    }
+    if (race === "Select Race") {
+      validationErrors.push("Please select a race.");
+    }
+    if (characterClass === "Rogue" && classProfs.length !== 4) {
+      validationErrors.push("Please choose 4 class proficiencies.");
+    } else if (classProfs.length !== 2) {
+      validationErrors.push("Please choose 2 class proficiencies.");
     }
 
     return validationErrors;
@@ -70,8 +88,11 @@ const CharacterCreate = () => {
     e.preventDefault();
     // first validate data before sending
     const errs = validate();
-    if (errs.length > 1) return setErrors(errs);
-
+    console.log("errs", errs);
+    if (errs.length > 0) {
+      window.scrollTo(0, 0);
+      return setErrors(errs);
+    }
     const myForm = new FormData();
     const character = {
       userId: user.id,
@@ -204,11 +225,15 @@ const CharacterCreate = () => {
               </button>
             </div>
           </div>
-          <div className="absolute">
-            {errors.map((error) => (
-              <div key={error}>{error}</div>
-            ))}
-          </div>
+          {errors.length > 0 && (
+            <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
+              {errors.map((error) => (
+                <li className="ml-3" key={error}>
+                  {error}
+                </li>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </form>
