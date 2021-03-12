@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import TagComponent from "./TagComponent";
+import { addCharacterTagThunk } from "../../../store/character";
 
 const TagsComponent = ({ tags, charId }) => {
   const dispatch = useDispatch();
-  
+
   const [newTag, setNewTag] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('in handler')
+    console.log('in submit handler')
+    await dispatch(addCharacterTagThunk(newTag, charId))
   }
 
   return (
-    <div className="border border-black m-2 p-2 rounded-lg h-32 overflow-y-auto">
+    <div className="border border-black m-2 p-2 rounded-lg min-h-traits overflow-y-auto">
       <div className="font-bold underline">Character Tags</div>
       <div className="tagsContainer flex flex-wrap">
         {tags.map((tag) => {

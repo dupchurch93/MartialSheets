@@ -113,8 +113,8 @@ def delete_character():
         return {"errors": "Character not found, something went wrong."}
 
 
-@character_routes.route('/deleteTag', methods=["DELETE"])
-def delete_characterTag():
+@character_routes.route('/tag', methods=["DELETE"])
+def delete_character_tag():
     decoded = json.loads(request.data.decode("UTF-8"))
     character = Character.query.get(decoded['charId'])
     tag_to_remove = Tag.query.filter(Tag.name == decoded['tag']).first()
@@ -126,3 +126,18 @@ def delete_characterTag():
         return({"errors": "Character not found."})
     else:
         return({"errors": "Tag not found."})
+
+
+@character_routes.route('/tag', methods=["POST"])
+def add_character_tag():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    tag = Tag.query.filter(Tag.name == decoded['tag']).first()
+    if not tag:
+        tag = Tag(name=decoded['tag'])
+    if character:
+        character.tags.append(tag)
+        db.session.commit()
+        return character.to_dict()
+    else:
+        return({"errors": ["Tag was not added."]})

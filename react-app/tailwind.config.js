@@ -27,6 +27,7 @@ module.exports = {
       },
       maxHeight: {
         "desc": "250px",
+        "traits": "16rem",
       },
       minHeight: {
         "traits": "8rem",

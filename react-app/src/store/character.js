@@ -39,6 +39,13 @@ const deleteCharacterTag = (tag, char) => {
   };
 };
 
+const addCharacterTag = (tag, char) => {
+  return {
+    type: ADD_CHARACTER_TAG,
+    payload: {tag, char}
+  }
+}
+
 export const loadCharactersThunk = () => async (dispatch) => {
   const response = await fetch("/api/characters/", {
     headers: {
@@ -78,7 +85,7 @@ export const deleteCharacterThunk = (charId) => async (dispatch) => {
 };
 
 export const deleteCharacterTagThunk = (tag, charId) => async (dispatch) => {
-  const response = await fetch("/api/characters/deleteTag", {
+  const response = await fetch("/api/characters/tag", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -96,7 +103,7 @@ export const deleteCharacterTagThunk = (tag, charId) => async (dispatch) => {
 };
 
 export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
-  const response = await fetch("/api/characters/addTag", {
+  const response = await fetch("/api/characters/tag", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -107,6 +114,10 @@ export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
     }),
   });
   const char = await response.json();
+  if(!char.errors){
+    dispatch(addCharacterTag(tag, char))
+  }
+  return char;
 };
 
 // reducer and initial state
@@ -114,10 +125,10 @@ const initialState = { list: [], tags: [] };
 
 const characterReducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
+  const tags = new Set(newState.tags);
   switch (action.type) {
     case LOAD_CHARACTERS:
       const characterList = {};
-      const tags = new Set();
       action.payload.forEach((character) => {
         characterList[character.id] = character;
         character.tags.forEach((tag) => {
@@ -135,11 +146,10 @@ const characterReducer = (state = initialState, action) => {
       newState.list[action.payload.id] = action.payload;
       // turn old tag array into a set (to prevent tags from being added twice)
       // add any new tags
-      const currentTagSet = new Set(newState.tags);
       action.payload.tags.forEach((tag) => {
-        currentTagSet.add(tag);
+        tags.add(tag);
       });
-      newState.tags = [...currentTagSet];
+      newState.tags = [...tags];
       return newState;
     case DELETE_CHARACTER:
       // delete the character from the store
@@ -152,6 +162,11 @@ const characterReducer = (state = initialState, action) => {
     case DELETE_CHARACTER_TAG:
       newState.list[action.payload.char.id] = action.payload.char;
       newState.tags = getTags(Object.values(newState.list));
+      return newState;
+    case ADD_CHARACTER_TAG:
+      newState.list[action.payload.char.id] = action.payload.char;
+      tags.add(action.payload.tag)
+      newState.tags = [...tags]
       return newState;
     default:
       return state;
