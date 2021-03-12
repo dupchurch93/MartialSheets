@@ -25,7 +25,7 @@ class CharacterForm(FlaskForm):
     background = StringField('background', validators=[DataRequired()])
     alignment = StringField('alignment', validators=[DataRequired()])
     attributes = StringField('attributes', validators=[DataRequired()])
-    traits = StringField('traits', validators=[Length(1, 500, "Too long. Please keep under 500 characters.")])
+    traits = StringField('traits', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
     ideals = StringField('ideals', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
     bonds = StringField('bonds', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
     flaws = StringField('flaws', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])

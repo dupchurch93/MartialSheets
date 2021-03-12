@@ -5,9 +5,10 @@ const Features = ({
   setHelpContents,
   sampleFeatures,
   characterClass,
-  setProficiencies,
   proficiencies,
   profChoices,
+  classProfs,
+  setClassProfs
 }) => {
   const featuresHelp = (
     <div>
@@ -29,17 +30,24 @@ const Features = ({
     </div>
   );
 
+  let profChoiceNumber = 2;
+  if(characterClass === "Rogue"){
+    profChoiceNumber = 4;
+  }
+
   return (
     <div className="featuresColumn border-r border-black">
       <div onMouseEnter={() => setHelpContents(profHelp)}>
         <div className="font-bold underline text-center">
           Class Proficiencies
         </div>
+        <div className="text-center">{`Please choose ${profChoiceNumber}.`}</div>
         <ClassProficiencyChoice
           proficiencies={proficiencies}
-          setProficiencies={setProficiencies}
           profChoices={profChoices}
           characterClass={characterClass}
+          classProfs={classProfs}
+          setClassProfs={setClassProfs}
         ></ClassProficiencyChoice>
       <div className="font-bold underline text-center">
         Level 1 Sample Features

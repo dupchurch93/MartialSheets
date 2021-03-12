@@ -1,13 +1,17 @@
 import SavingThrows from "./SavingThrows";
 import ProficienciesComponent from "./ProficienciesComponent";
 
-const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHelpContents }) => {
-
+const Proficiencies = ({
+  characterClass,
+  proficiencies,
+  attributes,
+  level,
+  setHelpContents,
+  classProfs,
+}) => {
   if (!attributes.str) {
     return <div>Loading...</div>;
   }
-
-
 
   const profColumnHelper = (
     <div>
@@ -21,7 +25,8 @@ const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHe
         <span className="font-bold underline">Proficiencies: </span> What types
         of skills your character excels at. The skills you are proficient with
         are based on your class and background while receiving bonus from their
-        associated stat as well.<br></br><br></br>
+        associated stat as well.<br></br>
+        <br></br>
         <div>Bolded skills are the ones your character is proficient in.</div>
       </div>
     </div>
@@ -61,7 +66,6 @@ const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHe
     profSavingThrows = ["Strength", "Dexterity"];
   }
 
-
   const statsMap = [
     { name: "Strength", value: attributes.str },
     { name: "Dexterity", value: attributes.dex },
@@ -72,7 +76,10 @@ const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHe
   ];
 
   return (
-    <div className="columnContainer border-r border-black px-1" onMouseEnter={() => setHelpContents(profColumnHelper)}>
+    <div
+      className="columnContainer border-r border-black px-1"
+      onMouseEnter={() => setHelpContents(profColumnHelper)}
+    >
       <div className="font-bold border border-black p-0.5 rounded-lg flex justify-around mx-4 my-2">
         <div className="m-1 p-1 text-sm">Proficiency Bonus: </div>
         <div className="m-1 p-1">{profBonus}</div>
@@ -97,7 +104,8 @@ const Proficiencies = ({ characterClass, proficiencies, attributes, level, setHe
           return (
             <ProficienciesComponent
               key={prof.name}
-              charProfs={proficiencies}
+              proficiencies={proficiencies}
+              classProfs={classProfs}
               profBonus={profBonus}
               prof={prof}
               attributes={attributes}

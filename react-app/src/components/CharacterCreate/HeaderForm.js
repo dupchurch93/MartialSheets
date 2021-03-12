@@ -15,9 +15,8 @@ const HeaderForm = ({
   setProfChoices,
   setHitpoints,
   setSpeed,
-  setSampleFeatures
+  setSampleFeatures,
 }) => {
-
   const classList = ["Barbarian", "Fighter", "Rogue", "Monk"];
   const raceList = [
     "Human",
@@ -151,7 +150,6 @@ const HeaderForm = ({
     },
   ];
 
-
   const alignmentHelp = (
     <div>
       A typical creature in the game world has an alignment, which broadly
@@ -268,47 +266,84 @@ const HeaderForm = ({
   );
 
   const handleSetBackground = (e) => {
-    setBackground(e.target.value)
-    if(e.target.value === "Acolyte"){
-      setProficiencies("Religion,Insight");
-    } else if(e.target.value === "Charlatan"){
-      setProficiencies("Deception,Sleight of Hand");
-    } else if(e.target.value === "Criminal"){
-      setProficiencies("Deception,Stealth");
+    setBackground(e.target.value);
+    if (e.target.value === "Acolyte") {
+      setProficiencies(["Religion", "Insight"]);
+    } else if (e.target.value === "Charlatan") {
+      setProficiencies(["Deception", "Sleight of Hand"]);
+    } else if (e.target.value === "Criminal") {
+      setProficiencies(["Deception", "Stealth"]);
     } else {
-      setProficiencies("Athletics,Acrobatics");
+      setProficiencies(["Athletics", "Acrobatics"]);
     }
-  }
+  };
 
   const handleSetRace = (e) => {
-    setRace(e.target.value)
-    if(e.target.value ==="Dwarf" || e.target.value === "Halfling" || e.target.value === "Gnome"){
+    setRace(e.target.value);
+    if (
+      e.target.value === "Dwarf" ||
+      e.target.value === "Halfling" ||
+      e.target.value === "Gnome"
+    ) {
       setSpeed(25);
     } else {
       setSpeed(30);
     }
-  }
+  };
 
   const handleSetClass = (e) => {
-    setCharacterClass(e.target.value)
-    if(e.target.value === "Barbarian"){
-      setHitpoints(12 + Math.floor(((attributes.con) - 10)/2))
-      setProfChoices(["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Nature"])
-      setSampleFeatures(sampleBarbFeatures)
-    } else if(e.target.value === "Fighter"){
-      setHitpoints(10 + Math.floor(((attributes.con) - 10)/2))
-      setProfChoices(["Atheletics", "Intimidation", "Survival", "Animal Handling", "Perception", "Acrobatics", "History", "Insight"])
-      setSampleFeatures(sampleFighterFeatures)
-    } else if(e.target.value === "Rogue") {
-      setHitpoints(8 + Math.floor(((attributes.con) - 10)/2))
-      setProfChoices(["Atheletics", "Intimidation", "Acrobatics", "Insight", "Perception", "Investigation", "Performance", "Persuasion", "Deception", "Sleight of Hand"])
-      setSampleFeatures(sampleRogueFeatures)
+    setCharacterClass(e.target.value);
+    if (e.target.value === "Barbarian") {
+      setHitpoints(12 + Math.floor((attributes.con - 10) / 2));
+      setProfChoices([
+        "Athletics",
+        "Intimidation",
+        "Survival",
+        "Animal Handling",
+        "Perception",
+        "Nature",
+      ]);
+      setSampleFeatures(sampleBarbFeatures);
+    } else if (e.target.value === "Fighter") {
+      setHitpoints(10 + Math.floor((attributes.con - 10) / 2));
+      setProfChoices([
+        "Athletics",
+        "Intimidation",
+        "Survival",
+        "Animal Handling",
+        "Perception",
+        "Acrobatics",
+        "History",
+        "Insight",
+      ]);
+      setSampleFeatures(sampleFighterFeatures);
+    } else if (e.target.value === "Rogue") {
+      setHitpoints(8 + Math.floor((attributes.con - 10) / 2));
+      setProfChoices([
+        "Athletics",
+        "Intimidation",
+        "Acrobatics",
+        "Insight",
+        "Perception",
+        "Investigation",
+        "Performance",
+        "Persuasion",
+        "Deception",
+        "Sleight of Hand",
+      ]);
+      setSampleFeatures(sampleRogueFeatures);
     } else {
-      setHitpoints(8 + Math.floor(((attributes.con) - 10)/2))
-      setProfChoices(["Atheletics", "Acrobatics", "Stealth", "Religion", "History"])
-      setSampleFeatures(sampleMonkFeatures)
+      setHitpoints(8 + Math.floor((attributes.con - 10) / 2));
+      setProfChoices([
+        "Athletics",
+        "Acrobatics",
+        "Stealth",
+        "Religion",
+        "History",
+      ]);
+      setSampleFeatures(sampleMonkFeatures);
     }
-  }
+  };
 
   return (
     <div className="header grid grid-cols-characterBody w-full grid-rows-1 space-x-2 ">
