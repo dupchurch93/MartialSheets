@@ -18,6 +18,7 @@ const CharacterForm = ({
   languages,
   tools,
   profChoices,
+  classProfs,
   sampleFeatures,
   setProficiencies,
   setSpeed,
@@ -30,6 +31,7 @@ const CharacterForm = ({
   setIdeals,
   setTraits,
   setTags,
+  setClassProfs,
   tags
 }) => {
   return (
@@ -51,6 +53,7 @@ const CharacterForm = ({
         attributes={attributes}
         proficiencies={proficiencies}
         setHelpContents={setHelpContents}
+        classProfs={classProfs}
         level={1}
       ></Proficiencies>
       <PersonalityColumn
@@ -77,6 +80,8 @@ const CharacterForm = ({
         setHelpContents={setHelpContents}
         sampleFeatures={sampleFeatures}
         profChoices={profChoices}
+        classProfs={classProfs}
+        setClassProfs={setClassProfs}
       ></FeaturesColumn>
     </div>
   );

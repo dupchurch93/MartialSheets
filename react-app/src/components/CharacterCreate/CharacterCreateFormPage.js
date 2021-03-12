@@ -21,7 +21,8 @@ const CharacterCreate = () => {
   const [race, setRace] = useState("Select Race");
   const [hitpoints, setHitpoints] = useState(0);
   const [image, setImage] = useState("");
-  const [proficiencies, setProficiencies] = useState("");
+  const [proficiencies, setProficiencies] = useState([]);
+  const [classProfs, setClassProfs] = useState([]);
   const [speed, setSpeed] = useState(0);
   const [attributes, setAttributes] = useState({});
   const [traits, setTraits] = useState([]);
@@ -66,7 +67,7 @@ const CharacterCreate = () => {
       race: race,
       characterClass: characterClass,
       hitpoints: hitpoints,
-      proficiencies: proficiencies,
+      proficiencies: [...proficiencies, ...classProfs],
       speed: speed,
       image: image,
       background: background,
@@ -162,6 +163,7 @@ const CharacterCreate = () => {
               languages={languages}
               tools={tools}
               profChoices={profChoices}
+              classProfs={classProfs}
               sampleFeatures={sampleFeatures}
               setProficiencies={setProficiencies}
               setTraits={setTraits}
@@ -172,6 +174,7 @@ const CharacterCreate = () => {
               setTools={setTools}
               rollAttributes={rollAttributes}
               setTags={setTags}
+              setClassProfs={setClassProfs}
               tags={tags}
             ></CharacterForm>
             <DescriptionForm

@@ -10,7 +10,6 @@ const TagsComponent = ({ tags, charId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('in submit handler')
     await dispatch(addCharacterTagThunk(newTag, charId))
   }
 
