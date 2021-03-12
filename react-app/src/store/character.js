@@ -1,6 +1,9 @@
 const LOAD_CHARACTERS = "character/loadCharacters";
 const REMOVE_CHARACTERS = "character/removeCharacters";
 const ADD_CHARACTER = "character/addCharacter";
+const DELETE_CHARACTER = "character/deleteCharacter";
+const DELETE_CHARACTER_TAG = "characters/deleteCharacterTag";
+const ADD_CHARACTER_TAG = "characters/addCharacterTag";
 
 const loadCharacters = (characters) => {
   return {
@@ -22,6 +25,27 @@ const addCharacter = (character) => {
   };
 };
 
+const deleteCharacter = (charId) => {
+  return {
+    type: DELETE_CHARACTER,
+    payload: charId,
+  };
+};
+
+const deleteCharacterTag = (tag, char) => {
+  return {
+    type: DELETE_CHARACTER_TAG,
+    payload: { tag, char: char },
+  };
+};
+
+const addCharacterTag = (tag, char) => {
+  return {
+    type: ADD_CHARACTER_TAG,
+    payload: {tag, char}
+  }
+}
+
 export const loadCharactersThunk = () => async (dispatch) => {
   const response = await fetch("/api/characters/", {
     headers: {
@@ -36,24 +60,75 @@ export const loadCharactersThunk = () => async (dispatch) => {
 export const addCharacterThunk = (character) => async (dispatch) => {
   const response = await fetch("/api/characters/create", {
     method: "POST",
-    body: character
+    body: character,
   });
   const newChar = await response.json();
-    if (!newChar.errors) {
-      dispatch(addCharacter(newChar));
-    }
+  if (!newChar.errors) {
+    dispatch(addCharacter(newChar));
+  }
   return newChar;
 };
 
+export const deleteCharacterThunk = (charId) => async (dispatch) => {
+  const response = await fetch("/api/characters/delete", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+    body: charId,
+  });
+  const res = await response.json();
+  if (!res.errors) {
+    dispatch(deleteCharacter(charId));
+  }
+  return res;
+};
+
+export const deleteCharacterTagThunk = (tag, charId) => async (dispatch) => {
+  const response = await fetch("/api/characters/tag", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+    body: JSON.stringify({
+      charId: charId,
+      tag,
+    }),
+  });
+  const char = await response.json();
+  if (!char.errors) {
+    dispatch(deleteCharacterTag(tag, char));
+  }
+  return char;
+};
+
+export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
+  const response = await fetch("/api/characters/tag", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      charId: charId,
+      tag,
+    }),
+  });
+  const char = await response.json();
+  if(!char.errors){
+    dispatch(addCharacterTag(tag, char))
+  }
+  return char;
+};
+
+// reducer and initial state
 const initialState = { list: [], tags: [] };
 
 const characterReducer = (state = initialState, action) => {
-  let newState;
+  let newState = Object.assign({}, state);
+  const tags = new Set(newState.tags);
   switch (action.type) {
     case LOAD_CHARACTERS:
-      newState = Object.assign({}, state);
       const characterList = {};
-      const tags = new Set();
       action.payload.forEach((character) => {
         characterList[character.id] = character;
         character.tags.forEach((tag) => {
@@ -61,15 +136,37 @@ const characterReducer = (state = initialState, action) => {
         });
       });
       newState.list = characterList;
-      newState.tags = Array.from(tags);
+      newState.tags = [...tags];
       return newState;
     case REMOVE_CHARACTERS:
-      newState = Object.assign({}, state);
       newState = initialState;
       return newState;
     case ADD_CHARACTER:
-      newState = Object.assign({}, state);
+      // add character to the store
       newState.list[action.payload.id] = action.payload;
+      // turn old tag array into a set (to prevent tags from being added twice)
+      // add any new tags
+      action.payload.tags.forEach((tag) => {
+        tags.add(tag);
+      });
+      newState.tags = [...tags];
+      return newState;
+    case DELETE_CHARACTER:
+      // delete the character from the store
+      delete newState.list[Number(action.payload)];
+      // loop through remaining characters to remake tag list,
+      // as the tag may have been the last instance and we don't want
+      // to display tags that have no characters to the user
+      newState.tags = getTags(Object.values(newState.list));
+      return newState;
+    case DELETE_CHARACTER_TAG:
+      newState.list[action.payload.char.id] = action.payload.char;
+      newState.tags = getTags(Object.values(newState.list));
+      return newState;
+    case ADD_CHARACTER_TAG:
+      newState.list[action.payload.char.id] = action.payload.char;
+      tags.add(action.payload.tag)
+      newState.tags = [...tags]
       return newState;
     default:
       return state;
@@ -77,3 +174,14 @@ const characterReducer = (state = initialState, action) => {
 };
 
 export default characterReducer;
+
+// helper function to loop through characters and grab all tags
+const getTags = (chars) => {
+  const tags = new Set();
+  chars.forEach((character) => {
+    character.tags.forEach((tag) => {
+      tags.add(tag);
+    });
+  });
+  return [...tags];
+};

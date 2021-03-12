@@ -8,7 +8,8 @@ const Proficiencies = ({ charClass, proficiencies, stats, level, setHelpContents
         <span className="font-bold underline">Saving Throws: </span> Certain
         attacks or abilities require characters to resist them. These are saving
         throws. The bonuses here are tied to your proficiency (based on class)
-        and your character's attributes.
+        and your character's attributes.<br></br>
+        Bold skills are the ones your character is currently proficient in.
       </div>
       <div>
         <span className="font-bold underline">Proficiencies: </span> What types

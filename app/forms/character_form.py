@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, TextField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, Length
 from app.models import Character
 
 
@@ -25,10 +25,10 @@ class CharacterForm(FlaskForm):
     background = StringField('background', validators=[DataRequired()])
     alignment = StringField('alignment', validators=[DataRequired()])
     attributes = StringField('attributes', validators=[DataRequired()])
-    traits = StringField('traits')
-    ideals = StringField('ideals')
-    bonds = StringField('bonds')
-    flaws = StringField('flaws')
+    traits = StringField('traits', validators=[Length(1, 500, "Too long. Please keep under 500 characters.")])
+    ideals = StringField('ideals', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
+    bonds = StringField('bonds', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
+    flaws = StringField('flaws', validators=[Length(0, 500, "Too long. Please keep under 500 characters.")])
     inventory = TextField('inventory')
     description = TextField('description')
     languages = StringField('flaws')

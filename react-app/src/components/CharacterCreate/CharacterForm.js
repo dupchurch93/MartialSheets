@@ -29,6 +29,8 @@ const CharacterForm = ({
   setBonds,
   setIdeals,
   setTraits,
+  setTags,
+  tags
 }) => {
   return (
     <div className="header grid grid-cols-characterBody w-full space-x-2">
@@ -65,6 +67,8 @@ const CharacterForm = ({
         setPersonality={setPersonality}
         hitpoints={hitpoints}
         setHelpContents={setHelpContents}
+        setTags={setTags}
+        tags={tags}
       ></PersonalityColumn>
       <FeaturesColumn
         characterClass={characterClass}

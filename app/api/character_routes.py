@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Character, User
+from app.models import db, Character, Tag
 from flask_login import current_user
 from app.forms.character_form import CharacterForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 import ast
+import json
 
 character_routes = Blueprint('character', __name__)
 
@@ -26,9 +27,6 @@ def get_characters():
     characters = (
         Character.query.filter(Character.userId == current_user.id).all()
     )
-    # print('in backend get characters route------')
-    # for character in characters:
-    #     print(character.to_dict())
     return {"Characters": [character.to_dict() for character in characters]}
 
 
@@ -38,25 +36,25 @@ def create_character():
     form = CharacterForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     # if form.validate_on_submit():
-    print("request files-----------", "image" in request.files)
     if form.validate_on_submit():
+        #  s3 image helper functions. Steps: test if image is in files,
+        #  grab image, check if it is required type,
+        #  give it a unique name so aws does not overwrite,
+        #  then upload to aws, returning any errors if upload fails.
+
         if "image" not in request.files:
             return {"errors": ["image required"]}
-
         image = request.files["image"]
-
         if not allowed_file(image.filename):
             return {"errors": ["file type not permitted"]}
-
         image.filename = get_unique_filename(image.filename)
-
         upload = upload_file_to_s3(image)
-
         if "url" not in upload:
             return {"errors": [upload['errors']]}
-
         url = upload["url"]
+        #  create a new instance of the character class
         character = Character()
+        # populate character instance with data from form & aws url
         character = Character(
             userId=form.data['userId'],
             name=form.data['name'],
@@ -80,8 +78,66 @@ def create_character():
             languages=form.data['languages'],
             tools=form.data['tools']
         )
-        print("character", character.to_dict())
+        #  grab tags and query to check if they are created already
+        tagsFormatted = [tag.strip() for tag in form.data['tags'].split(",")]
+        for tag in tagsFormatted:
+            queriedTag = Tag.query.filter(Tag.name == tag).first()
+            if(queriedTag):
+                character.tags.append(queriedTag)
+            else:
+                tag = Tag(
+                    name=tag
+                )
+                character.tags.append(tag)
+        # classTag = Tag.query.filter(Tag.name == form.data['characterClass'])
+        # # raceTag = Tag.query.filter(Tag.name == form.data['race'])
+
+        # character.tags.append(classTag)
+        # character.tags.append(raceTag)
+        #  add and commit character
         db.session.add(character)
         db.session.commit()
         return character.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}
+
+
+@character_routes.route('/delete', methods=["DELETE"])
+def delete_character():
+    char_id = int(request.data.decode("UTF-8"))
+    char_to_delete = Character.query.get(char_id)
+    if char_to_delete:
+        db.session.delete(char_to_delete)
+        db.session.commit()
+        return {"Success": "Character deleted."}
+    else:
+        return {"errors": "Character not found, something went wrong."}
+
+
+@character_routes.route('/tag', methods=["DELETE"])
+def delete_character_tag():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    tag_to_remove = Tag.query.filter(Tag.name == decoded['tag']).first()
+    if character and tag_to_remove:
+        character.tags.remove(tag_to_remove)
+        db.session.commit()
+        return character.to_dict()
+    elif not character:
+        return({"errors": "Character not found."})
+    else:
+        return({"errors": "Tag not found."})
+
+
+@character_routes.route('/tag', methods=["POST"])
+def add_character_tag():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    tag = Tag.query.filter(Tag.name == decoded['tag']).first()
+    if not tag:
+        tag = Tag(name=decoded['tag'])
+    if character:
+        character.tags.append(tag)
+        db.session.commit()
+        return character.to_dict()
+    else:
+        return({"errors": ["Tag was not added."]})

@@ -1,5 +1,6 @@
 import PersonalityComponent from "./PersonalityComponent";
 import HPSpeedAC from "./HPSpeedAC";
+import TagsComponent from "./TagsComponent";
 
 const PersonalityColumn = ({
   setHelpContents,
@@ -10,10 +11,12 @@ const PersonalityColumn = ({
   flaws,
   ideals,
   traits,
+  tags,
   setTraits,
   setBonds,
   setFlaws,
   setIdeals,
+  setTags
 }) => {
   const traitsArray = [
     ["Traits", traits, setTraits],
@@ -58,11 +61,12 @@ const PersonalityColumn = ({
           <PersonalityComponent
             key={trait[0]}
             name={trait[0]}
-            description={trait[1]}
+            value={trait[1]}
             setter={trait[2]}
           ></PersonalityComponent>
         );
       })}
+      <TagsComponent tags={tags} setTags={setTags} setHelpContents={setHelpContents}></TagsComponent>
     </div>
   );
 };
