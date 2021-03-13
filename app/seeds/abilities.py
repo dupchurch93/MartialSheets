@@ -21,24 +21,24 @@ Once you have raged the number of times shown for your barbarian level in the Ra
     source="1:Barbarian:any"
     )
 
-    rageCount = Ability(
+    race_count = Ability(
         name="Rage Count: 2",
         description="Amount of times you can rage per long rest. Increases with level.",
         source="1:Barbarian:any"
     )
-    rageDamage = Ability(
+    rage_damage = Ability(
         name="Bonus Rage Damage: 2",
         description="Extra damage gained on melee attack while raging. Increases with level.",
         source="1:Barbarian:any"
     )
 
-    recklessAttack = Ability(
+    reckless_attack = Ability(
         name="Reckless Attack",
         description="Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn.",
         source="2:Barbarian:any"
     )
 
-    dangerSense = Ability(
+    danger_sense = Ability(
         name="Danger Sense",
         description="At 2nd level, you gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated.",
         source="2:Barbarian:any"
@@ -50,46 +50,122 @@ Once you have raged the number of times shown for your barbarian level in the Ra
         source="3:Barbarian:Path of the Berserker"
     )
 
-    totemSpirit = Ability(
+    totem_spirit = Ability(
         name="Totem Spirit",
         description="At 3rd level, when you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object – an amulet or similar adornment – that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option, you also gain minor physical attributes that are reminiscent of your totem spirit. For example, if you have a bear totem spirit, you might be unusually hairy and thick-skinned, or if your totem is the eagle, your eyes turn bright yellow.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:option:totem_spirit"
     )
 
-    totemSpiritBear = Ability(
+    totem_spirit_bear = Ability(
         name="Totem Spirit - Bear",
         description="Bear. While raging, you have resistance to all damage except psychic damage. The spirit of the bear makes you tough enough to stand up to any punishment.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:choice:totem_spirit"
     )
 
-    totemSpiritEagle = Ability(
+    totem_spirit_eagle = Ability(
         name="Totem Spirit - Eagle",
         description="Eagle. While you're raging and aren't wearing heavy armor, other creatures have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn. The spirit of the eagle makes you into a predator who can weave through the fray with ease.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:choice:totem_spirit"
     )
 
-    totemSpiritElk = Ability(
+    totem_spirit_elk = Ability(
         name="Totem Spirit - Elk",
         description="Elk. While you're raging and aren't wearing heavy armor, your walking speed increases by 15 feet. The spirit of the elk makes you extraordinarily swift.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:choice:totem_spirit"
     )
 
-    totemSpiritTiger = Ability(
+    totem_spirit_tiger = Ability(
         name="Totem Spirit - Tiger",
         description="Tiger. While raging, you can add 10 feet to your long jump distance and 3 feet to your high jump distance. The spirit of the tiger empowers your leaps.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:choice:totem_spirit"
     )
 
-    totemSpiritWolf = Ability(
+    totem_spirit_wolf = Ability(
         name="Totem Spirit - Wolf",
         description="Wolf. While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters.",
-        source="3:Barbarian:Path of the Totem Warrior:choice:totemSpirit"
+        source="3:Barbarian:Path of the Totem Warrior:choice:totem_spirit"
     )
 
+    fighting_style = Ability(
+        name="Fighting Style",
+        description="You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
+        source="1:Fighter:Any:option:fighting_style"
+    )
 
-    db.session.add_all([rage, rageCount, rageDamage, dangerSense, frenzy, recklessAttack,
-    totemSpirit, totemSpiritBear, totemSpiritTiger, totemSpiritWolf, totemSpiritEagle, totemSpiritElk])
+    fighting_style_archery = Ability(
+        name="Fighting Style",
+        description="You gain a +2 bonus to attack rolls you make with ranged weapons.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_blind_fighting = Ability(
+        name="Fighting Style",
+        description="Blind Fighting. You have blindsight with a range of 10 feet. Within that range, you can effectively see anything that isn't behind total cover, even if you're blinded or in darkness. Moreover, you can see an invisible creature within that range, unless the creature successfully hides from you.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_defense = Ability(
+        name="Fighting Style",
+        description="While you are wearing armor, you gain a +1 bonus to AC.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_dueling = Ability(
+        name="Fighting Style",
+        description="Dueling. When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_great_weapon_fighting = Ability(
+        name="Fighting Style",
+        description="When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_interception = Ability(
+        name="Fighting Style",
+        description="When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use your reaction to reduce the damage the target takes by 1d10 + your proficiency bonus (to a minimum of 0 damage). You must be wielding a shield or a simple or martial weapon to use this reaction.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_protection = Ability(
+        name="Fighting Style",
+        description="When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_superior_technique = Ability(
+        name="Fighting Style",
+        description="You learn one maneuver of your choice from among those available to the Battle Master archetype. If a maneuver you use requires your target to make a saving throw to resist the maneuver's effects, the saving throw DC equals 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice.) You gain one superiority die, which is a d6 (this die is added to any superiority dice you have from another source). This die is used to fuel your maneuvers. A superiority die is expended when you use it. You regain your expended superiority dice when you finish a short or long rest. Thrown Weapon Fighting. You can draw a weapon that has the thrown property as part of the attack you make with the weapon. In addition, when you hit with a ranged attack using a thrown weapon, you gain a +2 bonus to the damage roll.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_two_weapon_fighting = Ability(
+        name="Fighting Style",
+        description="When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    fighting_style_unarmed_fighting = Ability(
+        name="Fighting Style",
+        description="Your unarmed strikes can deal bludgeoning damage equal to 1d6 + your Strength modifier on a hit. If you aren't wielding any weapons or a shield when you make the attack roll, the d6 becomes a d8. At the start of each of your turns, you can deal 1d4 bludgeoning damage to one creature grappled by you.",
+        source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    db.session.add_all([rage, race_count, rage_damage, danger_sense, frenzy,
+                        reckless_attack, totem_spirit, totem_spirit_bear,
+                        totem_spirit_tiger, totem_spirit_wolf,
+                        totem_spirit_eagle, totem_spirit_elk,
+                        fighting_style, fighting_style_archery,
+                        fighting_style_blind_fighting, fighting_style_defense,
+                        fighting_style_dueling,
+                        fighting_style_great_weapon_fighting,
+                        fighting_style_interception, fighting_style_protection,
+                        fighting_style_superior_technique,
+                        fighting_style_unarmed_fighting,
+                        fighting_style_two_weapon_fighting])
     db.session.commit()
+
 
 def undo_abilities():
     db.session.execute('TRUNCATE abilities;')

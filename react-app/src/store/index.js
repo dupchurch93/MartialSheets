@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from './session'
 import characterReducer from "./character"
+import featureReducer from "./features"
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    characters: characterReducer
+    characters: characterReducer,
+    features: featureReducer
 });
 
 let enhancer;

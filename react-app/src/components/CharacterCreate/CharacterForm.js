@@ -19,7 +19,7 @@ const CharacterForm = ({
   tools,
   profChoices,
   classProfs,
-  sampleFeatures,
+  features,
   setProficiencies,
   setSpeed,
   rollAttributes,
@@ -77,7 +77,7 @@ const CharacterForm = ({
         proficiencies={proficiencies}
         setProficiencies={setProficiencies}
         setHelpContents={setHelpContents}
-        sampleFeatures={sampleFeatures}
+        features={features}
         profChoices={profChoices}
         classProfs={classProfs}
         setClassProfs={setClassProfs}

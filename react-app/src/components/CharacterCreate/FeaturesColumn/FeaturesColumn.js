@@ -3,7 +3,7 @@ import ClassProficiencyChoice from "./ClassProficiencyChoice";
 
 const Features = ({
   setHelpContents,
-  sampleFeatures,
+  features,
   characterClass,
   proficiencies,
   profChoices,
@@ -53,7 +53,7 @@ const Features = ({
         Level 1 Sample Features
       </div>
       <div onMouseEnter={() => setHelpContents(featuresHelp)}>
-        <FeatureList sampleFeatures={sampleFeatures}></FeatureList>
+        <FeatureList features={features}></FeatureList>
       </div>
       </div>
     </div>

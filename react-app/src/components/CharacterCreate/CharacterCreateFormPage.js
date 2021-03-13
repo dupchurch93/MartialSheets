@@ -6,6 +6,7 @@ import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
 import HeaderForm from "./HeaderForm";
+import LevelUpModal from "./Modal/LevelUpModal";
 
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
@@ -35,8 +36,9 @@ const CharacterCreate = () => {
   const [tools, setTools] = useState("");
   const [tags, setTags] = useState("");
   const [profChoices, setProfChoices] = useState([]);
-  const [sampleFeatures, setSampleFeatures] = useState([]);
+  const [features, setFeatures] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [modal, setModal] = useState(false);
 
   //validation function to ensure correct inputs
   const validate = () => {
@@ -83,12 +85,18 @@ const CharacterCreate = () => {
     });
     setAttributes(attrObj);
   }, []);
+
+  //open modal for ability choices and confirmation
+  const openModal = async (e) => {
+    e.preventDefault();
+    setModal(true);
+  }
+
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
     e.preventDefault();
     // first validate data before sending
     const errs = validate();
-    console.log("errs", errs);
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
@@ -140,7 +148,8 @@ const CharacterCreate = () => {
   };
 
   return (
-    <form className="flex justify-center" id="charForm" onSubmit={handleSubmit}>
+    <form className="flex justify-center" id="charForm" onSubmit={openModal}>
+      <LevelUpModal modal={modal} characterClass={characterClass} setModal={setModal} handleSubmit={handleSubmit}></LevelUpModal>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>
@@ -176,7 +185,7 @@ const CharacterCreate = () => {
               setHitpoints={setHitpoints}
               setSpeed={setSpeed}
               setProfChoices={setProfChoices}
-              setSampleFeatures={setSampleFeatures}
+              setFeatures={setFeatures}
             ></HeaderForm>
             <CharacterForm
               characterClass={characterClass}
@@ -194,7 +203,7 @@ const CharacterCreate = () => {
               tools={tools}
               profChoices={profChoices}
               classProfs={classProfs}
-              sampleFeatures={sampleFeatures}
+              features={features}
               setProficiencies={setProficiencies}
               setTraits={setTraits}
               setIdeals={setIdeals}
