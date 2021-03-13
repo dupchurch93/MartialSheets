@@ -12,11 +12,13 @@ const HeaderForm = ({
   setAlignment,
   setHelpContents,
   setProficiencies,
+  setClassProfs,
   setProfChoices,
   setHitpoints,
   setSpeed,
-  setSampleFeatures,
+  setFeatures,
 }) => {
+
   const classList = ["Barbarian", "Fighter", "Rogue", "Monk"];
   const raceList = [
     "Human",
@@ -267,6 +269,7 @@ const HeaderForm = ({
 
   const handleSetBackground = (e) => {
     setBackground(e.target.value);
+    setClassProfs([]);
     if (e.target.value === "Acolyte") {
       setProficiencies(["Religion", "Insight"]);
     } else if (e.target.value === "Charlatan") {
@@ -303,7 +306,7 @@ const HeaderForm = ({
         "Perception",
         "Nature",
       ]);
-      setSampleFeatures(sampleBarbFeatures);
+      setFeatures(sampleBarbFeatures);
     } else if (e.target.value === "Fighter") {
       setHitpoints(10 + Math.floor((attributes.con - 10) / 2));
       setProfChoices([
@@ -316,7 +319,7 @@ const HeaderForm = ({
         "History",
         "Insight",
       ]);
-      setSampleFeatures(sampleFighterFeatures);
+      setFeatures(sampleFighterFeatures);
     } else if (e.target.value === "Rogue") {
       setHitpoints(8 + Math.floor((attributes.con - 10) / 2));
       setProfChoices([
@@ -331,7 +334,7 @@ const HeaderForm = ({
         "Deception",
         "Sleight of Hand",
       ]);
-      setSampleFeatures(sampleRogueFeatures);
+      setFeatures(sampleRogueFeatures);
     } else {
       setHitpoints(8 + Math.floor((attributes.con - 10) / 2));
       setProfChoices([
@@ -341,7 +344,7 @@ const HeaderForm = ({
         "Religion",
         "History",
       ]);
-      setSampleFeatures(sampleMonkFeatures);
+      setFeatures(sampleMonkFeatures);
     }
   };
 

@@ -4,7 +4,6 @@ const ClassProficiencyChoice = ({
   proficiencies,
   classProfs,
   setClassProfs,
-  characterClass,
   profChoices,
 }) => {
 
@@ -18,11 +17,10 @@ const ClassProficiencyChoice = ({
               profChoice={profChoice}
               classProfs={classProfs}
               setClassProfs={setClassProfs}
-              characterClass={characterClass}
             ></ProfCheckbox>
           );
-        } else{
-          return null
+        } else {
+          return null;
         }
       })}
     </div>
