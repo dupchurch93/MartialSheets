@@ -166,6 +166,7 @@ const CharacterCreate = () => {
               background={background}
               alignment={alignment}
               attributes={attributes}
+              setClassProfs={setClassProfs}
               setName={setName}
               setCharacterClass={setCharacterClass}
               setRace={setRace}

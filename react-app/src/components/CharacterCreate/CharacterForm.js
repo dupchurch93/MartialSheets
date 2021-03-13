@@ -74,7 +74,6 @@ const CharacterForm = ({
         tags={tags}
       ></PersonalityColumn>
       <FeaturesColumn
-        characterClass={characterClass}
         proficiencies={proficiencies}
         setProficiencies={setProficiencies}
         setHelpContents={setHelpContents}

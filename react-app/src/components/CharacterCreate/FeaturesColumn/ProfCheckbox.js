@@ -1,18 +1,16 @@
 const ProfCheckbox = ({
   profChoice,
   setClassProfs,
-  characterClass,
   classProfs,
 }) => {
 
 
   const onCheck = (e, profChoice) => {
     if (e.target.checked) {
-      console.log("in checked", classProfs);
       setClassProfs([...classProfs, profChoice]);
-      console.log("prof after check", classProfs);
     } else {
-      console.log("not checked");
+      const indexOfToRemove = classProfs.indexOf(profChoice);
+      setClassProfs([...classProfs.slice(0, indexOfToRemove), ...classProfs.slice(indexOfToRemove + 1, classProfs.length)])
     }
   };
 

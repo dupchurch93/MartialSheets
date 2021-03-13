@@ -12,6 +12,7 @@ const HeaderForm = ({
   setAlignment,
   setHelpContents,
   setProficiencies,
+  setClassProfs,
   setProfChoices,
   setHitpoints,
   setSpeed,
@@ -267,6 +268,7 @@ const HeaderForm = ({
 
   const handleSetBackground = (e) => {
     setBackground(e.target.value);
+    setClassProfs([]);
     if (e.target.value === "Acolyte") {
       setProficiencies(["Religion", "Insight"]);
     } else if (e.target.value === "Charlatan") {
