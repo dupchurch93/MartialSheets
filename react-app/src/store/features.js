@@ -8,14 +8,14 @@ const loadLevel1Features = (features) => {
 };
 
 export const loadLevel1FeatuersThunk = () => async (dispatch) => {
-  const response = await fetch("/api/features/level1", {
+  const response = await fetch("/api/abilities/level1", {
     headers: {
       "Content-Type": "application/json",
     },
   });
   const res = await response.json();
-  dispatch(loadLevel1Features(res.features));
-  return res.features;
+  // dispatch(loadLevel1Features(res.features));
+  console.log(res);
 };
 
 const initialState = {};

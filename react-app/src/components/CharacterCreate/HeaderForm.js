@@ -1,7 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-
-
 const HeaderForm = ({
   name,
   background,
@@ -22,11 +18,6 @@ const HeaderForm = ({
   setSpeed,
   setFeatures,
 }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    
-  })
 
   const classList = ["Barbarian", "Fighter", "Rogue", "Monk"];
   const raceList = [

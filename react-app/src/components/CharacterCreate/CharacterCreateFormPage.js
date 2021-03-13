@@ -7,10 +7,19 @@ import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
 import HeaderForm from "./HeaderForm";
 import LevelUpModal from "./Modal/LevelUpModal";
+import { loadLevel1FeatuersThunk } from "../../store/features";
 
 const CharacterCreate = () => {
   const [helpContents, setHelpContents] = useState("");
   const dispatch = useDispatch();
+
+  //load all level 1 features in state to reference and choose when class is picked/switched
+  useEffect(() => {
+    (async () => {
+      await dispatch(loadLevel1FeatuersThunk());
+    })();
+  }, [dispatch]);
+
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
 
@@ -90,7 +99,7 @@ const CharacterCreate = () => {
   const openModal = async (e) => {
     e.preventDefault();
     setModal(true);
-  }
+  };
 
   //handle the submit. Format data correctly and dispatch creation thunk.
   const handleSubmit = async (e) => {
@@ -149,7 +158,12 @@ const CharacterCreate = () => {
 
   return (
     <form className="flex justify-center" id="charForm" onSubmit={openModal}>
-      <LevelUpModal modal={modal} characterClass={characterClass} setModal={setModal} handleSubmit={handleSubmit}></LevelUpModal>
+      <LevelUpModal
+        modal={modal}
+        characterClass={characterClass}
+        setModal={setModal}
+        handleSubmit={handleSubmit}
+      ></LevelUpModal>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>
