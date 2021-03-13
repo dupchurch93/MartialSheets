@@ -4,7 +4,6 @@ const ProfCheckbox = ({
   classProfs,
 }) => {
 
-
   const onCheck = (e, profChoice) => {
     if (e.target.checked) {
       setClassProfs([...classProfs, profChoice]);
