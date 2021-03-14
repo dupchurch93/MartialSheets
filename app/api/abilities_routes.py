@@ -11,4 +11,4 @@ def load_level1_abilities():
     print("before abilies for loop----------", abilities)
     for ability in abilities:
         print("ability--------", ability.to_dict())
-    return {"Success": "No Errors"}
+    return {"features": [ability.to_dict() for ability in abilities]}

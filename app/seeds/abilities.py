@@ -93,63 +93,107 @@ Once you have raged the number of times shown for your barbarian level in the Ra
     )
 
     fighting_style_archery = Ability(
-        name="Fighting Style",
+        name="Fighting Style Archery",
         description="You gain a +2 bonus to attack rolls you make with ranged weapons.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_blind_fighting = Ability(
-        name="Fighting Style",
+        name="Fighting Style Blind Fighting",
         description="Blind Fighting. You have blindsight with a range of 10 feet. Within that range, you can effectively see anything that isn't behind total cover, even if you're blinded or in darkness. Moreover, you can see an invisible creature within that range, unless the creature successfully hides from you.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_defense = Ability(
-        name="Fighting Style",
+        name="Fighting Style Defense",
         description="While you are wearing armor, you gain a +1 bonus to AC.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_dueling = Ability(
-        name="Fighting Style",
-        description="Dueling. When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
+        name="Fighting Style Dueling",
+        description="When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_great_weapon_fighting = Ability(
-        name="Fighting Style",
+        name="Fighting Style Great Weapon Fighting",
         description="When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_interception = Ability(
-        name="Fighting Style",
+        name="Fighting Style Interception",
         description="When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use your reaction to reduce the damage the target takes by 1d10 + your proficiency bonus (to a minimum of 0 damage). You must be wielding a shield or a simple or martial weapon to use this reaction.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_protection = Ability(
-        name="Fighting Style",
+        name="Fighting Style Protection",
         description="When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_superior_technique = Ability(
-        name="Fighting Style",
+        name="Fighting Style Superior Technique",
         description="You learn one maneuver of your choice from among those available to the Battle Master archetype. If a maneuver you use requires your target to make a saving throw to resist the maneuver's effects, the saving throw DC equals 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice.) You gain one superiority die, which is a d6 (this die is added to any superiority dice you have from another source). This die is used to fuel your maneuvers. A superiority die is expended when you use it. You regain your expended superiority dice when you finish a short or long rest. Thrown Weapon Fighting. You can draw a weapon that has the thrown property as part of the attack you make with the weapon. In addition, when you hit with a ranged attack using a thrown weapon, you gain a +2 bonus to the damage roll.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_two_weapon_fighting = Ability(
-        name="Fighting Style",
+        name="Fighting Style Two Weapon Fighting",
         description="When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
         source="1:Fighter:Any:choice:fighting_style"
     )
 
     fighting_style_unarmed_fighting = Ability(
-        name="Fighting Style",
+        name="Fighting Style Unarmed Fighting",
         description="Your unarmed strikes can deal bludgeoning damage equal to 1d6 + your Strength modifier on a hit. If you aren't wielding any weapons or a shield when you make the attack roll, the d6 becomes a d8. At the start of each of your turns, you can deal 1d4 bludgeoning damage to one creature grappled by you.",
         source="1:Fighter:Any:choice:fighting_style"
+    )
+
+    unarmored_defense = Ability(
+      name="Unarmored Defense",
+      description="Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.",
+      source="1:Monk:Any"
+    )
+
+    martial_arts = Ability(
+      name="Martial Arts",
+      description=''' At 1st level, your practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons, which are shortswords and any simple melee weapons that don’t have the two-handed or heavy property.
+
+        You gain the following benefits while you are unarmed or wielding only monk weapons and you aren’t wearing armor or wielding a shield:
+
+            You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.
+            You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.
+            When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven’t already taken a bonus action this turn.
+
+        Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon in the Weapons section.''',
+      source="1:Monk:Any"
+    )
+
+    expertise = Ability(
+        name="Expertise",
+        description='''At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.
+
+    At 6th level, you can choose two more of your proficiencies (in skills or with thieves’ tools) to gain this benefit.''',
+        source="1:Rogue:Any"
+    )
+
+    sneak_attack = Ability(
+        name="Sneak Attack",
+        description='''Beginning at 1st level, you know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon.
+
+        You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll. Increases with level.''',
+        source="1:Rogue:Any"
+    )
+
+    thieves_cant = Ability(
+        name="Thieves Cant",
+        description='''During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.
+
+        In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.''',
+        source="1:Rogue:Any"
     )
 
     db.session.add_all([rage, race_count, rage_damage, danger_sense, frenzy,
@@ -163,7 +207,8 @@ Once you have raged the number of times shown for your barbarian level in the Ra
                         fighting_style_interception, fighting_style_protection,
                         fighting_style_superior_technique,
                         fighting_style_unarmed_fighting,
-                        fighting_style_two_weapon_fighting])
+                        fighting_style_two_weapon_fighting, unarmored_defense,
+                        martial_arts, expertise, sneak_attack, thieves_cant])
     db.session.commit()
 
 
