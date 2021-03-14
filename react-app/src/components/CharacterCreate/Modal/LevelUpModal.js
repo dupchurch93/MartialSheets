@@ -1,4 +1,5 @@
 import { TiDelete } from "react-icons/ti";
+import { useSelector } from "react-redux";
 
 const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
   const hidden = modal ? "modal" : "hidden";
@@ -7,6 +8,18 @@ const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
     e.preventDefault();
     setModal(false);
   };
+
+  const classFeatures = useSelector((state) => state.features[characterClass])
+
+  let featureChoices;
+  if(classFeatures){
+    featureChoices = classFeatures.filter((feature) => {
+      return ((feature.source.split(":")[3]==="choice"))
+    });
+    console.log('inside if clas features true')
+  } else {
+    featureChoices = []
+  }
 
   return (
     <div
@@ -22,9 +35,13 @@ const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
             Your {characterClass} begins their journey.
           </div>
           <div>
-            Here are the features and abilites your character starts off with.
+            Please make a choice for the following class features...
           </div>
-          <div>Feature form here choosing abilities</div>
+          {featureChoices.map((feature) => {
+            return(
+              <div key={feature.name}>{feature.name}</div>
+            )
+          })}
           <div>
             Finally a submit button that actually creates the character or
             submits the changes
