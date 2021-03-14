@@ -1,7 +1,15 @@
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from "react-redux";
+import FeatureList from "../FeaturesColumn/FeatureList";
 
-const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
+const LevelUpModal = ({
+  modal,
+  characterClass,
+  setModal,
+  handleSubmit,
+  setFeatures,
+  features,
+}) => {
   const hidden = modal ? "modal" : "hidden";
 
   const closeModal = (e) => {
@@ -9,16 +17,17 @@ const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
     setModal(false);
   };
 
-  const classFeatures = useSelector((state) => state.features[characterClass])
+  const classFeatures = useSelector((state) => state.features[characterClass]);
 
   let featureChoices;
-  if(classFeatures){
+  let choiceName;
+  if (classFeatures) {
     featureChoices = classFeatures.filter((feature) => {
-      return ((feature.source.split(":")[3]==="choice"))
+      return feature.source.split(":")[3] === "choice";
     });
-    console.log('inside if clas features true')
-  } else {
-    featureChoices = []
+    if (featureChoices.length > 0) {
+      choiceName = featureChoices[0].source.split(":")[4];
+    }
   }
 
   return (
@@ -31,22 +40,28 @@ const LevelUpModal = ({ modal, characterClass, setModal, handleSubmit }) => {
             <TiDelete />
           </button>
         </div>
-          <div className="font-bold underline text-lg m-4">
-            Your {characterClass} begins their journey.
-          </div>
-          <div>
-            Please make a choice for the following class features...
-          </div>
-          {featureChoices.map((feature) => {
-            return(
-              <div key={feature.name}>{feature.name}</div>
-            )
-          })}
-          <div>
-            Finally a submit button that actually creates the character or
-            submits the changes
-          </div>
-          <button onClick={handleSubmit} type="submit">Finalize Character</button>
+        <div className="font-bold underline text-lg m-4">
+          Your {characterClass} begins their journey.
+        </div>
+        <div>Feautres gained on this level:</div>
+        <FeatureList features={features}></FeatureList>
+        {featureChoices ? (
+          <>
+            <div>Please choose your following class feature: {choiceName}</div>
+            {featureChoices.map((feature) => {
+              return <div key={feature.name}>{feature.name}</div>;
+            })}
+            <div>
+              Finally a submit button that actually creates the character or
+              submits the changes
+            </div>
+          </>
+        ) : (
+          <div></div>
+        )}
+        <button onClick={handleSubmit} type="submit">
+          Finalize Character
+        </button>
       </div>
     </div>
   );

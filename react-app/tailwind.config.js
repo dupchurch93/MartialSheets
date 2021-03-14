@@ -14,6 +14,7 @@ module.exports = {
       maxWidth:{
         "stat": "9rem",
         "characterSheet": "1000px",
+        "modal": "28rem"
       },
       gridTemplateRows: {
         'layout': 'auto minmax(1020px, 1fr) auto',
