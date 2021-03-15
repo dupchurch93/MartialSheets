@@ -163,6 +163,8 @@ const CharacterCreate = () => {
         characterClass={characterClass}
         setModal={setModal}
         handleSubmit={handleSubmit}
+        setFeatures={setFeatures}
+        features={features}
       ></LevelUpModal>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
