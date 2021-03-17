@@ -3,16 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    * {
-        font-family: "Helvetica"
-    }
+@layer base {
+  * {
+    font-family: "Helvetica";
+  }
 
-    .navRight a{
-        text-decoration: none;
-    }
+  .navRight a {
+    text-decoration: none;
+  }
 
-    a:hover, button:hover{
-        box-shadow: 2px 3px 5px 0px rgba(119, 104, 104, 0.8553);
-    }
+  a:hover,
+  button:hover {
+    box-shadow: 2px 3px 5px 0px rgba(119, 104, 104, 0.8553);
+  }
 }
