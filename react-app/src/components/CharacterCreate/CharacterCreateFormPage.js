@@ -138,10 +138,9 @@ const CharacterCreate = () => {
       inventory: inventory,
       languages: languages,
       tools: tools,
-      features: "test please work",
+      features: JSON.stringify(features),
       tags: tags,
     };
-    console.log("character in frontend", character)
     Object.entries(character).forEach((entry) => {
       myForm.append(entry[0], entry[1]);
     });
