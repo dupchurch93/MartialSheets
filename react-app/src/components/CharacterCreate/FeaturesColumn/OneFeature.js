@@ -15,7 +15,7 @@ const OneFeature = ({ feature }) => {
   );
 
   return (
-    <div className="oneFeatureContainer px-2 mb-2 max-w-modal">
+    <div key={feature.name} className="oneFeatureContainer px-2 mb-2 max-w-modal">
       <button
         className="rounded-lg w-full"
         onClick={(e) => changeShow(e)}

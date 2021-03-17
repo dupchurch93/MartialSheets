@@ -12,7 +12,9 @@ const LevelUpModal = ({
   features,
 }) => {
   const hidden = modal ? "modal" : "hidden";
-  const [pickedFeature, setPickedFeature] = useState("Select Feature Option");
+  const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
+    "Select Feature Option"
+  );
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
 
@@ -32,48 +34,55 @@ const LevelUpModal = ({
     if (featureChoices.length > 0) {
       choiceName = featureChoices[0].source.split(":")[4];
     }
-  };
+  }
 
   //set picked feature equal the name and find the feature, setting the description equal to the helper
-  const handlePickedFeature = (featureName) => {
-    setPickedFeature(featureName);
-    setFeatureHelp(featureChoices.filter((feature) => feature.name === featureName)[0].description)
-  }
+  const handlePickedFeature = (index) => {
+    setPickedFeatureIndex(index);
+    setFeatureHelp(featureChoices[index].description);
+  };
 
   const validateChoice = () => {
     const validationErrors = [];
 
-    if(featureChoices.length > 0 && pickedFeature==="Select Feature Option"){
-      validationErrors.push("Please select a feature choice for your character.")
-    };
+    if (
+      featureChoices.length > 0 &&
+      pickedFeatureIndex === "Select Feature Option"
+    ) {
+      validationErrors.push(
+        "Please select a feature choice for your character."
+      );
+    }
 
     return validationErrors;
-  }
+  };
 
   const finalizeCharacter = (e) => {
     const errs = validateChoice();
-    if(errs.length > 0){
-      window.scrollTo(0,0);
+    if (errs.length > 0) {
+      window.scrollTo(0, 0);
       return setErrors(errs);
-    };
-    setFeatures([...features, pickedFeature])
+    }
+    if (featureChoices.length > 0) {
+      setFeatures([...features, featureChoices[pickedFeatureIndex]]);
+    }
     handleSubmit(e);
-  }
+  };
 
   return (
     <div
       className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-30 top-0 flex justify-center`}
     >
       <div className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto">
-      {errors.length > 0 && (
-            <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
-              {errors.map((error) => (
-                <li className="ml-3" key={error}>
-                  {error}
-                </li>
-              ))}
-            </div>
-          )}
+        {errors.length > 0 && (
+          <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
+            {errors.map((error) => (
+              <li className="ml-3" key={error}>
+                {error}
+              </li>
+            ))}
+          </div>
+        )}
         <div className="w-full flex justify-end p-2">
           <button onClick={(e) => closeModal(e)} className="rounded-lg">
             <TiDelete />
@@ -91,7 +100,7 @@ const LevelUpModal = ({
                 Please choose your following class feature: {choiceName}.
               </div>
               <select
-                value={pickedFeature}
+                value={pickedFeatureIndex}
                 name="pickedFeature"
                 onChange={(e) => handlePickedFeature(e.target.value)}
                 className="w-full border border-black rounded-lg"
@@ -99,10 +108,10 @@ const LevelUpModal = ({
                 <option disabled value="Select Feature Option" hidden>
                   Select Feature Option
                 </option>
-                {featureChoices.map((feature) => {
+                {featureChoices.map((feature, index) => {
                   return (
-                    <option key={feature.name} value={feature.name}>
-                      {feature.name}
+                    <option key={index} value={index}>
+                      {featureChoices[index].name}
                     </option>
                   );
                 })}
