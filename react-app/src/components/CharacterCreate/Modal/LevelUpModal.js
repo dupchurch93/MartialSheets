@@ -71,7 +71,7 @@ const LevelUpModal = ({
 
   return (
     <div
-      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-30 top-0 flex justify-center`}
+      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 top-0 left-0 flex justify-center`}
     >
       <div className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto">
         {errors.length > 0 && (
