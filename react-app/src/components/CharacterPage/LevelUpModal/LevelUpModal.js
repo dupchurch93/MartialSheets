@@ -1,13 +1,11 @@
 import { TiDelete } from "react-icons/ti";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 
-const LevelUpModal = ({
-  modal,
-  character,
-  setModal
-}) => {
+const LevelUpModal = ({ modal, character, setModal }) => {
   const hidden = modal ? "modal" : "hidden";
+
+  const [allFeatures, setAllFeatures] = useState([]);
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
     "Select Feature Option"
   );
@@ -17,14 +15,14 @@ const LevelUpModal = ({
 
   const closeModal = (e) => {
     e.preventDefault();
-    setPickedFeatureIndex("Select Feature Option")
+    setPickedFeatureIndex("Select Feature Option");
     setModal(false);
   };
 
   let featureChoices;
   let choiceName;
-  if (classFeatures) {
-    featureChoices = classFeatures.filter((feature) => {
+  if (allFeatures) {
+    featureChoices = allFeatures.filter((feature) => {
       return feature.source.split(":")[3] === "choice";
     });
     if (featureChoices.length > 0) {
@@ -54,22 +52,14 @@ const LevelUpModal = ({
   };
 
   const finalizeCharacter = (e) => {
-    const errs = validateChoice();
-    if (errs.length > 0) {
-      window.scrollTo(0, 0);
-      return setErrors(errs);
-    }
-    if (featureChoices.length > 0) {
-      setFeatures([...features, featureChoices[pickedFeatureIndex]]);
-    }
-    handleSubmit(e);
-  };
+    e.preventDefault();
+  }
 
   return (
     <div
       className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-30 top-0 flex justify-center`}
     >
-      <div className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto">
+      <form onSubmit={finalizeCharacter} className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto">
         {errors.length > 0 && (
           <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
             {errors.map((error) => (
@@ -85,17 +75,17 @@ const LevelUpModal = ({
           </button>
         </div>
         <div className="font-bold underline text-lg m-4">
-          Your {characterClass} begins their journey.
+          {character.name} is now level {character.level + 1}!
         </div>
         <div>Features gained on this level:</div>
-        <FeatureList features={features}></FeatureList>
+        {/* <FeatureList features={features}></FeatureList> */}
         {featureChoices && featureChoices.length > 0 ? (
           <div className="">
             <div className="border border-black p-2 m-2 rounded-lg w-80">
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
-              <select
+              {/* <select
                 value={pickedFeatureIndex}
                 name="pickedFeature"
                 onChange={(e) => handlePickedFeature(e.target.value)}
@@ -111,7 +101,7 @@ const LevelUpModal = ({
                     </option>
                   );
                 })}
-              </select>
+              </select> */}
             </div>
             <div className="border border-black p-2 m-2 rounded-lg w-80">
               <div className="font-bold underline m-4 text-center">
@@ -121,16 +111,15 @@ const LevelUpModal = ({
             </div>
           </div>
         ) : (
-          <div>test</div>
+          <div></div>
         )}
         <button
-          onClick={finalizeCharacter}
           className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white"
           type="submit"
         >
-          Finalize Character
+          Finalize Level Up
         </button>
-      </div>
+      </form>
     </div>
   );
 };

@@ -81,7 +81,7 @@ const CharacterPage = () => {
       </div>
       <div className="flex items-center flex-col">
         <div className="topButtons top flex justify-between w-full">
-          <div>Level Up Button Coming Soon</div>
+          <button onClick={() => setModal(true)}>Level Up Button Coming Soon</button>
           <div className="rightButtons flex">
             <button
               onClick={() => showCharacterFunc()}

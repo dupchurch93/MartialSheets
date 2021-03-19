@@ -1,4 +1,5 @@
 const LOAD_LEVEL1_FEATURES = "features/loadLevel1Features";
+const LOAD_LEVEL_UP_FEATURES = "features/loadLevelUpFeatures";
 
 const loadLevel1Features = (features) => {
   return {
@@ -6,6 +7,13 @@ const loadLevel1Features = (features) => {
     payload: features,
   };
 };
+
+const loadLevelUpFeatures = (charId, level) => {
+  return {
+    type: LOAD_LEVEL_UP_FEATURES,
+    payload: { "charId": charId, "level": level}
+  }
+}
 
 export const loadLevel1FeatuersThunk = () => async (dispatch) => {
   const response = await fetch("/api/abilities/level1", {
@@ -18,6 +26,18 @@ export const loadLevel1FeatuersThunk = () => async (dispatch) => {
     dispatch(loadLevel1Features(res.features));
   }
 };
+
+export const loadLevelUpFeaturesThunk = (charId, level) => async (dispatch) => {
+  const response = await fetch(`/api/abilities/${charId}/${level}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const res = await response.json();
+  if(!res.errors){
+    dispatch(loadLevelUpFeatures(charId, level))
+  }
+}
 
 const initialState = {};
 
