@@ -80,6 +80,7 @@ const CharacterForm = ({
         features={features}
         profChoices={profChoices}
         classProfs={classProfs}
+        characterClass={characterClass}
         setClassProfs={setClassProfs}
       ></FeaturesColumn>
     </div>

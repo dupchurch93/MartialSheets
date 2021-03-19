@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Character, Tag
+from app.models import db, Character, Tag, Ability
 from flask_login import current_user
 from app.forms.character_form import CharacterForm
 from app.s3_helpers import (
@@ -78,23 +78,36 @@ def create_character():
             languages=form.data['languages'],
             tools=form.data['tools']
         )
+        # Take care of tag creation
         #  grab tags and query to check if they are created already
-        tagsFormatted = [tag.strip() for tag in form.data['tags'].split(",")]
-        for tag in tagsFormatted:
-            queriedTag = Tag.query.filter(Tag.name == tag).first()
-            if(queriedTag):
-                character.tags.append(queriedTag)
-            else:
-                tag = Tag(
-                    name=tag
-                )
-                character.tags.append(tag)
-        # classTag = Tag.query.filter(Tag.name == form.data['characterClass'])
-        # # raceTag = Tag.query.filter(Tag.name == form.data['race'])
+        if len(form.data['tags']) > 0:
+            tagsFormatted = [tag.strip() for tag in form.data['tags'].split(",")]
+            for tag in tagsFormatted:
+                queriedTag = Tag.query.filter(Tag.name == tag).first()
+                if(queriedTag):
+                    character.tags.append(queriedTag)
+                else:
+                    tag = Tag(
+                        name=tag
+                    )
+                    character.tags.append(tag)
+        classTag = Tag.query.filter(Tag.name == form.data['characterClass']).first()
+        raceTag = Tag.query.filter(Tag.name == form.data['race']).first()
 
-        # character.tags.append(classTag)
-        # character.tags.append(raceTag)
-        #  add and commit character
+        character.tags.append(classTag)
+        character.tags.append(raceTag)
+        # Take care of abilites and ability appending
+        for feature in json.loads(form.data['features']):
+            feature_to_add = (
+                Ability.query.filter(Ability.name == feature['name']).first()
+            )
+            if(feature_to_add):
+                character.abilities.append(feature_to_add)
+            else:
+                return {"errors": "Failed to add ability"}
+
+
+        # add and commit character
         db.session.add(character)
         db.session.commit()
         return character.to_dict()

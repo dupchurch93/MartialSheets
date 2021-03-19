@@ -34,3 +34,4 @@ class CharacterForm(FlaskForm):
     languages = StringField('flaws')
     tools = StringField('tools')
     tags = StringField('tags')
+    features = StringField('features')

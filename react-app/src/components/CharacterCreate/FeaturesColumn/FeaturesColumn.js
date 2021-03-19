@@ -1,5 +1,6 @@
 import FeatureList from "./FeatureList";
 import ClassProficiencyChoice from "./ClassProficiencyChoice";
+import { useEffect, useState } from "react";
 
 const Features = ({
   setHelpContents,
@@ -8,7 +9,7 @@ const Features = ({
   proficiencies,
   profChoices,
   classProfs,
-  setClassProfs
+  setClassProfs,
 }) => {
   const featuresHelp = (
     <div>
@@ -30,10 +31,16 @@ const Features = ({
     </div>
   );
 
-  let profChoiceNumber = 2;
-  if(characterClass === "Rogue"){
-    profChoiceNumber = 4;
-  }
+  const [profChoiceNumber, setProfChoiceNumber] = useState(0);
+  useEffect(() => {
+    if (characterClass === "Rogue") {
+      setProfChoiceNumber(4);
+    } else {
+      setProfChoiceNumber(2);
+    }
+  }, [characterClass]);
+
+
 
   return (
     <div className="featuresColumn border-r border-black">
@@ -49,12 +56,12 @@ const Features = ({
           classProfs={classProfs}
           setClassProfs={setClassProfs}
         ></ClassProficiencyChoice>
-      <div className="font-bold underline text-center">
-        Level 1 Sample Features
-      </div>
-      <div onMouseEnter={() => setHelpContents(featuresHelp)}>
-        <FeatureList features={features}></FeatureList>
-      </div>
+        <div className="font-bold underline text-center">
+          Level 1 Sample Features
+        </div>
+        <div onMouseEnter={() => setHelpContents(featuresHelp)}>
+          <FeatureList features={features}></FeatureList>
+        </div>
       </div>
     </div>
   );

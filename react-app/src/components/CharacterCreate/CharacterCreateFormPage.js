@@ -98,6 +98,12 @@ const CharacterCreate = () => {
   //open modal for ability choices and confirmation
   const openModal = async (e) => {
     e.preventDefault();
+    // first validate data before sending
+    const errs = validate();
+    if (errs.length > 0) {
+      window.scrollTo(0, 0);
+      return setErrors(errs);
+    }
     setModal(true);
   };
 
@@ -132,6 +138,7 @@ const CharacterCreate = () => {
       inventory: inventory,
       languages: languages,
       tools: tools,
+      features: JSON.stringify(features),
       tags: tags,
     };
     Object.entries(character).forEach((entry) => {

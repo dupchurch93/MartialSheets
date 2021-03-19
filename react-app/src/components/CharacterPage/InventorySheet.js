@@ -1,6 +1,7 @@
 import Header from "./Header";
 
 const InventorySheet = ({ character, setHelpContents }) => {
+  console.log(character)
   const inventoryArray = character.inventory.split(",");
   const inventoryHelper = (
     <div>

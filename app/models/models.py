@@ -49,6 +49,7 @@ class Character(db.Model):
             "ideals": self.ideals,
             "flaws": self.flaws,
             "bonds": self.bonds,
+            "inventory": self.inventory,
             "description": self.description,
             "languages": self.languages,
             "tools": self.tools,
