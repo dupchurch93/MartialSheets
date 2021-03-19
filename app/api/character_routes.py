@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Character, Tag
+from app.models import db, Character, Tag, Ability
 from flask_login import current_user
 from app.forms.character_form import CharacterForm
 from app.s3_helpers import (
@@ -97,8 +97,14 @@ def create_character():
         character.tags.append(classTag)
         character.tags.append(raceTag)
         # Take care of abilites and ability appending
-
-        print('-----------------------------------character abilities right here-------------------------------------', form.data)
+        for feature in json.loads(form.data['features']):
+            feature_to_add = (
+                Ability.query.filter(Ability.name == feature['name']).first()
+            )
+            if(feature_to_add):
+                character.abilities.append(feature_to_add)
+            else:
+                return {"errors": "Failed to add ability"}
 
 
         # add and commit character
