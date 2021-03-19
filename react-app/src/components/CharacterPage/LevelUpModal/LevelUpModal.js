@@ -1,29 +1,25 @@
 import { TiDelete } from "react-icons/ti";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 
-const Level1Modal = ({
+const LevelUpModal = ({
   modal,
-  characterClass,
-  setModal,
-  handleSubmit,
-  setFeatures,
-  features,
+  character,
+  setModal
 }) => {
   const hidden = modal ? "modal" : "hidden";
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
     "Select Feature Option"
   );
+  const [levelUpFeatures, setLevelUpFeatures] = useState([]);
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
 
   const closeModal = (e) => {
     e.preventDefault();
+    setPickedFeatureIndex("Select Feature Option")
     setModal(false);
   };
-
-  const classFeatures = useSelector((state) => state.features[characterClass]);
 
   let featureChoices;
   let choiceName;
@@ -139,4 +135,4 @@ const Level1Modal = ({
   );
 };
 
-export default Level1Modal;
+export default LevelUpModal;
