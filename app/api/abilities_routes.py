@@ -18,12 +18,13 @@ def get_level_up_abilities(charId, level):
     print("charId", charId)
     print("level", level)
     charDict = Character.query.get(charId).to_dict()
+    characterClass = charDict['class']
+    subclass = charDict['subclass']
     abilitiesOnLevelUp = Ability.query.filter(or_(
-        Ability.name == "Rage",
-        Ability.name == "Frenzy"
+        Ability.source == f'{level}:{characterClass}:any',
+        Ability.source == f'{level}:{characterClass}:{subclass}'
         )).all()
-    print('abilities------------- returned', abilitiesOnLevelUp)
-    return charDict
+    return {"features": [ability.to_dict() for ability in abilitiesOnLevelUp]}
 
 
 @abilities_routes.route('/levelUp', methods=["PATCH"])

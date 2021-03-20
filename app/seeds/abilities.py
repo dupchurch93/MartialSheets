@@ -7,29 +7,54 @@ def seed_abilities():
         name="Rage",
         description='''In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action.
 
-While raging, you gain the following benefits if you aren’t wearing heavy armor:
+        While raging, you gain the following benefits if you aren’t wearing heavy armor:
 
-    You have advantage on Strength checks and Strength saving throws.
-    When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table.
-    You have resistance to bludgeoning, piercing, and slashing damage.
+        You have advantage on Strength checks and Strength saving throws.
+        When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table.
+        You have resistance to bludgeoning, piercing, and slashing damage.
 
-If you are able to cast spells, you can’t cast them or concentrate on them while raging.
+        If you are able to cast spells, you can’t cast them or concentrate on them while raging.
 
-Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven’t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action.
+        Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven’t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action.
 
-Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again.''',
-    source="1:Barbarian:any"
+        Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again.''',
+        source="1:Barbarian:any"
     )
 
     race_count = Ability(
         name="Rage Count: 2",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="1:Barbarian:any"
+        source="1:Barbarian:any:increment"
     )
+
+    rage_count_level_3 = Ability(
+        name="Rage Count: 3",
+        description="Amount of times you can rage per long rest. Increases with level.",
+        source="3:Barbarian:any:increment"
+    )
+
+    rage_count_level_6 = Ability(
+        name="Rage Count: 4",
+        description="Amount of times you can rage per long rest. Increases with level.",
+        source="3:Barbarian:any:increment"
+    )
+
+    rage_count_level_12 = Ability(
+        name="Rage Count: 5",
+        description="Amount of times you can rage per long rest. Increases with level.",
+        source="3:Barbarian:any:increment"
+    )
+
     rage_damage = Ability(
         name="Bonus Rage Damage: 2",
         description="Extra damage gained on melee attack while raging. Increases with level.",
-        source="1:Barbarian:any"
+        source="1:Barbarian:any:increment"
+    )
+
+    barb_extra_attack = Ability(
+        name="Extra Attack",
+        description="Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.",
+        source="5:Barbarian:any"
     )
 
     reckless_attack = Ability(
@@ -196,6 +221,12 @@ Once you have raged the number of times shown for your barbarian level in the Ra
         source="1:Rogue:Any"
     )
 
+    fast_movement = Ability(
+        name="Fast Movement",
+        description="Your speed icnreases by 10 feet while you aren't wearing heavy armor.",
+        source="5:Barbarian:any"
+    )
+
     db.session.add_all([rage, race_count, rage_damage, danger_sense, frenzy,
                         reckless_attack, totem_spirit, totem_spirit_bear,
                         totem_spirit_tiger, totem_spirit_wolf,
@@ -208,7 +239,9 @@ Once you have raged the number of times shown for your barbarian level in the Ra
                         fighting_style_superior_technique,
                         fighting_style_unarmed_fighting,
                         fighting_style_two_weapon_fighting, unarmored_defense,
-                        martial_arts, expertise, sneak_attack, thieves_cant])
+                        martial_arts, expertise, sneak_attack, thieves_cant,
+                        fast_movement, rage_count_level_3, rage_count_level_6,
+                        rage_count_level_12, barb_extra_attack])
     db.session.commit()
 
 

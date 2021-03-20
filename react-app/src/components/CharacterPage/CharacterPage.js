@@ -16,7 +16,7 @@ const CharacterPage = () => {
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
-  const [helpContents, setHelpContents] = useState("stuff in help contents");
+  const [helpContents, setHelpContents] = useState("Extra information will be displayed here when mousing over different areas of the character sheet.");
   const [modal, setModal] = useState(false);
 
   const showCharacterFunc = () => {
@@ -50,13 +50,6 @@ const CharacterPage = () => {
     }
   };
 
-  //open modal for ability choices and confirmation
-  const openModal = async (e) => {
-    e.preventDefault();
-    // first validate data before sending
-    setModal(true);
-  };
-
   if (!character) {
     return <div>Loading...</div>;
   }
@@ -75,29 +68,29 @@ const CharacterPage = () => {
           alt="character portrait"
         ></img>
         <div className="description w-48 mt-2 mx-2 h-full mb-20 border border-black rounded-lg bg-gray-100 overflow-auto">
-          <div className="font-bold underline p-1">Explanation</div>
+          <div className="font-bold underline p-1 text-center">Explanation</div>
           <div className="text-xs p-1">{helpContents}</div>
         </div>
       </div>
       <div className="flex items-center flex-col">
         <div className="topButtons top flex justify-between w-full">
-          <button onClick={() => setModal(true)}>Level Up Button Coming Soon</button>
+          <button className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold" onClick={() => setModal(true)}>Level Up</button>
           <div className="rightButtons flex">
             <button
               onClick={() => showCharacterFunc()}
-              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+              className="mx-2 my-1 bg-red-600 font-bold text-white p-1 rounded-lg"
             >
               Character
             </button>
             <button
               onClick={() => showInventoryFunc()}
-              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+              className="mx-2 my-1 bg-red-600 font-bold text-white p-1 rounded-lg"
             >
               Inventory
             </button>
             <button
               onClick={() => showDescriptionFunc()}
-              className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+              className="mx-2 my-1 bg-red-600 font-bold text-white p-1 rounded-lg"
             >
               Description
             </button>
@@ -126,13 +119,13 @@ const CharacterPage = () => {
         <div className="bottomButtons mb-10 top flex justify-end w-full">
           <button
             onClick={() => true}
-            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
           >
             Edit Character
           </button>
           <button
             onClick={() => handleDelete()}
-            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg"
+            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
           >
             Delete Character
           </button>

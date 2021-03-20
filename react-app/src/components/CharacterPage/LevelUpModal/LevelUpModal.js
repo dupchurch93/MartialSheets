@@ -1,9 +1,20 @@
 import { TiDelete } from "react-icons/ti";
 import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
+import { loadLevelUpFeaturesThunk } from "../../../store/features";
+import { useDispatch } from "react-redux";
 
 const LevelUpModal = ({ modal, character, setModal }) => {
   const hidden = modal ? "modal" : "hidden";
+  const dispatch = useDispatch();
+
+  //use Effect to grab all abilities character will recieve on level up
+  useEffect(() => {
+    (async () => {
+      const features = await dispatch(loadLevelUpFeaturesThunk(character.id, character.level + 1))
+      console.log("features in use effect", features)
+    })()
+  },[])
 
   const [allFeatures, setAllFeatures] = useState([]);
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(

@@ -37,6 +37,8 @@ export const loadLevelUpFeaturesThunk = (charId, level) => async (dispatch) => {
   if(!res.errors){
     dispatch(loadLevelUpFeatures(charId, level))
   }
+  console.log("res in load level up thunk", res);
+  return res;
 }
 
 const initialState = {};
