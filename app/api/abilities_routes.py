@@ -15,8 +15,6 @@ def load_level1_abilities():
 
 @abilities_routes.route('/<int:charId>/<int:level>', methods=["GET"])
 def get_level_up_abilities(charId, level):
-    print("charId", charId)
-    print("level", level)
     charDict = Character.query.get(charId).to_dict()
     characterClass = charDict['class']
     subclass = charDict['subclass']

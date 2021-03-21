@@ -92,10 +92,12 @@ const Level1Modal = ({
           Your {characterClass} begins their journey.
         </div>
         <div>Features gained on this level:</div>
-        <FeatureList features={features}></FeatureList>
+        <div className="w-96 box-border">
+          <FeatureList features={features}></FeatureList>
+        </div>
         {featureChoices && featureChoices.length > 0 ? (
           <div className="">
-            <div className="border border-black p-2 m-2 rounded-lg w-80">
+            <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
@@ -117,7 +119,7 @@ const Level1Modal = ({
                 })}
               </select>
             </div>
-            <div className="border border-black p-2 m-2 rounded-lg w-80">
+            <div className="border border-black p-2 m-2 rounded-lg w-96 box-border">
               <div className="font-bold underline m-4 text-center">
                 Choice Description
               </div>
