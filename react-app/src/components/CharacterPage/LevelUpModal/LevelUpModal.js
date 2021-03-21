@@ -13,6 +13,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
   );
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
+  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints)
   const newLevel = character.level + 1;
   const charId = character.id;
 
@@ -70,6 +71,9 @@ const LevelUpModal = ({ modal, character, setModal }) => {
         "Please select a feature choice for your character."
       );
     }
+    if(newHitpoints === character.hitpoints){
+      validationErrors.push("Please select an HP increase (average or roll) for your charaterl.")
+    }
     return validationErrors;
   };
 
@@ -89,11 +93,13 @@ const LevelUpModal = ({ modal, character, setModal }) => {
     } else{
       console.log("features to level up with", featureNonChoices)
     }
+    // use hit points here in patch request
+    console.log(newHitpoints);
   };
 
   return (
     <div
-      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-30 top-0 flex justify-center`}
+      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 left-0 top-0 flex justify-center`}
     >
       <form
         onSubmit={finalizeCharacter}
@@ -119,10 +125,10 @@ const LevelUpModal = ({ modal, character, setModal }) => {
         <div className="w-96 mb-6 mx-2">
           <ProfBonus level={newLevel}></ProfBonus>
         </div>
-        <div className="w-96 mb-6 mx-2">
-          <HitPoints con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
+        <div className="mb-6 mx-2">
+          <HitPoints setNewHitpoints={setNewHitpoints} hitpoints={character.hitpoints} con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
         </div>
-        <div>Features gained on this level:</div>
+        <div className="font-bold">Features gained at {newLevel}</div>
         <div className="w-96">
           <FeatureList features={featureNonChoices}></FeatureList>
         </div>
