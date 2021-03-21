@@ -23,10 +23,3 @@ def get_level_up_abilities(charId, level):
         Ability.source == f'{level}:{characterClass}:{subclass}'
         )).all()
     return {"features": [ability.to_dict() for ability in abilitiesOnLevelUp]}
-
-
-@abilities_routes.route('/levelUp', methods=["PATCH"])
-def levelUp():
-    decoded = json.loads(request.data.decode("UTF-8"))
-    character = Character.query.get(decoded['charId'])
-    abilities_to_receive = Ability.query.filter(Ability.source)

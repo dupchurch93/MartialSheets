@@ -154,3 +154,10 @@ def add_character_tag():
         return character.to_dict()
     else:
         return({"errors": ["Tag was not added."]})
+
+
+@character_routes.route('/levelUp', methods=["PATCH"])
+def levelUp():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    abilities_to_receive = Ability.query.filter(Ability.source)

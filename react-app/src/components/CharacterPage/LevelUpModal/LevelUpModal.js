@@ -1,6 +1,8 @@
 import { TiDelete } from "react-icons/ti";
 import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
+import ProfBonus from "./profBonus";
+import HitPoints from "./hitpointsChoice";
 
 const LevelUpModal = ({ modal, character, setModal }) => {
   const hidden = modal ? "modal" : "hidden";
@@ -9,15 +11,16 @@ const LevelUpModal = ({ modal, character, setModal }) => {
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
     "Select Feature Option"
   );
-  const [levelUpFeatures, setLevelUpFeatures] = useState([]);
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
+  const newLevel = character.level + 1;
+  const charId = character.id;
 
   //use Effect to grab all abilities character will recieve on level up
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `/api/abilities/${character.id}/${character.level + 1}`,
+        `/api/abilities/${charId}/${newLevel}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -27,7 +30,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
       const features = await response.json();
       setAllFeatures(features.features);
     })();
-  }, [character]);
+  }, [newLevel,charId]);
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -50,7 +53,6 @@ const LevelUpModal = ({ modal, character, setModal }) => {
       choiceName = featureChoices[0].source.split(":")[4];
     }
   }
-  console.log("feature non choices", featureNonChoices);
 
   //set picked feature equal the name and find the feature, setting the description equal to the helper
   const handlePickedFeature = (index) => {
@@ -73,6 +75,20 @@ const LevelUpModal = ({ modal, character, setModal }) => {
 
   const finalizeCharacter = (e) => {
     e.preventDefault();
+    const errs = validateChoice();
+    if (errs.length > 0) {
+      window.scrollTo(0, 0);
+      return setErrors(errs);
+    }
+    if (!pickedFeatureIndex === "Select Feature Option") {
+      const levelUpFeatures = [
+        ...featureNonChoices,
+        featureChoices[pickedFeatureIndex],
+      ];
+      console.log("features to level up with", levelUpFeatures);
+    } else{
+      console.log("features to level up with", featureNonChoices)
+    }
   };
 
   return (
@@ -100,13 +116,19 @@ const LevelUpModal = ({ modal, character, setModal }) => {
         <div className="font-bold underline text-lg m-4">
           {character.name} is now level {character.level + 1}!
         </div>
+        <div className="w-96 mb-6 mx-2">
+          <ProfBonus level={newLevel}></ProfBonus>
+        </div>
+        <div className="w-96 mb-6 mx-2">
+          <HitPoints con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
+        </div>
         <div>Features gained on this level:</div>
-        <div className="w-80">
+        <div className="w-96">
           <FeatureList features={featureNonChoices}></FeatureList>
         </div>
         {featureChoices && featureChoices.length > 0 ? (
           <div className="">
-            <div className="border border-black p-2 m-2 rounded-lg w-80">
+            <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
@@ -128,7 +150,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
                 })}
               </select> */}
             </div>
-            <div className="border border-black p-2 m-2 rounded-lg w-80">
+            <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="font-bold underline m-4 text-center">
                 Choice Description
               </div>
