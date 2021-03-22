@@ -2,7 +2,7 @@ from app.models import db, Ability
 
 
 def seed_abilities():
-
+    # Barbarian abilities
     rage = Ability(
         name="Rage",
         description='''In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action.
@@ -111,6 +111,13 @@ def seed_abilities():
         source="3:Barbarian:Path of the Totem Warrior:choice:Totem Spirit"
     )
 
+    fast_movement = Ability(
+        name="Fast Movement",
+        description="Your speed icnreases by 10 feet while you aren't wearing heavy armor.",
+        source="5:Barbarian:any"
+    )
+
+    # Fighter Abilities
     fighting_style = Ability(
         name="Fighting Style",
         description="You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
@@ -177,6 +184,7 @@ def seed_abilities():
         source="1:Fighter:Any:choice:Fighting Style"
     )
 
+    # Monk abilities
     unarmored_defense = Ability(
       name="Unarmored Defense",
       description="Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.",
@@ -197,6 +205,7 @@ def seed_abilities():
       source="1:Monk:Any"
     )
 
+    # Rogue Abilities
     expertise = Ability(
         name="Expertise",
         description='''At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.
@@ -221,11 +230,9 @@ def seed_abilities():
         source="1:Rogue:Any"
     )
 
-    fast_movement = Ability(
-        name="Fast Movement",
-        description="Your speed icnreases by 10 feet while you aren't wearing heavy armor.",
-        source="5:Barbarian:any"
-    )
+
+
+
 
     db.session.add_all([rage, race_count, rage_damage, danger_sense, frenzy,
                         reckless_attack, totem_spirit, totem_spirit_bear,

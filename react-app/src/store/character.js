@@ -135,7 +135,9 @@ export const levelUpCharacterThunk = (charId, hitpoints, features, level) => asy
     body: JSON.stringify({charId, hitpoints, features, level}),
   });
   const updatedCharacter = await response.json();
-  console.log(updatedCharacter)
+  if(!updatedCharacter.errors){
+    dispatch(levelUpCharacter(updatedCharacter))
+  }
   return updatedCharacter
 }
 
@@ -186,6 +188,9 @@ const characterReducer = (state = initialState, action) => {
       newState.list[action.payload.char.id] = action.payload.char;
       tags.add(action.payload.tag)
       newState.tags = [...tags]
+      return newState;
+    case LEVEL_UP_CHARACTER:
+      newState.list[action.payload.id] = action.payload;
       return newState;
     default:
       return state;

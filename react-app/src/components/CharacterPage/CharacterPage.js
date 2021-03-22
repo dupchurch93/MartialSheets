@@ -16,7 +16,9 @@ const CharacterPage = () => {
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
-  const [helpContents, setHelpContents] = useState("Extra information will be displayed here when mousing over different areas of the character sheet.");
+  const [helpContents, setHelpContents] = useState(
+    "Extra information will be displayed here when mousing over different areas of the character sheet."
+  );
   const [modal, setModal] = useState(false);
 
   const showCharacterFunc = () => {
@@ -56,6 +58,15 @@ const CharacterPage = () => {
 
   return (
     <div className="flex justify-center">
+      {modal ? (
+        <LevelUpModal
+          character={character}
+          setModal={setModal}
+          modal={modal}
+        ></LevelUpModal>
+      ) : (
+        <></>
+      )}
       <LevelUpModal
         character={character}
         setModal={setModal}
@@ -74,7 +85,12 @@ const CharacterPage = () => {
       </div>
       <div className="flex items-center flex-col">
         <div className="topButtons top flex justify-between w-full">
-          <button className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold" onClick={() => setModal(true)}>Level Up</button>
+          <button
+            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
+            onClick={() => setModal(true)}
+          >
+            Level Up
+          </button>
           <div className="rightButtons flex">
             <button
               onClick={() => showCharacterFunc()}

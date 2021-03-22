@@ -97,10 +97,10 @@ const LevelUpModal = ({ modal, character, setModal }) => {
     }
 
     // patch request to update character with new abilities, hp, and level
-    const res = await dispatch(levelUpCharacterThunk(charId, newHitpoints, newFeatures));
+    const res = await dispatch(levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel));
     if(!res.errors){
-      console.log("in if before history push")
       // window.location.reload();
+      setModal(false);
     }
   };
 

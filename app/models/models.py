@@ -27,7 +27,7 @@ class Character(db.Model):
     tools = db.Column(db.String(500), nullable=True)
 
     user = db.relationship('User')
-    abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined')
+    abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined', cascade="all, delete", back_populates="character")
     tags = db.relationship('Tag', secondary='characterTags', lazy='joined', backref=db.backref('tag_characters'))
 
     def to_dict(self):
@@ -66,7 +66,7 @@ class Ability(db.Model):
     description = db.Column(db.Text, nullable=False)
     source = db.Column(db.String(100), nullable=False)
 
-    character = db.relationship('Character', secondary='characterAbilities', backref=db.backref('character_abilities'))
+    character = db.relationship('Character', secondary='characterAbilities', back_populates="abilities")
 
     def to_dict(self):
         return {
