@@ -6,7 +6,7 @@ import CharacterForm from "./CharacterForm";
 import InventoryForm from "./InventorySheet";
 import DescriptionForm from "./DescriptionForm";
 import HeaderForm from "./HeaderForm";
-import LevelUpModal from "./Modal/LevelUpModal";
+import Level1Modal from "./Modal/LevelUpModal";
 import { loadLevel1FeatuersThunk } from "../../store/features";
 
 const CharacterCreate = () => {
@@ -165,14 +165,14 @@ const CharacterCreate = () => {
 
   return (
     <form className="flex justify-center" id="charForm" onSubmit={openModal}>
-      <LevelUpModal
+      <Level1Modal
         modal={modal}
         characterClass={characterClass}
         setModal={setModal}
         handleSubmit={handleSubmit}
         setFeatures={setFeatures}
         features={features}
-      ></LevelUpModal>
+      ></Level1Modal>
       <div className="flex flex-col">
         <div className="charImageContainer h-48 w-48 mt-2 mx-2 border-2 border-black rounded-lg text-sm text-center px-1">
           <label htmlFor="characterPicture">Upload Character Picture</label>

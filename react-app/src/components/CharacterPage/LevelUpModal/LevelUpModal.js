@@ -1,35 +1,54 @@
 import { TiDelete } from "react-icons/ti";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
+import ProfBonus from "./profBonus";
+import HitPoints from "./hitpointsChoice";
 
-const Level1Modal = ({
-  modal,
-  characterClass,
-  setModal,
-  handleSubmit,
-  setFeatures,
-  features,
-}) => {
+const LevelUpModal = ({ modal, character, setModal }) => {
   const hidden = modal ? "modal" : "hidden";
+
+  const [allFeatures, setAllFeatures] = useState([]);
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
     "Select Feature Option"
   );
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
+  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints)
+  const newLevel = character.level + 1;
+  const charId = character.id;
+
+  //use Effect to grab all abilities character will recieve on level up
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `/api/abilities/${charId}/${newLevel}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const features = await response.json();
+      setAllFeatures(features.features);
+    })();
+  }, [newLevel,charId]);
 
   const closeModal = (e) => {
     e.preventDefault();
+    setPickedFeatureIndex("Select Feature Option");
     setModal(false);
   };
 
-  const classFeatures = useSelector((state) => state.features[characterClass]);
-
-  let featureChoices;
+  let featureChoices = [];
+  let featureNonChoices = [];
   let choiceName;
-  if (classFeatures) {
-    featureChoices = classFeatures.filter((feature) => {
-      return feature.source.split(":")[3] === "choice";
+  if (allFeatures) {
+    allFeatures.forEach((feature) => {
+      if (feature.source.split(":")[3] === "choice") {
+        featureChoices.push(feature);
+      } else {
+        featureNonChoices.push(feature);
+      }
     });
     if (featureChoices.length > 0) {
       choiceName = featureChoices[0].source.split(":")[4];
@@ -44,7 +63,6 @@ const Level1Modal = ({
 
   const validateChoice = () => {
     const validationErrors = [];
-
     if (
       featureChoices.length > 0 &&
       pickedFeatureIndex === "Select Feature Option"
@@ -53,27 +71,40 @@ const Level1Modal = ({
         "Please select a feature choice for your character."
       );
     }
-
+    if(newHitpoints === character.hitpoints){
+      validationErrors.push("Please select an HP increase (average or roll) for your charaterl.")
+    }
     return validationErrors;
   };
 
   const finalizeCharacter = (e) => {
+    e.preventDefault();
     const errs = validateChoice();
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
     }
-    if (featureChoices.length > 0) {
-      setFeatures([...features, featureChoices[pickedFeatureIndex]]);
+    if (!pickedFeatureIndex === "Select Feature Option") {
+      const levelUpFeatures = [
+        ...featureNonChoices,
+        featureChoices[pickedFeatureIndex],
+      ];
+      console.log("features to level up with", levelUpFeatures);
+    } else{
+      console.log("features to level up with", featureNonChoices)
     }
-    handleSubmit(e);
+    // use hit points here in patch request
+    console.log(newHitpoints);
   };
 
   return (
     <div
-      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 top-0 left-0 flex justify-center`}
+      className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 left-0 top-0 flex justify-center`}
     >
-      <div className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto">
+      <form
+        onSubmit={finalizeCharacter}
+        className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto"
+      >
         {errors.length > 0 && (
           <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
             {errors.map((error) => (
@@ -89,11 +120,17 @@ const Level1Modal = ({
           </button>
         </div>
         <div className="font-bold underline text-lg m-4">
-          Your {characterClass} begins their journey.
+          {character.name} is now level {character.level + 1}!
         </div>
-        <div>Features gained on this level:</div>
-        <div className="w-96 box-border">
-          <FeatureList features={features}></FeatureList>
+        <div className="w-96 mb-6 mx-2">
+          <ProfBonus level={newLevel}></ProfBonus>
+        </div>
+        <div className="mb-6 mx-2">
+          <HitPoints setNewHitpoints={setNewHitpoints} hitpoints={character.hitpoints} con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
+        </div>
+        <div className="font-bold">Features gained at level {newLevel}</div>
+        <div className="w-96">
+          <FeatureList features={featureNonChoices}></FeatureList>
         </div>
         {featureChoices && featureChoices.length > 0 ? (
           <div className="">
@@ -101,7 +138,7 @@ const Level1Modal = ({
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
-              <select
+              {/* <select
                 value={pickedFeatureIndex}
                 name="pickedFeature"
                 onChange={(e) => handlePickedFeature(e.target.value)}
@@ -117,9 +154,9 @@ const Level1Modal = ({
                     </option>
                   );
                 })}
-              </select>
+              </select> */}
             </div>
-            <div className="border border-black p-2 m-2 rounded-lg w-96 box-border">
+            <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="font-bold underline m-4 text-center">
                 Choice Description
               </div>
@@ -130,15 +167,14 @@ const Level1Modal = ({
           <div></div>
         )}
         <button
-          onClick={finalizeCharacter}
-          className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white"
+          className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white font-bold"
           type="submit"
         >
-          Finalize Character
+          Finalize Level Up
         </button>
-      </div>
+      </form>
     </div>
   );
 };
 
-export default Level1Modal;
+export default LevelUpModal;

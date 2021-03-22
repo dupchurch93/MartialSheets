@@ -19,6 +19,17 @@ export const loadLevel1FeatuersThunk = () => async (dispatch) => {
   }
 };
 
+// // thunk to grab level up features, moved to async fetch request on use effect, no need to store in store
+// export const loadLevelUpFeaturesThunk = (charId, level) => async (dispatch) => {
+//   const response = await fetch(`/api/abilities/${charId}/${level}`, {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   const res = await response.json();
+//   return res;
+// }
+
 const initialState = {};
 
 const featureReducer = (state = initialState, action) => {
