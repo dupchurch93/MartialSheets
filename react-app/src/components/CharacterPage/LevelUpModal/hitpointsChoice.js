@@ -25,7 +25,8 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
   };
   const pickRoll = (e) => {
     e.preventDefault();
-    setHitpointsIncrease(20);
+    const hpRoll = Math.floor(Math.random() * (hitDie) + 1)
+    setHitpointsIncrease(hpRoll);
     setNewHitpoints(hitpoints + hitpointIncrease + Math.floor((con - 10) / 2));
   };
 
