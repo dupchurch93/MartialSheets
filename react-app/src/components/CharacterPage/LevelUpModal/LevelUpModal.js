@@ -128,7 +128,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
         <div className="mb-6 mx-2">
           <HitPoints setNewHitpoints={setNewHitpoints} hitpoints={character.hitpoints} con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
         </div>
-        <div className="font-bold">Features gained at {newLevel}</div>
+        <div className="font-bold">Features gained at level {newLevel}</div>
         <div className="w-96">
           <FeatureList features={featureNonChoices}></FeatureList>
         </div>
@@ -167,7 +167,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
           <div></div>
         )}
         <button
-          className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white"
+          className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white font-bold"
           type="submit"
         >
           Finalize Level Up
