@@ -2,8 +2,9 @@ const LOAD_CHARACTERS = "character/loadCharacters";
 const REMOVE_CHARACTERS = "character/removeCharacters";
 const ADD_CHARACTER = "character/addCharacter";
 const DELETE_CHARACTER = "character/deleteCharacter";
-const DELETE_CHARACTER_TAG = "characters/deleteCharacterTag";
-const ADD_CHARACTER_TAG = "characters/addCharacterTag";
+const DELETE_CHARACTER_TAG = "character/deleteCharacterTag";
+const ADD_CHARACTER_TAG = "character/addCharacterTag";
+const LEVEL_UP_CHARACTER = "character/levelUpCharacter";
 
 const loadCharacters = (characters) => {
   return {
@@ -44,6 +45,14 @@ const addCharacterTag = (tag, char) => {
     type: ADD_CHARACTER_TAG,
     payload: {tag, char}
   }
+}
+
+const levelUpCharacter = (char) => {
+  return {
+    type: LEVEL_UP_CHARACTER,
+    payload: char
+  }
+
 }
 
 export const loadCharactersThunk = () => async (dispatch) => {
@@ -119,6 +128,16 @@ export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
   }
   return char;
 };
+
+export const levelUpCharacterThunk = (charId, hitpoints, features, level) => async (dispatch) => {
+  const response = await fetch("/api/characters/levelUp", {
+    method: "PATCH",
+    body: JSON.stringify({charId, hitpoints, features, level}),
+  });
+  const updatedCharacter = await response.json();
+  console.log(updatedCharacter)
+  return updatedCharacter
+}
 
 // reducer and initial state
 const initialState = { list: [], tags: [] };

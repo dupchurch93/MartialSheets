@@ -160,4 +160,8 @@ def add_character_tag():
 def levelUp():
     decoded = json.loads(request.data.decode("UTF-8"))
     character = Character.query.get(decoded['charId'])
+    character.hitpoints = decoded['hitpoints']
+    character.level = decoded['level']
+    db.session.commit()
     abilities_to_receive = Ability.query.filter(Ability.source)
+    return character.to_dict()

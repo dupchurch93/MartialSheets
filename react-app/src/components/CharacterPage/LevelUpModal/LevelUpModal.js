@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 import ProfBonus from "./profBonus";
 import HitPoints from "./hitpointsChoice";
+import { useDispatch } from "react-redux";
+import { levelUpCharacterThunk } from "../../../store/character";
 
 const LevelUpModal = ({ modal, character, setModal }) => {
   const hidden = modal ? "modal" : "hidden";
+  const dispatch = useDispatch();
 
   const [allFeatures, setAllFeatures] = useState([]);
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
@@ -77,24 +80,28 @@ const LevelUpModal = ({ modal, character, setModal }) => {
     return validationErrors;
   };
 
-  const finalizeCharacter = (e) => {
+  const finalizeCharacter = async (e) => {
     e.preventDefault();
     const errs = validateChoice();
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
     }
+
+    let newFeatures = []
+    featureNonChoices.forEach((feature) => {
+      newFeatures.push(feature.name);
+    })
     if (!pickedFeatureIndex === "Select Feature Option") {
-      const levelUpFeatures = [
-        ...featureNonChoices,
-        featureChoices[pickedFeatureIndex],
-      ];
-      console.log("features to level up with", levelUpFeatures);
-    } else{
-      console.log("features to level up with", featureNonChoices)
+      newFeatures.push(featureChoices[pickedFeatureIndex].name)
     }
-    // use hit points here in patch request
-    console.log(newHitpoints);
+
+    // patch request to update character with new abilities, hp, and level
+    const res = await dispatch(levelUpCharacterThunk(charId, newHitpoints, newFeatures));
+    if(!res.errors){
+      console.log("in if before history push")
+      // window.location.reload();
+    }
   };
 
   return (

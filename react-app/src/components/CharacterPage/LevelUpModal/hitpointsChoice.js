@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
   let hitDie = 8;
@@ -13,11 +13,6 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
 
   const [hitpointIncrease, setHitpointsIncrease] = useState(averageHP);
 
-  const pickHP = (e) => {
-    e.preventDefault();
-    setNewHitpoints(hitpoints + hitpointIncrease);
-  };
-
   const pickAverage = (e) => {
     e.preventDefault();
     setHitpointsIncrease(averageHP);
@@ -27,7 +22,7 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
     e.preventDefault();
     const hpRoll = Math.floor(Math.random() * (hitDie) + 1)
     setHitpointsIncrease(hpRoll);
-    setNewHitpoints(hitpoints + hitpointIncrease + Math.floor((con - 10) / 2));
+    setNewHitpoints(hitpoints + hpRoll + Math.floor((con - 10) / 2));
   };
 
   return (
