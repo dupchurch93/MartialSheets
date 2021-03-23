@@ -13,34 +13,31 @@ const Stats = ({ character, setHelpContents }) => {
     passivePerceptionBonus += profBonus;
   }
 
+  const statsArr = [
+    { stat: "Strength", value: statsParsed.str },
+    { stat: "Dexterity", value: statsParsed.dex },
+    { stat: "Constitution", value: statsParsed.con },
+    { stat: "Intelligence", value: statsParsed.int },
+    { stat: "Wisdom", value: statsParsed.wis },
+    { stat: "Charisma", value: statsParsed.cha },
+  ];
+
   return (
     <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5" onMouseEnter={() => setHelpContents(StatsHelp)}>
+      <div
+        className="statsColumn flex flex-col items-center border border-black rounded-lg m-2 p-0.5"
+        onMouseEnter={() => setHelpContents(StatsHelp)}
+      >
         <div className="font-bold underline">Attributes</div>
-        <StatScoreComponent
-          stat={"Strength"}
-          value={statsParsed.str}
-        ></StatScoreComponent>
-        <StatScoreComponent
-          stat={"Dexterity"}
-          value={statsParsed.dex}
-        ></StatScoreComponent>
-        <StatScoreComponent
-          stat={"Constituion"}
-          value={statsParsed.con}
-        ></StatScoreComponent>
-        <StatScoreComponent
-          stat={"Intelligence"}
-          value={statsParsed.int}
-        ></StatScoreComponent>
-        <StatScoreComponent
-          stat={"Wisdom"}
-          value={statsParsed.wis}
-        ></StatScoreComponent>
-        <StatScoreComponent
-          stat={"Charisma"}
-          value={statsParsed.cha}
-        ></StatScoreComponent>
+        {statsArr.map((stat, index) => {
+          return (
+            <StatScoreComponent
+            key={index}
+              stat={stat.stat}
+              value={stat.value}
+            ></StatScoreComponent>
+          );
+        })}
       </div>
       <div className="languagesAndTools m-2 border border-black rounded-lg">
         <LangProfs

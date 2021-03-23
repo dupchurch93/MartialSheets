@@ -22,4 +22,7 @@ def get_level_up_abilities(charId, level, subclass):
         Ability.source.like(f'{level}:{characterClass}:any%'),
         Ability.source.like(f'{level}:{characterClass}:{subclass}%')
         )).all()
-    return {"features": [ability.to_dict() for ability in abilitiesOnLevelUp]}
+    if(abilitiesOnLevelUp):
+        return {"features": [ability.to_dict() for ability in abilitiesOnLevelUp]}
+    else:
+        return {"nofeatures": "no features"}

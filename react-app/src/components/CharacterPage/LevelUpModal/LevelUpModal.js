@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 import ProfBonus from "./profBonus";
 import HitPoints from "./hitpointsChoice";
-import AttributeSelect from "./attributeSelect";
+import AttributeSelectFeature from "./attributeSelectFeature";
 import { useDispatch } from "react-redux";
 import { levelUpCharacterThunk } from "../../../store/character";
 
@@ -13,7 +13,7 @@ const LevelUpModal = ({
   setModal,
   setPageErrors,
   characterSubclass,
-  setCharacterSubclass
+  setCharacterSubclass,
 }) => {
   const hidden = modal ? "modal" : "hidden";
   const dispatch = useDispatch();
@@ -25,6 +25,9 @@ const LevelUpModal = ({
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
   const [newHitpoints, setNewHitpoints] = useState(character.hitpoints);
+  const [newAttributes, setNewAttributes] = useState(
+    JSON.parse(character.attributes)
+  );
   const newLevel = character.level + 1;
   const charId = character.id;
 
@@ -33,14 +36,11 @@ const LevelUpModal = ({
     (async () => {
       let response;
       if (characterSubclass === "") {
-        response = await fetch(
-          `/api/abilities/${charId}/${newLevel}/any`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        response = await fetch(`/api/abilities/${charId}/${newLevel}/any`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
       } else {
         response = await fetch(
           `/api/abilities/${charId}/${newLevel}/${characterSubclass}`,
@@ -110,7 +110,7 @@ const LevelUpModal = ({
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
-    };
+    }
 
     let newFeatures = [];
     featureNonChoices.forEach((feature) => {
@@ -123,11 +123,17 @@ const LevelUpModal = ({
     // patch request to update character with new abilities, hp, and level
     setModal(false);
     const res = await dispatch(
-      levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel, characterSubclass)
+      levelUpCharacterThunk(
+        charId,
+        newHitpoints,
+        newFeatures,
+        newLevel,
+        characterSubclass
+      )
     );
     if (res.errors) {
       setPageErrors(res.errors);
-    };
+    }
   };
 
   return (
@@ -166,6 +172,15 @@ const LevelUpModal = ({
             characterClass={character.class}
           ></HitPoints>
         </div>
+        {newLevel % 4 === 0 ? (
+          <AttributeSelectFeature
+            newAttributes={newAttributes}
+            setNewAttributes={setNewAttributes}
+            attributes={JSON.parse(character.attributes)}
+          ></AttributeSelectFeature>
+        ) : (
+          <></>
+        )}
         <div className="font-bold">Features gained at level {newLevel}</div>
         <div className="w-96">
           <FeatureList features={featureNonChoices}></FeatureList>
