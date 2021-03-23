@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 import ProfBonus from "./profBonus";
 import HitPoints from "./hitpointsChoice";
+import AttributeSelect from "./attributeSelect";
 import { useDispatch } from "react-redux";
 import { levelUpCharacterThunk } from "../../../store/character";
 
@@ -109,13 +110,13 @@ const LevelUpModal = ({
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
-    }
+    };
 
     let newFeatures = [];
     featureNonChoices.forEach((feature) => {
       newFeatures.push(feature.name);
     });
-    if (!pickedFeatureIndex === "Select Feature Option") {
+    if (!(pickedFeatureIndex === "Select Feature Option")) {
       newFeatures.push(featureChoices[pickedFeatureIndex].name);
     }
 
@@ -126,7 +127,7 @@ const LevelUpModal = ({
     );
     if (res.errors) {
       setPageErrors(res.errors);
-    }
+    };
   };
 
   return (
@@ -175,7 +176,7 @@ const LevelUpModal = ({
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
-              {/* <select
+              <select
                 value={pickedFeatureIndex}
                 name="pickedFeature"
                 onChange={(e) => handlePickedFeature(e.target.value)}
@@ -191,7 +192,7 @@ const LevelUpModal = ({
                     </option>
                   );
                 })}
-              </select> */}
+              </select>
             </div>
             <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="font-bold underline m-4 text-center">
