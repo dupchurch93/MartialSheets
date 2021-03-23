@@ -27,7 +27,7 @@ class Character(db.Model):
     tools = db.Column(db.String(500), nullable=True)
 
     user = db.relationship('User')
-    abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined', cascade="all, delete", back_populates="character")
+    abilities = db.relationship('Ability', secondary='characterAbilities', lazy='joined', back_populates="character")
     tags = db.relationship('Tag', secondary='characterTags', lazy='joined', backref=db.backref('tag_characters'))
 
     def to_dict(self):
