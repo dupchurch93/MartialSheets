@@ -39,6 +39,13 @@ const Level1Modal = ({
   //set picked feature equal the name and find the feature, setting the description equal to the helper
   const handlePickedFeature = (index) => {
     setPickedFeatureIndex(index);
+    const newFeatures = [];
+    for(let feature of features){
+      if(!feature.name.includes(choiceName)){
+        newFeatures.push(feature);
+      }
+    }
+    setFeatures([...newFeatures, featureChoices[index]]);
     setFeatureHelp(featureChoices[index].description);
   };
 
@@ -57,14 +64,11 @@ const Level1Modal = ({
     return validationErrors;
   };
 
-  const finalizeCharacter = (e) => {
+  const finalizeCharacter =async (e) => {
     const errs = validateChoice();
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
-    }
-    if (featureChoices.length > 0) {
-      setFeatures([...features, featureChoices[pickedFeatureIndex]]);
     }
     handleSubmit(e);
   };
@@ -130,7 +134,7 @@ const Level1Modal = ({
           <div></div>
         )}
         <button
-          onClick={finalizeCharacter}
+          onClick={(e) => finalizeCharacter(e)}
           className="w-56 p-2 rounded-lg m-4 border border-black bg-myred text-white"
           type="submit"
         >
