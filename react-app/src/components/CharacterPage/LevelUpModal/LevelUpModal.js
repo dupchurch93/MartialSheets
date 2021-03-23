@@ -6,7 +6,7 @@ import HitPoints from "./hitpointsChoice";
 import { useDispatch } from "react-redux";
 import { levelUpCharacterThunk } from "../../../store/character";
 
-const LevelUpModal = ({ modal, character, setModal }) => {
+const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
   const hidden = modal ? "modal" : "hidden";
   const dispatch = useDispatch();
 
@@ -34,6 +34,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
       const features = await response.json();
       setAllFeatures(features.features);
     })();
+    return
   }, [newLevel,charId]);
 
   const closeModal = (e) => {
@@ -97,10 +98,10 @@ const LevelUpModal = ({ modal, character, setModal }) => {
     }
 
     // patch request to update character with new abilities, hp, and level
+    setModal(false);
     const res = await dispatch(levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel));
-    if(!res.errors){
-      // window.location.reload();
-      setModal(false);
+    if(res.errors){
+      setPageErrors(res.errors);
     }
   };
 

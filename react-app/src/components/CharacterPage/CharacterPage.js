@@ -6,6 +6,7 @@ import InventorySheet from "./InventorySheet";
 import DescriptionSheet from "./DescriptionSheet";
 import { deleteCharacterThunk } from "../../store/character";
 import LevelUpModal from "./LevelUpModal/LevelUpModal";
+import SubclassModal from "./LevelUpModal/subclassModal";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
@@ -20,6 +21,8 @@ const CharacterPage = () => {
     "Extra information will be displayed here when mousing over different areas of the character sheet."
   );
   const [modal, setModal] = useState(false);
+  const [subclassModal, setSubclassModal] = useState(false);
+  const [pageErrors, setPageErrors] = useState([]);
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
@@ -56,22 +59,47 @@ const CharacterPage = () => {
     return <div>Loading...</div>;
   }
 
+  const handleCreate = (e) => {
+    if (character.level + 1 === 3) {
+      setSubclassModal(true);
+      return;
+    } else {
+      setModal(true);
+    }
+  };
+
   return (
     <div className="flex justify-center">
+      {subclassModal ? (
+        <SubclassModal
+          subclassModal={subclassModal}
+          setModal={setModal}
+          setSubclassModal={setSubclassModal}
+          character={character}
+        >
+        </SubclassModal>
+      ) : (
+        <></>
+      )}
       {modal ? (
         <LevelUpModal
           character={character}
           setModal={setModal}
           modal={modal}
+          setPageErrors={setPageErrors}
         ></LevelUpModal>
       ) : (
         <></>
       )}
-      <LevelUpModal
-        character={character}
-        setModal={setModal}
-        modal={modal}
-      ></LevelUpModal>
+       {pageErrors.length > 0 && (
+            <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
+              {pageErrors.map((error) => (
+                <li className="ml-3" key={error}>
+                  {error}
+                </li>
+              ))}
+            </div>
+          )}
       <div className="flex flex-col">
         <img
           className="h-auto w-48 mt-10 mx-2 border-2 border-black rounded-lg"
@@ -87,7 +115,7 @@ const CharacterPage = () => {
         <div className="topButtons top flex justify-between w-full">
           <button
             className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
-            onClick={() => setModal(true)}
+            onClick={() => handleCreate()}
           >
             Level Up
           </button>
