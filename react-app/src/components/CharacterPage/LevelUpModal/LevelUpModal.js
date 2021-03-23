@@ -3,9 +3,20 @@ import { useState, useEffect } from "react";
 import FeatureList from "../FeaturesColumn/FeatureList";
 import ProfBonus from "./profBonus";
 import HitPoints from "./hitpointsChoice";
+import AttributeSelect from "./attributeSelect";
+import { useDispatch } from "react-redux";
+import { levelUpCharacterThunk } from "../../../store/character";
 
-const LevelUpModal = ({ modal, character, setModal }) => {
+const LevelUpModal = ({
+  modal,
+  character,
+  setModal,
+  setPageErrors,
+  characterSubclass,
+  setCharacterSubclass
+}) => {
   const hidden = modal ? "modal" : "hidden";
+  const dispatch = useDispatch();
 
   const [allFeatures, setAllFeatures] = useState([]);
   const [pickedFeatureIndex, setPickedFeatureIndex] = useState(
@@ -13,29 +24,43 @@ const LevelUpModal = ({ modal, character, setModal }) => {
   );
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
-  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints)
+  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints);
   const newLevel = character.level + 1;
   const charId = character.id;
 
   //use Effect to grab all abilities character will recieve on level up
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `/api/abilities/${charId}/${newLevel}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      let response;
+      if (characterSubclass === "") {
+        response = await fetch(
+          `/api/abilities/${charId}/${newLevel}/any`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        response = await fetch(
+          `/api/abilities/${charId}/${newLevel}/${characterSubclass}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      }
       const features = await response.json();
       setAllFeatures(features.features);
     })();
-  }, [newLevel,charId]);
+    return;
+  }, [newLevel, charId, characterSubclass]);
 
   const closeModal = (e) => {
     e.preventDefault();
     setPickedFeatureIndex("Select Feature Option");
+    setCharacterSubclass(character.subclass || "");
     setModal(false);
   };
 
@@ -71,30 +96,38 @@ const LevelUpModal = ({ modal, character, setModal }) => {
         "Please select a feature choice for your character."
       );
     }
-    if(newHitpoints === character.hitpoints){
-      validationErrors.push("Please select an HP increase (average or roll) for your charaterl.")
+    if (newHitpoints === character.hitpoints) {
+      validationErrors.push(
+        "Please select an HP increase (average or roll) for your charaterl."
+      );
     }
     return validationErrors;
   };
 
-  const finalizeCharacter = (e) => {
+  const finalizeLevelUp = async (e) => {
     e.preventDefault();
     const errs = validateChoice();
     if (errs.length > 0) {
       window.scrollTo(0, 0);
       return setErrors(errs);
+    };
+
+    let newFeatures = [];
+    featureNonChoices.forEach((feature) => {
+      newFeatures.push(feature.name);
+    });
+    if (!(pickedFeatureIndex === "Select Feature Option")) {
+      newFeatures.push(featureChoices[pickedFeatureIndex].name);
     }
-    if (!pickedFeatureIndex === "Select Feature Option") {
-      const levelUpFeatures = [
-        ...featureNonChoices,
-        featureChoices[pickedFeatureIndex],
-      ];
-      console.log("features to level up with", levelUpFeatures);
-    } else{
-      console.log("features to level up with", featureNonChoices)
-    }
-    // use hit points here in patch request
-    console.log(newHitpoints);
+
+    // patch request to update character with new abilities, hp, and level
+    setModal(false);
+    const res = await dispatch(
+      levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel, characterSubclass)
+    );
+    if (res.errors) {
+      setPageErrors(res.errors);
+    };
   };
 
   return (
@@ -102,7 +135,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
       className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 left-0 top-0 flex justify-center`}
     >
       <form
-        onSubmit={finalizeCharacter}
+        onSubmit={finalizeLevelUp}
         className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto"
       >
         {errors.length > 0 && (
@@ -126,7 +159,12 @@ const LevelUpModal = ({ modal, character, setModal }) => {
           <ProfBonus level={newLevel}></ProfBonus>
         </div>
         <div className="mb-6 mx-2">
-          <HitPoints setNewHitpoints={setNewHitpoints} hitpoints={character.hitpoints} con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
+          <HitPoints
+            setNewHitpoints={setNewHitpoints}
+            hitpoints={character.hitpoints}
+            con={JSON.parse(character.attributes).con}
+            characterClass={character.class}
+          ></HitPoints>
         </div>
         <div className="font-bold">Features gained at level {newLevel}</div>
         <div className="w-96">
@@ -138,7 +176,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
               <div className="m-4">
                 Please choose your following class feature: {choiceName}.
               </div>
-              {/* <select
+              <select
                 value={pickedFeatureIndex}
                 name="pickedFeature"
                 onChange={(e) => handlePickedFeature(e.target.value)}
@@ -154,7 +192,7 @@ const LevelUpModal = ({ modal, character, setModal }) => {
                     </option>
                   );
                 })}
-              </select> */}
+              </select>
             </div>
             <div className="border border-black p-2 m-2 rounded-lg w-96">
               <div className="font-bold underline m-4 text-center">

@@ -72,7 +72,7 @@ const CharacterCreate = () => {
     }
     if (characterClass === "Rogue" && classProfs.length !== 4) {
       validationErrors.push("Please choose 4 class proficiencies.");
-    } else if (classProfs.length !== 2) {
+    } else if (classProfs.length !== 2 && characterClass !== "Rogue") {
       validationErrors.push("Please choose 2 class proficiencies.");
     }
 

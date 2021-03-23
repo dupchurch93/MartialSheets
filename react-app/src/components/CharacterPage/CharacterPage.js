@@ -6,18 +6,28 @@ import InventorySheet from "./InventorySheet";
 import DescriptionSheet from "./DescriptionSheet";
 import { deleteCharacterThunk } from "../../store/character";
 import LevelUpModal from "./LevelUpModal/LevelUpModal";
+import SubclassModal from "./LevelUpModal/subclassModal";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-
   const character = useSelector((state) => state.characters.list[characterId]);
+
+  let subclass;
+  if (character) {
+    subclass = character.subclass;
+  }
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
-  const [helpContents, setHelpContents] = useState("Extra information will be displayed here when mousing over different areas of the character sheet.");
+  const [helpContents, setHelpContents] = useState(
+    "Extra information will be displayed here when mousing over different areas of the character sheet."
+  );
   const [modal, setModal] = useState(false);
+  const [subclassModal, setSubclassModal] = useState(false);
+  const [characterSubclass, setCharacterSubclass] = useState(subclass || "");
+  const [pageErrors, setPageErrors] = useState([]);
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
@@ -42,8 +52,8 @@ const CharacterPage = () => {
     if (confirmed) {
       const result = await dispatch(deleteCharacterThunk(characterId));
       if (!result.errors) {
-        window.scrollTo(0, 0);
         history.push(`/`);
+        window.scrollTo(0, 0);
       } else {
         return "Error, something went wrong";
       }
@@ -54,13 +64,49 @@ const CharacterPage = () => {
     return <div>Loading...</div>;
   }
 
+  const handleCreate = (e) => {
+    if (character.level + 1 === 3) {
+      setSubclassModal(true);
+      return;
+    } else {
+      setModal(true);
+    }
+  };
+
   return (
     <div className="flex justify-center">
-      <LevelUpModal
-        character={character}
-        setModal={setModal}
-        modal={modal}
-      ></LevelUpModal>
+      {subclassModal ? (
+        <SubclassModal
+          subclassModal={subclassModal}
+          setModal={setModal}
+          setSubclassModal={setSubclassModal}
+          character={character}
+          setCharacterSubclass={setCharacterSubclass}
+        ></SubclassModal>
+      ) : (
+        <></>
+      )}
+      {modal ? (
+        <LevelUpModal
+          character={character}
+          setModal={setModal}
+          modal={modal}
+          setPageErrors={setPageErrors}
+          characterSubclass={characterSubclass}
+          setCharacterSubclass={setCharacterSubclass}
+        ></LevelUpModal>
+      ) : (
+        <></>
+      )}
+      {pageErrors.length > 0 && (
+        <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
+          {pageErrors.map((error) => (
+            <li className="ml-3" key={error}>
+              {error}
+            </li>
+          ))}
+        </div>
+      )}
       <div className="flex flex-col">
         <img
           className="h-auto w-48 mt-10 mx-2 border-2 border-black rounded-lg"
@@ -74,7 +120,12 @@ const CharacterPage = () => {
       </div>
       <div className="flex items-center flex-col">
         <div className="topButtons top flex justify-between w-full">
-          <button className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold" onClick={() => setModal(true)}>Level Up</button>
+          <button
+            className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
+            onClick={() => handleCreate()}
+          >
+            Level Up
+          </button>
           <div className="rightButtons flex">
             <button
               onClick={() => showCharacterFunc()}

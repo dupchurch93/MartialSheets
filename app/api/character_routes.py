@@ -160,4 +160,18 @@ def add_character_tag():
 def levelUp():
     decoded = json.loads(request.data.decode("UTF-8"))
     character = Character.query.get(decoded['charId'])
+    character.hitpoints = decoded['hitpoints']
+    character.level = decoded['level']
+    if(character.subclass != decoded['characterSubclass']):
+        character.subclass = decoded['characterSubclass']
+    for feature in decoded['features']:
+        feature_to_add = (
+            Ability.query.filter(Ability.name == feature).first()
+        )
+        if(feature_to_add):
+            character.abilities.append(feature_to_add)
+        else:
+            return {"errors": "Failed to add ability"}
+    db.session.commit()
     abilities_to_receive = Ability.query.filter(Ability.source)
+    return character.to_dict()
