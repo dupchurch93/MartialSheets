@@ -22,6 +22,7 @@ const CharacterPage = () => {
   );
   const [modal, setModal] = useState(false);
   const [subclassModal, setSubclassModal] = useState(false);
+  const [characterSubclass, setCharacterSubclass] = useState(character.subclass || "");
   const [pageErrors, setPageErrors] = useState([]);
 
   const showCharacterFunc = () => {
@@ -76,6 +77,7 @@ const CharacterPage = () => {
           setModal={setModal}
           setSubclassModal={setSubclassModal}
           character={character}
+          setCharacterSubclass={setCharacterSubclass}
         >
         </SubclassModal>
       ) : (
@@ -87,6 +89,8 @@ const CharacterPage = () => {
           setModal={setModal}
           modal={modal}
           setPageErrors={setPageErrors}
+          characterSubclass={characterSubclass}
+          setCharacterSubclass={setCharacterSubclass}
         ></LevelUpModal>
       ) : (
         <></>

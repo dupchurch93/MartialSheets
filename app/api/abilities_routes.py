@@ -13,11 +13,14 @@ def load_level1_abilities():
     return {"features": [ability.to_dict() for ability in abilities]}
 
 
-@abilities_routes.route('/<int:charId>/<int:level>', methods=["GET"])
-def get_level_up_abilities(charId, level):
+@abilities_routes.route('/<int:charId>/<int:level>/<string:subclass>', methods=["GET"])
+def get_level_up_abilities(charId, level, subclass):
     charDict = Character.query.get(charId).to_dict()
     characterClass = charDict['class']
-    subclass = charDict['subclass']
+    subc = subclass.replace("%20", " ")
+    testquery = Ability.query.filter(Ability.source.like("3:Barbarian:Path of the Totem Warrior%")).first()
+    print('test query---------------------', testquery)
+    print("subclass----------------", subc)
     abilitiesOnLevelUp = Ability.query.filter(or_(
         Ability.source == f'{level}:{characterClass}:any',
         Ability.source == f'{level}:{characterClass}:{subclass}'

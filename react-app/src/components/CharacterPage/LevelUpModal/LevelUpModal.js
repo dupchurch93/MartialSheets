@@ -6,7 +6,14 @@ import HitPoints from "./hitpointsChoice";
 import { useDispatch } from "react-redux";
 import { levelUpCharacterThunk } from "../../../store/character";
 
-const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
+const LevelUpModal = ({
+  modal,
+  character,
+  setModal,
+  setPageErrors,
+  characterSubclass,
+  setCharacterSubclass
+}) => {
   const hidden = modal ? "modal" : "hidden";
   const dispatch = useDispatch();
 
@@ -16,30 +23,44 @@ const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
   );
   const [featureHelp, setFeatureHelp] = useState("Choice Description");
   const [errors, setErrors] = useState([]);
-  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints)
+  const [newHitpoints, setNewHitpoints] = useState(character.hitpoints);
   const newLevel = character.level + 1;
   const charId = character.id;
 
   //use Effect to grab all abilities character will recieve on level up
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `/api/abilities/${charId}/${newLevel}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      let response;
+      if (characterSubclass === "") {
+        response = await fetch(
+          `/api/abilities/${charId}/${newLevel}/any`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        response = await fetch(
+          `/api/abilities/${charId}/${newLevel}/${characterSubclass}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      }
+      console.log(characterSubclass)
       const features = await response.json();
       setAllFeatures(features.features);
     })();
-    return
-  }, [newLevel,charId]);
+    return;
+  }, [newLevel, charId]);
 
   const closeModal = (e) => {
     e.preventDefault();
     setPickedFeatureIndex("Select Feature Option");
+    setCharacterSubclass(character.subclass || "");
     setModal(false);
   };
 
@@ -75,8 +96,10 @@ const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
         "Please select a feature choice for your character."
       );
     }
-    if(newHitpoints === character.hitpoints){
-      validationErrors.push("Please select an HP increase (average or roll) for your charaterl.")
+    if (newHitpoints === character.hitpoints) {
+      validationErrors.push(
+        "Please select an HP increase (average or roll) for your charaterl."
+      );
     }
     return validationErrors;
   };
@@ -89,18 +112,20 @@ const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
       return setErrors(errs);
     }
 
-    let newFeatures = []
+    let newFeatures = [];
     featureNonChoices.forEach((feature) => {
       newFeatures.push(feature.name);
-    })
+    });
     if (!pickedFeatureIndex === "Select Feature Option") {
-      newFeatures.push(featureChoices[pickedFeatureIndex].name)
+      newFeatures.push(featureChoices[pickedFeatureIndex].name);
     }
 
     // patch request to update character with new abilities, hp, and level
     setModal(false);
-    const res = await dispatch(levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel));
-    if(res.errors){
+    const res = await dispatch(
+      levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel)
+    );
+    if (res.errors) {
       setPageErrors(res.errors);
     }
   };
@@ -134,7 +159,12 @@ const LevelUpModal = ({ modal, character, setModal, setPageErrors }) => {
           <ProfBonus level={newLevel}></ProfBonus>
         </div>
         <div className="mb-6 mx-2">
-          <HitPoints setNewHitpoints={setNewHitpoints} hitpoints={character.hitpoints} con={JSON.parse(character.attributes).con} characterClass={character.class}></HitPoints>
+          <HitPoints
+            setNewHitpoints={setNewHitpoints}
+            hitpoints={character.hitpoints}
+            con={JSON.parse(character.attributes).con}
+            characterClass={character.class}
+          ></HitPoints>
         </div>
         <div className="font-bold">Features gained at level {newLevel}</div>
         <div className="w-96">
