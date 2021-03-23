@@ -12,8 +12,12 @@ const CharacterPage = () => {
   const { characterId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-
   const character = useSelector((state) => state.characters.list[characterId]);
+
+  let subclass;
+  if (character) {
+    subclass = character.subclass;
+  }
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -22,7 +26,7 @@ const CharacterPage = () => {
   );
   const [modal, setModal] = useState(false);
   const [subclassModal, setSubclassModal] = useState(false);
-  const [characterSubclass, setCharacterSubclass] = useState(character.subclass || "");
+  const [characterSubclass, setCharacterSubclass] = useState(subclass || "");
   const [pageErrors, setPageErrors] = useState([]);
 
   const showCharacterFunc = () => {
@@ -48,8 +52,8 @@ const CharacterPage = () => {
     if (confirmed) {
       const result = await dispatch(deleteCharacterThunk(characterId));
       if (!result.errors) {
-        window.scrollTo(0, 0);
         history.push(`/`);
+        window.scrollTo(0, 0);
       } else {
         return "Error, something went wrong";
       }
@@ -78,8 +82,7 @@ const CharacterPage = () => {
           setSubclassModal={setSubclassModal}
           character={character}
           setCharacterSubclass={setCharacterSubclass}
-        >
-        </SubclassModal>
+        ></SubclassModal>
       ) : (
         <></>
       )}
@@ -95,15 +98,15 @@ const CharacterPage = () => {
       ) : (
         <></>
       )}
-       {pageErrors.length > 0 && (
-            <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
-              {pageErrors.map((error) => (
-                <li className="ml-3" key={error}>
-                  {error}
-                </li>
-              ))}
-            </div>
-          )}
+      {pageErrors.length > 0 && (
+        <div className="absolute left-0 mx-10 w-64 bg-gray-100 rounded-lg px-2 border-black border">
+          {pageErrors.map((error) => (
+            <li className="ml-3" key={error}>
+              {error}
+            </li>
+          ))}
+        </div>
+      )}
       <div className="flex flex-col">
         <img
           className="h-auto w-48 mt-10 mx-2 border-2 border-black rounded-lg"

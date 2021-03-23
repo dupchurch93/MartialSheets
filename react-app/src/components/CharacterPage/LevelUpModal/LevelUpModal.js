@@ -50,12 +50,11 @@ const LevelUpModal = ({
           }
         );
       }
-      console.log(characterSubclass)
       const features = await response.json();
       setAllFeatures(features.features);
     })();
     return;
-  }, [newLevel, charId]);
+  }, [newLevel, charId, characterSubclass]);
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -104,7 +103,7 @@ const LevelUpModal = ({
     return validationErrors;
   };
 
-  const finalizeCharacter = async (e) => {
+  const finalizeLevelUp = async (e) => {
     e.preventDefault();
     const errs = validateChoice();
     if (errs.length > 0) {
@@ -123,7 +122,7 @@ const LevelUpModal = ({
     // patch request to update character with new abilities, hp, and level
     setModal(false);
     const res = await dispatch(
-      levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel)
+      levelUpCharacterThunk(charId, newHitpoints, newFeatures, newLevel, characterSubclass)
     );
     if (res.errors) {
       setPageErrors(res.errors);
@@ -135,7 +134,7 @@ const LevelUpModal = ({
       className={`fixed m-0 ${hidden} w-full h-full bg-gray-900 bg-opacity-50 left-0 top-0 flex justify-center`}
     >
       <form
-        onSubmit={finalizeCharacter}
+        onSubmit={finalizeLevelUp}
         className="modalInfo bg-white border-2 border-black rounded-lg min-w-characterSheet my-16 flex items-center flex-col overflow-y-auto"
       >
         {errors.length > 0 && (

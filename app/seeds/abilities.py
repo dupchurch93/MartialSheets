@@ -36,13 +36,26 @@ def seed_abilities():
     rage_count_level_6 = Ability(
         name="Rage Count: 4",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="3:Barbarian:any:increment"
+        source="6:Barbarian:any:increment"
     )
 
     rage_count_level_12 = Ability(
         name="Rage Count: 5",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="3:Barbarian:any:increment"
+
+        source="12:Barbarian:any:increment"
+    )
+
+    rage_count_level_17 = Ability(
+        name="Rage Count: 6",
+        description="Amount of times you can rage per long rest. Increases with level.",
+        source="17:Barbarian:any:increment"
+    )
+
+    rage_count_level_20 = Ability(
+        name="Rage Count: Unlimited",
+        description="Amount of times you can rage per long rest. Increases with level.",
+        source="20:Barbarian:any:increment"
     )
 
     rage_damage = Ability(
@@ -118,77 +131,110 @@ def seed_abilities():
     )
 
     # Fighter Abilities
+    second_wind = Ability(
+        name="Second Wind",
+        description='''You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level.
+        Once you use this feature, you must finish a short or long rest before you can use it again.''',
+        source="2:Fighter:any"
+    )
+
     fighting_style = Ability(
         name="Fighting Style",
         description="You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again.",
-        source="1:Fighter:Any:option:Fighting Style"
+        source="1:Fighter:any:option:Fighting Style"
     )
 
     fighting_style_archery = Ability(
         name="Fighting Style Archery",
         description="You gain a +2 bonus to attack rolls you make with ranged weapons.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_blind_fighting = Ability(
         name="Fighting Style Blind Fighting",
         description="Blind Fighting. You have blindsight with a range of 10 feet. Within that range, you can effectively see anything that isn't behind total cover, even if you're blinded or in darkness. Moreover, you can see an invisible creature within that range, unless the creature successfully hides from you.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_defense = Ability(
         name="Fighting Style Defense",
         description="While you are wearing armor, you gain a +1 bonus to AC.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_dueling = Ability(
         name="Fighting Style Dueling",
         description="When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_great_weapon_fighting = Ability(
         name="Fighting Style Great Weapon Fighting",
         description="When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_interception = Ability(
         name="Fighting Style Interception",
         description="When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use your reaction to reduce the damage the target takes by 1d10 + your proficiency bonus (to a minimum of 0 damage). You must be wielding a shield or a simple or martial weapon to use this reaction.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_protection = Ability(
         name="Fighting Style Protection",
         description="When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_superior_technique = Ability(
         name="Fighting Style Superior Technique",
         description="You learn one maneuver of your choice from among those available to the Battle Master archetype. If a maneuver you use requires your target to make a saving throw to resist the maneuver's effects, the saving throw DC equals 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice.) You gain one superiority die, which is a d6 (this die is added to any superiority dice you have from another source). This die is used to fuel your maneuvers. A superiority die is expended when you use it. You regain your expended superiority dice when you finish a short or long rest. Thrown Weapon Fighting. You can draw a weapon that has the thrown property as part of the attack you make with the weapon. In addition, when you hit with a ranged attack using a thrown weapon, you gain a +2 bonus to the damage roll.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_two_weapon_fighting = Ability(
         name="Fighting Style Two Weapon Fighting",
         description="When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
     )
 
     fighting_style_unarmed_fighting = Ability(
         name="Fighting Style Unarmed Fighting",
         description="Your unarmed strikes can deal bludgeoning damage equal to 1d6 + your Strength modifier on a hit. If you aren't wielding any weapons or a shield when you make the attack roll, the d6 becomes a d8. At the start of each of your turns, you can deal 1d4 bludgeoning damage to one creature grappled by you.",
-        source="1:Fighter:Any:choice:Fighting Style"
+        source="1:Fighter:any:choice:Fighting Style"
+    )
+
+    combat_superiority = Ability(
+        name="Combat Superiority",
+        description='''When you choose this archetype at 3rd level, you learn maneuvers that are fueled by special dice called superiority dice.
+
+Maneuvers. You learn three maneuvers of your choice. Many maneuvers enhance an attack in some way. You can use only one maneuver per attack. You learn two additional maneuvers of your choice at 7th, 10th, and 15th level. Each time you learn new maneuvers, you can also replace one maneuver you know with a different one.
+
+Superiority Dice. You have four superiority dice, which are d8s. A superiority die is expended when you use it. You regain all of your expended superiority dice when you finish a short or long rest. You gain another superiority die at 7th level and one more at 15th level.
+
+Saving Throws. Some of your maneuvers require your target to make a saving throw to resist the maneuver's effects. The saving throw DC is calculated as follows:
+
+Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modifier (your choice)''',
+        source="3:Fighter:Battle Master"
+    )
+
+    student_of_war = Ability(
+        name="Student of War",
+        description='''At 3rd level, you gain proficiency with one type of artisan's tools of your choice.''',
+        source="3:Fighter:Battle Master"
+    )
+
+    improved_critical = Ability(
+        name="Improved Critical",
+        description='''Beginning when you choose this archetype at 3rd level, your weapon attacks score a critical hit on a roll of 19 or 20.''',
+        source="3:Fighter:Champion"
     )
 
     # Monk abilities
     unarmored_defense = Ability(
       name="Unarmored Defense",
       description="Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.",
-      source="1:Monk:Any"
+      source="1:Monk:any"
     )
 
     martial_arts = Ability(
@@ -202,7 +248,7 @@ def seed_abilities():
             When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven’t already taken a bonus action this turn.
 
         Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon in the Weapons section.''',
-      source="1:Monk:Any"
+      source="1:Monk:any"
     )
 
     # Rogue Abilities
@@ -211,7 +257,7 @@ def seed_abilities():
         description='''At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.
 
     At 6th level, you can choose two more of your proficiencies (in skills or with thieves’ tools) to gain this benefit.''',
-        source="1:Rogue:Any"
+        source="1:Rogue:any"
     )
 
     sneak_attack = Ability(
@@ -219,7 +265,7 @@ def seed_abilities():
         description='''Beginning at 1st level, you know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon.
 
         You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll. Increases with level.''',
-        source="1:Rogue:Any"
+        source="1:Rogue:any"
     )
 
     thieves_cant = Ability(
@@ -227,7 +273,7 @@ def seed_abilities():
         description='''During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.
 
         In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.''',
-        source="1:Rogue:Any"
+        source="1:Rogue:any"
     )
 
 
@@ -248,7 +294,9 @@ def seed_abilities():
                         fighting_style_two_weapon_fighting, unarmored_defense,
                         martial_arts, expertise, sneak_attack, thieves_cant,
                         fast_movement, rage_count_level_3, rage_count_level_6,
-                        rage_count_level_12, barb_extra_attack])
+                        rage_count_level_12, barb_extra_attack, second_wind,
+                        improved_critical, student_of_war, combat_superiority,
+                        rage_count_level_17, rage_count_level_20])
     db.session.commit()
 
 
