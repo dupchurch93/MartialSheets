@@ -4,7 +4,7 @@ const ADD_CHARACTER = "character/addCharacter";
 const DELETE_CHARACTER = "character/deleteCharacter";
 const DELETE_CHARACTER_TAG = "character/deleteCharacterTag";
 const ADD_CHARACTER_TAG = "character/addCharacterTag";
-const LEVEL_UP_CHARACTER = "character/levelUpCharacter";
+const UPDATE_CHARACTER = "character/updateCharacter";
 
 const loadCharacters = (characters) => {
   return {
@@ -47,9 +47,9 @@ const addCharacterTag = (tag, char) => {
   }
 }
 
-const levelUpCharacter = (char) => {
+const updateCharacter = (char) => {
   return {
-    type: LEVEL_UP_CHARACTER,
+    type: UPDATE_CHARACTER,
     payload: char
   }
 
@@ -131,14 +131,32 @@ export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
 
 export const levelUpCharacterThunk = (charId, hitpoints, features, level, characterSubclass, newAttributes) => async (dispatch) => {
   const response = await fetch("/api/characters/levelUp", {
+    headers: {
+      "Content-Type": "application/json"
+    },
     method: "PATCH",
     body: JSON.stringify({charId, hitpoints, features, level, characterSubclass, newAttributes: JSON.stringify(newAttributes)}),
   });
   const updatedCharacter = await response.json();
   if(!updatedCharacter.errors){
-    dispatch(levelUpCharacter(updatedCharacter))
+    dispatch(updateCharacter(updatedCharacter))
   }
   return updatedCharacter
+}
+
+export const updateCharacterDetailsThunk = (charId, inventory, description, traits, flaws, bonds, ideals) => async (dispatch) => {
+  const response = await fetch("/api/characters/update", {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "PATCH",
+    body: JSON.stringify({charId, inventory, description, traits, flaws, bonds, ideals}),
+  });
+  const updatedCharacter = await response.json();
+  if(!updatedCharacter.errors){
+    dispatch(updateCharacter(updatedCharacter))
+  }
+  return updatedCharacter;
 }
 
 // reducer and initial state
@@ -189,7 +207,7 @@ const characterReducer = (state = initialState, action) => {
       tags.add(action.payload.tag)
       newState.tags = [...tags]
       return newState;
-    case LEVEL_UP_CHARACTER:
+    case UPDATE_CHARACTER:
       newState.list[action.payload.id] = action.payload;
       return newState;
     default:

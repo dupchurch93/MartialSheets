@@ -4,7 +4,18 @@ import FeaturesColumn from "./FeaturesColumn/FeaturesColumn";
 import PersonalityColumn from "./PersonalityColumn/PersonalityColumn";
 import Header from "./Header.js";
 
-const CharacterSheet = ({ character, setHelpContents }) => {
+const CharacterSheet = ({
+  character,
+  setHelpContents,
+  traits,
+  flaws,
+  bonds,
+  ideals,
+  setTraits,
+  setBonds,
+  setFlaws,
+  setIdeals,
+}) => {
   return (
     <div className="characterSheet bg-gray-100 max-w-characterSheet min-w-characterSheet w-full rounded-lg p-5">
       <Header character={character} setHelpContents={setHelpContents}></Header>
@@ -23,6 +34,14 @@ const CharacterSheet = ({ character, setHelpContents }) => {
         <PersonalityColumn
           character={character}
           setHelpContents={setHelpContents}
+          traits={traits}
+          bonds={bonds}
+          flaws={flaws}
+          ideals={ideals}
+          setBonds={setBonds}
+          setIdeals={setIdeals}
+          setFlaws={setFlaws}
+          setTraits={setTraits}
         ></PersonalityColumn>
         <FeaturesColumn
           character={character}

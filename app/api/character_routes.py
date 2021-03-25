@@ -172,7 +172,7 @@ def levelUp():
         if("increment" in feature_to_add.source):
             increment_name = feature_to_add.source.split(":")[4]
             increment_to_delete = Ability.query.filter(Ability.source.like(f'%increment:{increment_name}')).first()
-            db.session.delete(increment_to_delete)
+            character.abilities.remove(increment_to_delete)
         if(feature_to_add):
             character.abilities.append(feature_to_add)
         else:
@@ -180,3 +180,20 @@ def levelUp():
     db.session.commit()
     abilities_to_receive = Ability.query.filter(Ability.source)
     return character.to_dict()
+
+
+@character_routes.route('/update', methods=["PATCH"])
+def updateCharacter():
+    decoded = json.loads(request.data.decode("UTF-8"))
+    character = Character.query.get(decoded['charId'])
+    if(character):
+        character.traits = decoded['traits']
+        character.bonds = decoded['bonds']
+        character.flaws = decoded['flaws']
+        character.ideals = decoded['ideals']
+        character.inventory = decoded['inventory']
+        character.description = decoded['description']
+        db.session.commit()
+        return character.to_dict()
+    else:
+        return {"errors": "Character not found"}

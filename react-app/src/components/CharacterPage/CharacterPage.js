@@ -4,9 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import CharacterSheet from "./CharacterSheet";
 import InventorySheet from "./InventorySheet";
 import DescriptionSheet from "./DescriptionSheet";
-import { deleteCharacterThunk } from "../../store/character";
+import {
+  deleteCharacterThunk,
+  updateCharacterDetailsThunk,
+} from "../../store/character";
 import LevelUpModal from "./LevelUpModal/LevelUpModal";
 import SubclassModal from "./LevelUpModal/subclassModal";
+import "./fade.css";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
@@ -28,6 +32,13 @@ const CharacterPage = () => {
   const [subclassModal, setSubclassModal] = useState(false);
   const [characterSubclass, setCharacterSubclass] = useState(subclass || "");
   const [pageErrors, setPageErrors] = useState([]);
+  const [showSaveAlert, setShowSaveAlert] = useState(false);
+  const [inventory, setInventory] = useState(character.inventory);
+  const [description, setDescription] = useState(character.description);
+  const [traits, setTraits] = useState(character.traits);
+  const [flaws, setFlaws] = useState(character.flaws);
+  const [bonds, setBonds] = useState(character.bonds);
+  const [ideals, setIdeals] = useState(character.ideals);
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
@@ -64,12 +75,35 @@ const CharacterPage = () => {
     return <div>Loading...</div>;
   }
 
-  const handleCreate = (e) => {
+  const handleLevelUp = () => {
     if (character.level + 1 === 3) {
       setSubclassModal(true);
       return;
     } else {
       setModal(true);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    //dispatch patch thunk here with traits, ideals, bonds, flaws, inventory, and description updates.
+    const result = dispatch(
+      updateCharacterDetailsThunk(
+        character.id,
+        inventory,
+        description,
+        traits,
+        flaws,
+        bonds,
+        ideals,
+      )
+    );
+    if (!result.errors) {
+      setShowSaveAlert(true);
+      setTimeout(() => {
+        setShowSaveAlert(false);
+      }, 2000);
+    } else{
+
     }
   };
 
@@ -107,6 +141,16 @@ const CharacterPage = () => {
           ))}
         </div>
       )}
+      {showSaveAlert && (
+        <div
+          className={`fixed top-0 bg-white p-2 font-bold border-2 m-2 rounded-lg border-black ${
+            showSaveAlert ? "" : "hidden"
+          }`}
+          style={{ animation: "" }}
+        >
+          Character Changes Saved
+        </div>
+      )}
       <div className="flex flex-col">
         <img
           className="h-auto w-48 mt-10 mx-2 border-2 border-black rounded-lg"
@@ -122,7 +166,7 @@ const CharacterPage = () => {
         <div className="topButtons top flex justify-between w-full">
           <button
             className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
-            onClick={() => handleCreate()}
+            onClick={() => handleLevelUp()}
           >
             Level Up
           </button>
@@ -152,27 +196,41 @@ const CharacterPage = () => {
             <CharacterSheet
               character={character}
               setHelpContents={setHelpContents}
+              inventory={inventory}
+              description={description}
+              traits={traits}
+              bonds={bonds}
+              flaws={flaws}
+              ideals={ideals}
+              setBonds={setBonds}
+              setIdeals={setIdeals}
+              setFlaws={setFlaws}
+              setTraits={setTraits}
             ></CharacterSheet>
           )}
           {showInventory && (
             <InventorySheet
               character={character}
               setHelpContents={setHelpContents}
+              inventory={inventory}
+              setInventory={setInventory}
             ></InventorySheet>
           )}
           {showDescription && (
             <DescriptionSheet
               character={character}
               setHelpContents={setHelpContents}
+              description={description}
+              setDescription={setDescription}
             ></DescriptionSheet>
           )}
         </div>
         <div className="bottomButtons mb-10 top flex justify-end w-full">
           <button
-            onClick={() => true}
+            onClick={() => handleSaveEdit()}
             className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
           >
-            Edit Character
+            Save Changes
           </button>
           <button
             onClick={() => handleDelete()}

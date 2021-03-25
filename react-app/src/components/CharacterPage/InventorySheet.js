@@ -1,7 +1,11 @@
 import Header from "./Header";
 
-const InventorySheet = ({ character, setHelpContents }) => {
-  const inventoryArray = character.inventory.split(",");
+const InventorySheet = ({
+  character,
+  inventory,
+  setInventory,
+  setHelpContents,
+}) => {
   const inventoryHelper = (
     <div>
       The inventory is where all items your character holds are listed. If you
@@ -17,15 +21,11 @@ const InventorySheet = ({ character, setHelpContents }) => {
       onMouseEnter={() => setHelpContents(inventoryHelper)}
     >
       <Header character={character}></Header>
-      <div className="border border-black rounded-lg p-4 mt-2">
-        {inventoryArray.map((el) => {
-          return (
-            <li className="mx-4" key={el}>
-              {el}
-            </li>
-          );
-        })}
-      </div>
+      <textarea
+        className="border border-black rounded-lg p-4 mt-2 w-full h-5/6 overflow-y-auto"
+        value={inventory}
+        onChange={(e) => setInventory(e.target.value)}
+      ></textarea>
     </div>
   );
 };
