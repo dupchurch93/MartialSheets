@@ -7,6 +7,7 @@ import DescriptionSheet from "./DescriptionSheet";
 import { deleteCharacterThunk } from "../../store/character";
 import LevelUpModal from "./LevelUpModal/LevelUpModal";
 import SubclassModal from "./LevelUpModal/subclassModal";
+import "./fade.css";
 
 const CharacterPage = () => {
   const { characterId } = useParams();
@@ -28,6 +29,7 @@ const CharacterPage = () => {
   const [subclassModal, setSubclassModal] = useState(false);
   const [characterSubclass, setCharacterSubclass] = useState(subclass || "");
   const [pageErrors, setPageErrors] = useState([]);
+  const [showSaveAlert, setShowSaveAlert] = useState(false);
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
@@ -64,7 +66,7 @@ const CharacterPage = () => {
     return <div>Loading...</div>;
   }
 
-  const handleCreate = (e) => {
+  const handleLevelUp = () => {
     if (character.level + 1 === 3) {
       setSubclassModal(true);
       return;
@@ -72,6 +74,14 @@ const CharacterPage = () => {
       setModal(true);
     }
   };
+
+  const handleSaveEdit = async () => {
+    setShowSaveAlert(true);
+    setTimeout(() => {
+      setShowSaveAlert(false)
+    }, 2000);
+  };
+
 
   return (
     <div className="flex justify-center">
@@ -107,6 +117,11 @@ const CharacterPage = () => {
           ))}
         </div>
       )}
+      {showSaveAlert && (
+        <div className={`fixed top-0 bg-white p-2 font-bold border-2 m-2 rounded-lg border-black ${showSaveAlert ? "" : "hidden"}`} style={{animation: ""}}>
+          Character Changes Saved
+        </div>
+      )}
       <div className="flex flex-col">
         <img
           className="h-auto w-48 mt-10 mx-2 border-2 border-black rounded-lg"
@@ -122,7 +137,7 @@ const CharacterPage = () => {
         <div className="topButtons top flex justify-between w-full">
           <button
             className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
-            onClick={() => handleCreate()}
+            onClick={() => handleLevelUp()}
           >
             Level Up
           </button>
@@ -169,10 +184,10 @@ const CharacterPage = () => {
         </div>
         <div className="bottomButtons mb-10 top flex justify-end w-full">
           <button
-            onClick={() => true}
+            onClick={() => handleSaveEdit()}
             className="mx-2 my-1 bg-red-600 text-white p-1 rounded-lg font-bold"
           >
-            Edit Character
+            Save Changes
           </button>
           <button
             onClick={() => handleDelete()}

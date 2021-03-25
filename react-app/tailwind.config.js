@@ -32,7 +32,7 @@ module.exports = {
       },
       minHeight: {
         "traits": "8rem",
-      }
+      },
     },
   },
   variants: {
