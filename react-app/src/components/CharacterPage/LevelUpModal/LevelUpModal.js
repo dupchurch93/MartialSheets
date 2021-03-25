@@ -181,8 +181,8 @@ const LevelUpModal = ({
         ) : (
           <></>
         )}
-        <div className="font-bold">Features gained at level {newLevel}</div>
-        <div className="w-96">
+        <div className="font-bold mt-4">Features gained at level {newLevel}</div>
+        <div className="w-96 text-center">
           <FeatureList features={featureNonChoices}></FeatureList>
         </div>
         {featureChoices && featureChoices.length > 0 ? (

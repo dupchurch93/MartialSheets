@@ -36,7 +36,7 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
           className="w-16 text-sm m-2 h-16 border border-black rounded-lg bg-myred text-white font-bold"
           onClick={(e) => pickAverage(e)}
         >
-          Use Average: {averageHP}
+          Use Average {averageHP}
         </button>
         <div className="font-bold mx-4">OR</div>
         <button

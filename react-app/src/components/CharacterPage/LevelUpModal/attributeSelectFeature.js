@@ -3,7 +3,11 @@ import { AiOutlineArrowDown } from "react-icons/ai";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { useState } from "react";
 
-const AttributeSelectFeature = ({ attributes, newAttributes, setNewAttributes }) => {
+const AttributeSelectFeature = ({
+  attributes,
+  newAttributes,
+  setNewAttributes,
+}) => {
   const [pointBuy, setPointBuy] = useState(2);
 
   const onPointBuy = (e) => {
@@ -21,7 +25,10 @@ const AttributeSelectFeature = ({ attributes, newAttributes, setNewAttributes })
     e.preventDefault(e);
     const statToChange = e.currentTarget.value;
     const changedAttributes = newAttributes;
-    if (pointBuy < 2 && newAttributes[statToChange] - 1 >= attributes[statToChange]) {
+    if (
+      pointBuy < 2 &&
+      newAttributes[statToChange] - 1 >= attributes[statToChange]
+    ) {
       newAttributes[statToChange] -= 1;
       setPointBuy(() => pointBuy + 1);
       setNewAttributes(changedAttributes);
@@ -38,11 +45,14 @@ const AttributeSelectFeature = ({ attributes, newAttributes, setNewAttributes })
   ];
 
   return (
-    <div className="columnContainer border-r border-black">
-      <div className="statsColumn flex items-center border border-black rounded-lg m-2 p-0.5">
+    <div className="columnContainer border mx-4 rounded-lg pl-1 pt-1 border-black max-w-screen-sm">
+      <div className="text-center">
+
+      </div>
+      <div className="statsColumn flex flex-wrap items-center m-2 p-0.5">
         {statsArr.map((stat, index) => {
           return (
-            <div className="flex" key={index}>
+            <div className="flex w-1/3 justify-center" key={index}>
               <StatScoreComponent
                 stat={stat.name}
                 value={stat.value}
