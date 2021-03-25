@@ -169,6 +169,7 @@ def levelUp():
         feature_to_add = (
             Ability.query.filter(Ability.name == feature).first()
         )
+        print("feature to add", feature_to_add.source)
         if(feature_to_add):
             character.abilities.append(feature_to_add)
         else:
