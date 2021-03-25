@@ -101,6 +101,22 @@ const LevelUpModal = ({
         "Please select an HP increase (average or roll) for your charaterl."
       );
     }
+    //helper function to compare stats if on a level that has a stat increase
+    const sameStats = () => {
+      for(let key of Object.keys(newAttributes)){
+        if(newAttributes[key] !== JSON.parse(character.attributes)[key]){
+          return false;
+        }
+      }
+      return true;
+    }
+    if (newLevel%4 ===0 && sameStats()){
+      validationErrors.push("Please select your stat increases.")
+    }
+
+
+
+
     return validationErrors;
   };
 
@@ -128,7 +144,8 @@ const LevelUpModal = ({
         newHitpoints,
         newFeatures,
         newLevel,
-        characterSubclass
+        characterSubclass,
+        newAttributes
       )
     );
     if (res.errors) {

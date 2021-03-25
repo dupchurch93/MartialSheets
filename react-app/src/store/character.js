@@ -129,10 +129,10 @@ export const addCharacterTagThunk = (tag, charId) => async (dispatch) => {
   return char;
 };
 
-export const levelUpCharacterThunk = (charId, hitpoints, features, level, characterSubclass) => async (dispatch) => {
+export const levelUpCharacterThunk = (charId, hitpoints, features, level, characterSubclass, newAttributes) => async (dispatch) => {
   const response = await fetch("/api/characters/levelUp", {
     method: "PATCH",
-    body: JSON.stringify({charId, hitpoints, features, level, characterSubclass}),
+    body: JSON.stringify({charId, hitpoints, features, level, characterSubclass, newAttributes: JSON.stringify(newAttributes)}),
   });
   const updatedCharacter = await response.json();
   if(!updatedCharacter.errors){

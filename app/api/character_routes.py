@@ -162,6 +162,7 @@ def levelUp():
     character = Character.query.get(decoded['charId'])
     character.hitpoints = decoded['hitpoints']
     character.level = decoded['level']
+    character.attributes = decoded['newAttributes']
     if(character.subclass != decoded['characterSubclass']):
         character.subclass = decoded['characterSubclass']
     for feature in decoded['features']:
