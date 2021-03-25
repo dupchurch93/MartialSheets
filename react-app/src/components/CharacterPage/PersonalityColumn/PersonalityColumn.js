@@ -1,13 +1,13 @@
-import PersonalityComponent from "./PersonalityComponent";
+import PersonalityComponent from "../../CharacterCreate/PersonalityColumn/PersonalityComponent";
 import HPSpeedAC from "./HPSpeedAC";
 import TagsComponent from "./TagsComponent";
 
-const PersonalityColumn = ({ character, setHelpContents }) => {
+const PersonalityColumn = ({ character, setHelpContents, flaws, setFlaws, bonds, setBonds, ideals, setIdeals, traits, setTraits }) => {
   const traitsArray = [
-    ["Traits", character.traits],
-    ["Ideals", character.ideals],
-    ["Bonds", character.bonds],
-    ["Flaws", character.flaws],
+    ["Traits", traits, setTraits],
+    ["Ideals", ideals, setIdeals],
+    ["Bonds", bonds, setBonds],
+    ["Flaws", flaws, setFlaws],
   ];
   const statsParsed = JSON.parse(character.attributes);
 
@@ -42,16 +42,22 @@ const PersonalityColumn = ({ character, setHelpContents }) => {
           speed={character.speed}
         ></HPSpeedAC>
       </div>
-      {traitsArray.map((trait) => {
-        return (
-          <PersonalityComponent
-            key={trait[0]}
-            name={trait[0]}
-            description={trait[1]}
-          ></PersonalityComponent>
-        );
-      })}
-      <TagsComponent tags={character.tags} charId={character.id}></TagsComponent>
+      <form>
+        {traitsArray.map((trait) => {
+          return (
+            <PersonalityComponent
+              key={trait[0]}
+              name={trait[0]}
+              value={trait[1]}
+              setter={trait[2]}
+            ></PersonalityComponent>
+          );
+        })}
+      </form>
+      <TagsComponent
+        tags={character.tags}
+        charId={character.id}
+      ></TagsComponent>
     </div>
   );
 };

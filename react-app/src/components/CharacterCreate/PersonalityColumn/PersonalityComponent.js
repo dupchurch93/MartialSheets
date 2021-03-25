@@ -4,7 +4,7 @@ const PersonalityComponent = ({name, value, setter}) => {
         <div className="border border-black m-2 p-2 min-h-trait rounded-lg">
             <div className="font-bold underline">{name}</div>
             <textarea
-            className="h-22 w-full"
+            className="h-22 w-full text-sm"
             name={name}
             value={value}
             onChange={(e) => setter(e.target.value)}>
