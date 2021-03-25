@@ -169,6 +169,10 @@ def levelUp():
         feature_to_add = (
             Ability.query.filter(Ability.name == feature).first()
         )
+        if("increment" in feature_to_add.source):
+            increment_name = feature_to_add.source.split(":")[4]
+            increment_to_delete = Ability.query.filter(Ability.source.like(f'%increment:{increment_name}')).first()
+            db.session.delete(increment_to_delete)
         if(feature_to_add):
             character.abilities.append(feature_to_add)
         else:

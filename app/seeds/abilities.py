@@ -24,44 +24,44 @@ def seed_abilities():
     race_count = Ability(
         name="Rage Count: 2",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="1:Barbarian:any:increment"
+        source="1:Barbarian:any:increment:rage_count"
     )
 
     rage_count_level_3 = Ability(
         name="Rage Count: 3",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="3:Barbarian:any:increment"
+        source="3:Barbarian:any:increment:rage_count"
     )
 
     rage_count_level_6 = Ability(
         name="Rage Count: 4",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="6:Barbarian:any:increment"
+        source="6:Barbarian:any:increment:rage_count"
     )
 
     rage_count_level_12 = Ability(
         name="Rage Count: 5",
         description="Amount of times you can rage per long rest. Increases with level.",
 
-        source="12:Barbarian:any:increment"
+        source="12:Barbarian:any:increment:rage_count"
     )
 
     rage_count_level_17 = Ability(
         name="Rage Count: 6",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="17:Barbarian:any:increment"
+        source="17:Barbarian:any:increment:rage_count"
     )
 
     rage_count_level_20 = Ability(
         name="Rage Count: Unlimited",
         description="Amount of times you can rage per long rest. Increases with level.",
-        source="20:Barbarian:any:increment"
+        source="20:Barbarian:any:increment:rage_count"
     )
 
     rage_damage = Ability(
         name="Bonus Rage Damage: 2",
         description="Extra damage gained on melee attack while raging. Increases with level.",
-        source="1:Barbarian:any:increment"
+        source="1:Barbarian:any:increment:rage_damage"
     )
 
     barb_extra_attack = Ability(
