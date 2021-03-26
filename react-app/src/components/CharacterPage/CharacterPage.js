@@ -18,10 +18,6 @@ const CharacterPage = () => {
   const history = useHistory();
   const character = useSelector((state) => state.characters.list[characterId]);
 
-  let subclass;
-  if (character) {
-    subclass = character.subclass;
-  }
   const [showCharacter, setShowCharacter] = useState(true);
   const [showInventory, setShowInventory] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -30,15 +26,15 @@ const CharacterPage = () => {
   );
   const [modal, setModal] = useState(false);
   const [subclassModal, setSubclassModal] = useState(false);
-  const [characterSubclass, setCharacterSubclass] = useState(subclass || "");
+  const [characterSubclass, setCharacterSubclass] = useState(character ? character.subclass : "");
   const [pageErrors, setPageErrors] = useState([]);
   const [showSaveAlert, setShowSaveAlert] = useState(false);
-  const [inventory, setInventory] = useState(character.inventory);
-  const [description, setDescription] = useState(character.description);
-  const [traits, setTraits] = useState(character.traits);
-  const [flaws, setFlaws] = useState(character.flaws);
-  const [bonds, setBonds] = useState(character.bonds);
-  const [ideals, setIdeals] = useState(character.ideals);
+  const [inventory, setInventory] = useState(character ? character.inventory : "");
+  const [description, setDescription] = useState(character? character.description : "");
+  const [traits, setTraits] = useState(character? character.traits : "");
+  const [flaws, setFlaws] = useState(character? character.flaws : "");
+  const [bonds, setBonds] = useState(character? character.bonds : "");
+  const [ideals, setIdeals] = useState(character? character.ideals : "");
 
   const showCharacterFunc = () => {
     setShowCharacter(true);
