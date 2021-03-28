@@ -149,6 +149,7 @@ const CharacterCreate = () => {
       window.scrollTo(0, 0);
       history.push(`/`);
     } else {
+      console.log("reponse errors here", response)
       setErrors(response.errors);
     }
   };
