@@ -124,7 +124,7 @@ const CharacterCreate = () => {
       race: race,
       characterClass: characterClass,
       hitpoints: hitpoints,
-      proficiencies: [...proficiencies, ...classProfs],
+      proficiencies: JSON.stringify([...proficiencies, ...classProfs]),
       speed: speed,
       image: image,
       background: background,
@@ -149,7 +149,7 @@ const CharacterCreate = () => {
       window.scrollTo(0, 0);
       history.push(`/`);
     } else {
-      console.log("reponse errors here", response)
+      console.log('errors', response.errors)
       setErrors(response.errors);
     }
   };
@@ -165,7 +165,7 @@ const CharacterCreate = () => {
   };
 
   return (
-    <form className="flex justify-center" id="charForm" onSubmit={openModal}>
+    <form className="flex justify-center" id="charForm" encType="multipart/form-data" onSubmit={openModal}>
       <Level1Modal
         modal={modal}
         characterClass={characterClass}

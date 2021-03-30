@@ -10,7 +10,7 @@ s3 = boto3.client(
 )
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
-S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
+S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
 
 ALLOWED_EXTENSIOINS = {"pdf", "png", "jpg", "jpeg", "gif"}
 
