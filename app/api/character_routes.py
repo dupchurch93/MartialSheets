@@ -171,7 +171,6 @@ def levelUp():
         )
         if("increment" in feature_to_add.source):
             increment_name = feature_to_add.source.split(":")[4]
-            print("increment name-----------------------------", increment_name)
             for ability in character.abilities:
                 if ability.source.endswith(increment_name):
                     character.abilities.remove(ability)
