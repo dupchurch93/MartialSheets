@@ -75,8 +75,10 @@ const CharacterPage = () => {
     if (character.level + 1 === 3) {
       setSubclassModal(true);
       return;
-    } else {
+    } else if(character.level + 1 <= 20) {
       setModal(true);
+    } else{
+      
     }
   };
 

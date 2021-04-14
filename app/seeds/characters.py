@@ -7,11 +7,10 @@ def seed_characters():
     grydal = Character(
         userId=1,
         name="Grydal",
-        level=1,
+        level=2,
         race="Dwarf",
         characterClass="Barbarian",
-        subclass="Path of the Berserker",
-        hitpoints=15,
+        hitpoints=28,
         imgURL="https://martialsheets-image-bucket.s3.amazonaws.com/dwarf_berzerker.jpg",
         proficiencies="Athletics,Insight,History,Perception,Survival",
         background="Sailor",
