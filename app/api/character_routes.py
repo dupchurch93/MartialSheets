@@ -27,7 +27,6 @@ def get_characters():
     characters = (
         Character.query.filter(Character.userId == current_user.id).all()
     )
-    print("session-----------------------------------------------------", current_user)
     return {"Characters": [character.to_dict() for character in characters]}
 
 
@@ -172,8 +171,10 @@ def levelUp():
         )
         if("increment" in feature_to_add.source):
             increment_name = feature_to_add.source.split(":")[4]
-            increment_to_delete = Ability.query.filter(Ability.source.like(f'%increment:{increment_name}')).first()
-            character.abilities.remove(increment_to_delete)
+            print("increment name-----------------------------", increment_name)
+            for ability in character.abilities:
+                if ability.source.endswith(increment_name):
+                    character.abilities.remove(ability)
         if(feature_to_add):
             character.abilities.append(feature_to_add)
         else:
