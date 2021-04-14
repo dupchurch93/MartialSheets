@@ -82,12 +82,70 @@ def seed_abilities():
         source="2:Barbarian:any"
     )
 
+    fast_movement = Ability(
+        name="Fast Movement",
+        description="Your speed icnreases by 10 feet while you aren't wearing heavy armor.",
+        source="5:Barbarian:any"
+    )
+
+    feral_instinct = Ability(
+        name="Feral Instinct",
+        description='''By 7th level, your instincts are so honed that you have advantage on initiative rolls.
+
+Additionally, if you are surprised at the beginning of combat and aren't incapacitated, you can act normally on your first turn, but only if you enter your rage before doing anything else on that turn.''',
+        source="7:Barbarian:any"
+    )
+
+    instinctive_pounce = Ability(
+        name="Instinctive Pounce",
+        description="At 7th level, as part of the bonus action you take to enter your rage, you can move up to half your speed.",
+        source="7:Barbarian:any"
+    )
+
+    brutal_critical = Ability(
+        name="Brutal Critical",
+        description='''Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack.
+
+This increases to two additional dice at 13th level and three additional dice at 17th level.''',
+        source="9:Barbarian:any"
+    )
+
+    relentless_rage = Ability(
+        name="Relentless Rage",
+        description='''Starting at 11th level, your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you're raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead.
+
+Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10.''',
+        source="11:Barbarian:any"
+    )
+
+    persistent_rage = Ability(
+        name="Persistent Rage",
+        description="Beginning at 15th level, your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it.",
+        source="15:Barbarian:any"
+    )
+
+    indomitable_might = Ability(
+        name="Indomitable Might",
+        description="Beginning at 18th level, if your total for a Strength check is less than your Strength score, you can use that score in place of the total.",
+        source="18:Barbarian:any"
+    )
+
+    primal_champion = Ability(
+        name="Primal Champion",
+        description="At 20th level, you embody the power of the wilds. Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24.",
+        source="20:Barbarian:any"
+    )
+
+    # Path of the Berserker
     frenzy = Ability(
         name="Frenzy",
         description="Starting when you choose this path at 3rd level, you can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion.",
         source="3:Barbarian:Path of the Berserker"
     )
 
+
+
+    # Totem Warrior
     totem_spirit = Ability(
         name="Totem Spirit",
         description="At 3rd level, when you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object – an amulet or similar adornment – that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option, you also gain minor physical attributes that are reminiscent of your totem spirit. For example, if you have a bear totem spirit, you might be unusually hairy and thick-skinned, or if your totem is the eagle, your eyes turn bright yellow.",
@@ -122,12 +180,6 @@ def seed_abilities():
         name="Totem Spirit - Wolf",
         description="Wolf. While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters.",
         source="3:Barbarian:Path of the Totem Warrior:choice:Totem Spirit"
-    )
-
-    fast_movement = Ability(
-        name="Fast Movement",
-        description="Your speed icnreases by 10 feet while you aren't wearing heavy armor.",
-        source="5:Barbarian:any"
     )
 
     # Fighter Abilities
@@ -296,7 +348,10 @@ Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modif
                         fast_movement, rage_count_level_3, rage_count_level_6,
                         rage_count_level_12, barb_extra_attack, second_wind,
                         improved_critical, student_of_war, combat_superiority,
-                        rage_count_level_17, rage_count_level_20])
+                        rage_count_level_17, rage_count_level_20,
+                        feral_instinct, instinctive_pounce, brutal_critical,
+                        relentless_rage, persistent_rage, indomitable_might,
+                        primal_champion, ])
     db.session.commit()
 
 

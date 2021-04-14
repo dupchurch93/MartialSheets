@@ -27,6 +27,7 @@ def get_characters():
     characters = (
         Character.query.filter(Character.userId == current_user.id).all()
     )
+    print("session-----------------------------------------------------", current_user)
     return {"Characters": [character.to_dict() for character in characters]}
 
 

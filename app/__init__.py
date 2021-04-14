@@ -22,6 +22,7 @@ login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
 
 
+# Loads the user when returning current user
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
