@@ -3,8 +3,8 @@ from app.models import db, Character, Ability
 
 def seed_characterAbilities():
     grydal = Character.query.filter(Character.name == "Grydal").first()
-    barb1 = Ability.query.filter(Ability.source == "1:Barbarian:any").all()
-    barb2 = Ability.query.filter(Ability.source == "2:Barbarian:any").all()
+    barb1 = Ability.query.filter(Ability.source.like("1:Barbarian:any%")).all()
+    barb2 = Ability.query.filter(Ability.source.like("2:Barbarian:any%")).all()
 
     for ability in barb1:
         grydal.abilities.append(ability)
