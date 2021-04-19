@@ -143,7 +143,24 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         source="3:Barbarian:Path of the Berserker"
     )
 
+    mindless_rage = Ability(
+        name="Mindless Rage",
+        description="Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage.",
+        source="6:Barbarian:Path of the Berserker"
+    )
 
+    intimidating_presence = Ability(
+        name="Intimidating Presence",
+        description='''Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened of you until the end of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you.
+            If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.''',
+        source="10:Barbarian:Path of the Berserker"
+    )
+
+    retaliation = Ability(
+        name="Retaliation",
+        description="Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.",
+        source="14:Barbarian:Path of the Berserker"
+    )
 
     # Totem Warrior
     totem_spirit = Ability(
@@ -180,6 +197,10 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         name="Totem Spirit - Wolf",
         description="Wolf. While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters.",
         source="3:Barbarian:Path of the Totem Warrior:choice:Totem Spirit"
+    )
+
+    totem_aspect_bear = Ability(
+        
     )
 
     # Fighter Abilities
@@ -351,7 +372,8 @@ Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modif
                         rage_count_level_17, rage_count_level_20,
                         feral_instinct, instinctive_pounce, brutal_critical,
                         relentless_rage, persistent_rage, indomitable_might,
-                        primal_champion, ])
+                        primal_champion, intimidating_presence, mindless_rage,
+                        retaliation,])
     db.session.commit()
 
 
