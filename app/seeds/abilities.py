@@ -199,8 +199,52 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         source="3:Barbarian:Path of the Totem Warrior:choice:Totem Spirit"
     )
 
+    totem_aspect = Ability(
+        name="Aspect of the Beast",
+        description="At 6th level, you gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one.",
+        source="6:Barbarian:Path of the Totem Warrior:option:Totem Aspect"
+    )
+
     totem_aspect_bear = Ability(
-        
+        name="Totem Aspect - Bear",
+        description="Bear. You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have advantage on Strength checks made to push, pull, lift, or break objects.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_eagle = Ability(
+        name="Totem Aspect - Eagle",
+        description="Eagle. You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disadvantage on your Wisdom (Perception) checks.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_elk = Ability(
+        name="Totem Aspect - Elk",
+        description="Elk. Whether mounted or on foot, your travel pace is doubled, as is the travel pace of up to ten companions while they're within 60 feet of you and you're not incapacitated. The elk spirit helps you roam far and fast.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_tiger = Ability(
+        name="Totem Aspect - Tiger",
+        description="Tiger. You gain proficiency in two skills from the following list: Athletics, Acrobatics, Stealth, and Survival. The cat spirit hones your survival instincts.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_wolf = Ability(
+        name="Totem Aspect - Wolf",
+        description="Wolf. You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    spirit_walker = Ability(
+        name="Spirit Walker",
+        description="At 10th level, you can cast the Commune with Nature spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for Totem Spirit or Aspect of the Beast appears to you to convey the information you seek.",
+        source="10:Barbarian:Path of the Totem Warrior"
+    )
+
+    totemic_attunement = Ability(
+        name="Totemic Attunement",
+        description="At 14th level, you gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
     )
 
     # Fighter Abilities
@@ -373,7 +417,13 @@ Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modif
                         feral_instinct, instinctive_pounce, brutal_critical,
                         relentless_rage, persistent_rage, indomitable_might,
                         primal_champion, intimidating_presence, mindless_rage,
-                        retaliation,])
+                        retaliation, totem_aspect, totem_aspect_bear,
+                        totem_aspect_wolf, totem_aspect_eagle,
+                        totem_aspect_elk, totem_aspect_tiger, spirit_walker,
+                        totemic_attunement, totemic_attunement_bear,
+                        totemic_attunement_wolf, totemic_attunement_elk,
+                        totemic_attunement_tiger, totemic_attunement_eagle,
+                        ])
     db.session.commit()
 
 
