@@ -12,10 +12,10 @@ const AttributeSelectFeature = ({
 
   const onPointBuy = (e) => {
     e.preventDefault(e);
-    if (pointBuy > 0) {
+    const statToChange = e.currentTarget.value;
+    const changedAttributes = newAttributes;
+    if (pointBuy > 0 && changedAttributes[statToChange] < 20) {
       setPointBuy(() => pointBuy - 1);
-      const statToChange = e.currentTarget.value;
-      const changedAttributes = newAttributes;
       changedAttributes[statToChange] += 1;
       setNewAttributes(changedAttributes);
     }
@@ -49,6 +49,7 @@ const AttributeSelectFeature = ({
       <div className="text-center">
 
       </div>
+        <div className="text-center">Stat Points to Allocate: {pointBuy}</div>
       <div className="statsColumn flex flex-wrap items-center m-2 p-0.5">
         {statsArr.map((stat, index) => {
           return (

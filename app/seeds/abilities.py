@@ -143,7 +143,24 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         source="3:Barbarian:Path of the Berserker"
     )
 
+    mindless_rage = Ability(
+        name="Mindless Rage",
+        description="Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage.",
+        source="6:Barbarian:Path of the Berserker"
+    )
 
+    intimidating_presence = Ability(
+        name="Intimidating Presence",
+        description='''Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened of you until the end of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you.
+            If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours.''',
+        source="10:Barbarian:Path of the Berserker"
+    )
+
+    retaliation = Ability(
+        name="Retaliation",
+        description="Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.",
+        source="14:Barbarian:Path of the Berserker"
+    )
 
     # Totem Warrior
     totem_spirit = Ability(
@@ -180,6 +197,84 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         name="Totem Spirit - Wolf",
         description="Wolf. While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters.",
         source="3:Barbarian:Path of the Totem Warrior:choice:Totem Spirit"
+    )
+
+    totem_aspect = Ability(
+        name="Aspect of the Beast",
+        description="At 6th level, you gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one.",
+        source="6:Barbarian:Path of the Totem Warrior:option:Totem Aspect"
+    )
+
+    totem_aspect_bear = Ability(
+        name="Totem Aspect - Bear",
+        description="Bear. You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have advantage on Strength checks made to push, pull, lift, or break objects.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_eagle = Ability(
+        name="Totem Aspect - Eagle",
+        description="Eagle. You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disadvantage on your Wisdom (Perception) checks.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_elk = Ability(
+        name="Totem Aspect - Elk",
+        description="Elk. Whether mounted or on foot, your travel pace is doubled, as is the travel pace of up to ten companions while they're within 60 feet of you and you're not incapacitated. The elk spirit helps you roam far and fast.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_tiger = Ability(
+        name="Totem Aspect - Tiger",
+        description="Tiger. You gain proficiency in two skills from the following list: Athletics, Acrobatics, Stealth, and Survival. The cat spirit hones your survival instincts.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    totem_aspect_wolf = Ability(
+        name="Totem Aspect - Wolf",
+        description="Wolf. You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace.",
+        source="6:Barbarian:Path of the Totem Warrior:choice:Totem Aspect"
+    )
+
+    spirit_walker = Ability(
+        name="Spirit Walker",
+        description="At 10th level, you can cast the Commune with Nature spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for Totem Spirit or Aspect of the Beast appears to you to convey the information you seek.",
+        source="10:Barbarian:Path of the Totem Warrior"
+    )
+
+    totemic_attunement = Ability(
+        name="Totemic Attunement",
+        description="At 14th level, you gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
+    totemic_attunement_bear = Ability(
+        name="Totemic Attunement - Bear",
+        description="Bear. While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
+    )
+
+    totemic_attunement_eagle = Ability(
+        name="Totemic Attunement - Eagle",
+        description="Eagle. While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
+    )
+
+    totemic_attunement_elk = Ability(
+        name="Totemic Attunement - Elk",
+        description="Elk. While raging, you can use a bonus action during your move to pass through the space of a Large or smaller creature. That creature must succeed on a Strength saving throw (DC 8 + your Strength bonus + your proficiency bonus) or be knocked prone and take bludgeoning damage equal to 1d12 + your Strength modifier.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
+    )
+
+    totemic_attunement_tiger = Ability(
+        name="Totemic Attunement - Tiger",
+        description="Tiger. While you're raging, if you move at least 20 feet in a straight line toward a Large or smaller target right before making a melee weapon attack against it, you can use a bonus action to make an additional melee weapon attack against it.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
+    )
+
+    totemic_attunement_wolf = Ability(
+        name="Totemic Attunement - Wolf",
+        description="Wolf. While you're raging, you can use a bonus action on your turn to knock a Large or smaller creature prone when you hit it with melee weapon attack.",
+        source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
     )
 
     # Fighter Abilities
@@ -351,7 +446,14 @@ Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modif
                         rage_count_level_17, rage_count_level_20,
                         feral_instinct, instinctive_pounce, brutal_critical,
                         relentless_rage, persistent_rage, indomitable_might,
-                        primal_champion, ])
+                        primal_champion, intimidating_presence, mindless_rage,
+                        retaliation, totem_aspect, totem_aspect_bear,
+                        totem_aspect_wolf, totem_aspect_eagle,
+                        totem_aspect_elk, totem_aspect_tiger, spirit_walker,
+                        totemic_attunement, totemic_attunement_bear,
+                        totemic_attunement_wolf, totemic_attunement_elk,
+                        totemic_attunement_tiger, totemic_attunement_eagle,
+                        ])
     db.session.commit()
 
 

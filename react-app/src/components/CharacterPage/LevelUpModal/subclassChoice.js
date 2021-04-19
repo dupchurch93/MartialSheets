@@ -19,7 +19,7 @@ const SubclassChoice = ({ choice, setModal, setSubclassModal, setCharacterSubcla
         </div>
         <div>{choice.sampleFeature.description}</div>
       </div>
-      <button className="bg-myred rounded-lg font-bold text-white mx-16 p-1 border border-black" onClick={(e) => pickSubclass(e)} value={choice.name}>Select Subclass</button>
+      <button className="bg-myred rounded-lg font-bold text-white mx-16 mb-8 p-1 border border-black" onClick={(e) => pickSubclass(e)} value={choice.name}>Select Subclass</button>
     </div>
   );
 };

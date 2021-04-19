@@ -17,12 +17,17 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
     e.preventDefault();
     setHitpointsIncrease(averageHP);
     setNewHitpoints(hitpoints + hitpointIncrease + Math.floor((con - 10) / 2));
+    document.getElementById("averageHP").classList.add("text-white")
+    document.getElementById("rollHP").classList.remove("text-white")
   };
+
   const pickRoll = (e) => {
     e.preventDefault();
     const hpRoll = Math.floor(Math.random() * (hitDie) + 1)
     setHitpointsIncrease(hpRoll);
     setNewHitpoints(hitpoints + hpRoll + Math.floor((con - 10) / 2));
+    document.getElementById("rollHP").classList.add("text-white")
+    document.getElementById("averageHP").classList.remove("text-white")
   };
 
   return (
@@ -33,14 +38,16 @@ const HitPoints = ({ characterClass, con, hitpoints, setNewHitpoints }) => {
       </div>
       <div className="flex justify-center items-center">
         <button
-          className="w-16 text-sm m-2 h-16 border border-black rounded-lg bg-myred text-white font-bold"
+          id="averageHP"
+          className="w-16 text-sm m-2 h-16 border border-black rounded-lg bg-myred font-bold"
           onClick={(e) => pickAverage(e)}
         >
           Use Average {averageHP}
         </button>
         <div className="font-bold mx-4">OR</div>
         <button
-          className="w-16 text-sm m-2 h-16 border border-black rounded-lg bg-myred text-white font-bold"
+          id="rollHP"
+          className="w-16 text-sm m-2 h-16 border border-black rounded-lg bg-myred font-bold"
           onClick={(e) => pickRoll(e)}
         >
           Roll HP
