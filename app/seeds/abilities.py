@@ -247,6 +247,36 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         source="14:Barbarian:Path of the Totem Warrior:choice:Totemic Attunement"
     )
 
+    totemic_attunement_bear = Ability(
+        name="Totemic Attunement - Bear",
+        description="Bear. While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
+    totemic_attunement_eagle = Ability(
+        name="Totemic Attunement - Eagle",
+        description="Eagle. While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
+    totemic_attunement_elk = Ability(
+        name="Totemic Attunement - Elk",
+        description="Elk. While raging, you can use a bonus action during your move to pass through the space of a Large or smaller creature. That creature must succeed on a Strength saving throw (DC 8 + your Strength bonus + your proficiency bonus) or be knocked prone and take bludgeoning damage equal to 1d12 + your Strength modifier.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
+    totemic_attunement_tiger = Ability(
+        name="Totemic Attunement - Tiger",
+        description="Tiger. While you're raging, if you move at least 20 feet in a straight line toward a Large or smaller target right before making a melee weapon attack against it, you can use a bonus action to make an additional melee weapon attack against it.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
+    totemic_attunement_wolf = Ability(
+        name="Totemic Attunement - Wolf",
+        description="Wolf. While you're raging, you can use a bonus action on your turn to knock a Large or smaller creature prone when you hit it with melee weapon attack.",
+        source="14:Barbarian:Path of the Totem Warrior:option:Totemic Attunement"
+    )
+
     # Fighter Abilities
     second_wind = Ability(
         name="Second Wind",
