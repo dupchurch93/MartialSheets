@@ -282,7 +282,7 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         name="Second Wind",
         description='''You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level.
         Once you use this feature, you must finish a short or long rest before you can use it again.''',
-        source="2:Fighter:any"
+        source="1:Fighter:any"
     )
 
     fighting_style = Ability(
@@ -351,6 +351,32 @@ Each time you use this feature after the first, the DC increases by 5. When you 
         source="1:Fighter:any:choice:Fighting Style"
     )
 
+    action_surge = Ability(
+        name="Action Surge",
+        description='''Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action.
+
+Once you use this feature, you must finish a short or long rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.''',
+        source="2:Fighter:any"
+    )
+
+    fighter_extra_attack = Ability(
+        name="Extra Attack",
+        description='''Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.
+
+The number of attacks increases to three when you reach 11th level in this class and to four when you reach 20th level in this class.''',
+        source="5:Fighter:any"
+    )
+
+    indomitable = Ability(
+        name="Indomitable",
+        description='''Beginning at 9th level, you can reroll a saving throw that you fail. If you do so, you must use the new roll, and you can't use this feature again until you finish a long rest.
+
+You can use this feature twice between long rests starting at 13th level and three times between long rests starting at 17th level.''',
+        source="9:Fighter:any"
+    )
+
+    # Battle Master Abilities
+
     combat_superiority = Ability(
         name="Combat Superiority",
         description='''When you choose this archetype at 3rd level, you learn maneuvers that are fueled by special dice called superiority dice.
@@ -370,6 +396,8 @@ Maneuver save DC = 8 + your proficiency bonus + your Strength or Dexterity modif
         description='''At 3rd level, you gain proficiency with one type of artisan's tools of your choice.''',
         source="3:Fighter:Battle Master"
     )
+
+    # Champion Abilities
 
     improved_critical = Ability(
         name="Improved Critical",
